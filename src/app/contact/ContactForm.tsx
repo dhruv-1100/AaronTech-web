@@ -104,10 +104,30 @@ export default function ContactForm() {
     }
 
     setIsSubmitting(true);
-    // Simulate submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          subject: `General Sourcing Inquiry - ${formData.company}`,
+          message: `Company: ${formData.company}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setIsSubmitted(true);
+      } else {
+        alert(data.error || "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Failed to send message. Please check your connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (

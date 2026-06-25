@@ -119,10 +119,25 @@ export default function QuotePage() {
     if (Object.keys(validationErrors).length > 0) return;
 
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    try {
+      const res = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        setIsSubmitted(true);
+      } else {
+        alert(data.error || "Something went wrong. Please try again.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Failed to submit request. Please check your connection.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (

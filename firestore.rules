@@ -1,0 +1,11 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Highly secure rule configuration:
+    // Block all public read/write requests from the web client.
+    // Database modifications are allowed exclusively via the server-side Next.js Admin SDK.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
