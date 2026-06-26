@@ -31,8 +31,10 @@ To sync form inquiries (Contact Form) and RFQ specifications (Landed Cost/Quote 
 6. Click **Create app** in the top-right.
 7. Confirm the security warning, copy the generated **Access Token** (starts with `pat-na2-...`), and keep it safe. This will be used as `HUBSPOT_ACCESS_TOKEN`.
 
-### 2. Create the Custom `message` Property
-Because HubSpot Contacts do not have a default `message` field, you must create a custom property to store the contact inquiries and RFQ details sent by the website:
+### 2. Verify or Create the Custom `message` Property
+Because HubSpot Contacts do not have a default `message` field, a custom property named `message` must exist to store the contact inquiries and RFQ details sent by the website. 
+
+**If the `message` property already exists in your HubSpot portal, you can skip this step.** Otherwise, create it using these steps:
 1. In HubSpot Settings, go to **Data Management** -> **Properties**.
 2. Ensure the "Select an object" dropdown is set to **Contact properties**.
 3. Click **Create property** (top-right).
@@ -40,7 +42,7 @@ Because HubSpot Contacts do not have a default `message` field, you must create 
    - **Object type:** Contact
    - **Group:** Contact Information
    - **Label:** `Message`
-   - *Note:* The internal name will automatically generate as `message`, which matches the website's API request payload.
+   - *Note:* The internal name will automatically generate as `message` (all lowercase), which matches the website's API request payload.
 5. Click **Next**, select the field type as **Multi-line text**, and click **Create**.
 
 ---
