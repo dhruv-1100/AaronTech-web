@@ -15,8 +15,13 @@ export function generateStaticParams() {
 // ---------------------------------------------------------------------------
 // Dynamic metadata
 // ---------------------------------------------------------------------------
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const post = blogPosts.find((p) => p.slug === params.slug);
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const post = blogPosts.find((p) => p.slug === slug);
   if (!post) return { title: "Article Not Found" };
 
   return {
@@ -28,16 +33,21 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 // ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
-export default function BlogDetailPage({ params }: { params: { slug: string } }) {
-  const post = blogPosts.find((p) => p.slug === params.slug);
-  const content = blogArticleContents[params.slug];
+export default async function BlogDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = blogPosts.find((p) => p.slug === slug);
+  const content = blogArticleContents[slug];
 
   if (!post || !content) {
     notFound();
   }
 
   // Filter out the current post to show 2 other related posts at the bottom
-  const relatedPosts = blogPosts.filter((p) => p.slug !== params.slug).slice(0, 2);
+  const relatedPosts = blogPosts.filter((p) => p.slug !== slug).slice(0, 2);
 
   return (
     <>

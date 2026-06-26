@@ -33,12 +33,13 @@ export function generateStaticParams() {
 // ---------------------------------------------------------------------------
 // Dynamic metadata
 // ---------------------------------------------------------------------------
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { category: string };
-}): Metadata {
-  const category = productCategories.find((c) => c.slug === params.category);
+  params: Promise<{ category: string }>;
+}): Promise<Metadata> {
+  const { category: categorySlug } = await params;
+  const category = productCategories.find((c) => c.slug === categorySlug);
   if (!category) return { title: "Product Not Found" };
 
   return {
@@ -72,12 +73,13 @@ function resolveIcon(name: string): LucideIcon {
 // ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
-export default function ProductCategoryPage({
+export default async function ProductCategoryPage({
   params,
 }: {
-  params: { category: string };
+  params: Promise<{ category: string }>;
 }) {
-  const category = productCategories.find((c) => c.slug === params.category);
+  const { category: categorySlug } = await params;
+  const category = productCategories.find((c) => c.slug === categorySlug);
 
   if (!category) {
     notFound();

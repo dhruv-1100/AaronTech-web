@@ -34,12 +34,13 @@ export function generateStaticParams() {
 // ---------------------------------------------------------------------------
 // Dynamic metadata
 // ---------------------------------------------------------------------------
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
-  params: { category: string; product: string };
-}): Metadata {
-  const product = getProductDetails(params.category, params.product);
+  params: Promise<{ category: string; product: string }>;
+}): Promise<Metadata> {
+  const { category: categorySlug, product: productSlug } = await params;
+  const product = getProductDetails(categorySlug, productSlug);
   if (!product) return { title: "Product Not Found" };
 
   return {
@@ -51,13 +52,14 @@ export function generateMetadata({
 // ---------------------------------------------------------------------------
 // Page
 // ---------------------------------------------------------------------------
-export default function ProductDetailPage({
+export default async function ProductDetailPage({
   params,
 }: {
-  params: { category: string; product: string };
+  params: Promise<{ category: string; product: string }>;
 }) {
-  const category = productCategories.find((c) => c.slug === params.category);
-  const product = getProductDetails(params.category, params.product);
+  const { category: categorySlug, product: productSlug } = await params;
+  const category = productCategories.find((c) => c.slug === categorySlug);
+  const product = getProductDetails(categorySlug, productSlug);
 
   if (!category || !product) {
     notFound();
