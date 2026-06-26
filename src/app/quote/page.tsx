@@ -226,7 +226,7 @@ function QuotePageContent() {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.35 }}
                   >
-                    <div className="bg-white rounded-none border border-steel-300 overflow-hidden">
+                    <div className="bg-white rounded-2xl border border-steel-200/85 overflow-hidden shadow-sm">
                       <div className="px-6 py-5 sm:px-8 border-b border-steel-200">
                         <h2 className="font-heading font-bold text-navy-900 text-xl">
                           Your Requirements
@@ -420,7 +420,7 @@ function QuotePageContent() {
                             type="submit"
                             disabled={isSubmitting}
                             className={cn(
-                              "w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-none font-semibold text-sm transition-all",
+                              "w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full font-semibold text-sm transition-all shadow-md hover:shadow-lg",
                               isSubmitting
                                 ? "bg-copper-400 text-white cursor-wait"
                                 : "bg-copper-500 hover:bg-copper-600 text-white"
@@ -453,7 +453,7 @@ function QuotePageContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="bg-white rounded-none border border-steel-300 overflow-hidden"
+                className="bg-white rounded-2xl border border-steel-200/85 overflow-hidden shadow-sm"
               >
                 <div className="px-6 py-5 border-b border-steel-200">
                   <h3 className="font-heading font-bold text-navy-900 text-lg">
@@ -466,7 +466,7 @@ function QuotePageContent() {
                     return (
                       <div key={step.step} className="flex gap-4">
                         <div className="shrink-0">
-                          <div className="w-10 h-10 rounded-none bg-navy-900 flex items-center justify-center">
+                          <div className="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center">
                             <Icon className="w-5 h-5 text-copper-400" />
                           </div>
                         </div>
@@ -494,7 +494,7 @@ function QuotePageContent() {
                  initial={{ opacity: 0, y: 20 }}
                  animate={{ opacity: 1, y: 0 }}
                  transition={{ duration: 0.5, delay: 0.25 }}
-                 className="bg-navy-900 rounded-none overflow-hidden section-dark"
+                 className="bg-navy-900 rounded-2xl border border-navy-800/80 overflow-hidden section-dark shadow-sm"
                >
                  <div className="p-6 space-y-4">
                   <h3 className="font-heading font-bold text-white text-sm uppercase tracking-wider">
@@ -508,7 +508,7 @@ function QuotePageContent() {
                           key={signal.label}
                           className="flex items-center gap-3"
                         >
-                          <div className="w-8 h-8 rounded-none bg-navy-700 flex items-center justify-center shrink-0">
+                          <div className="w-8 h-8 rounded-xl bg-navy-700 flex items-center justify-center shrink-0">
                             <Icon className="w-4 h-4 text-copper-400" />
                           </div>
                           <span className="text-sm text-steel-300 font-medium">
@@ -535,7 +535,7 @@ function QuotePageContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.35 }}
-                className="bg-white rounded-none border border-steel-300 p-6"
+                className="bg-white rounded-2xl border border-steel-200/80 p-6 shadow-sm"
               >
                 <h3 className="font-heading font-bold text-navy-900 text-sm mb-3">
                   Prefer to Talk?
@@ -610,10 +610,10 @@ function FormField({
 
 function inputClasses(error?: string) {
   return cn(
-    "w-full px-3 py-2.5 rounded-none border-0 border-b text-navy-900 text-sm bg-transparent placeholder:text-steel-400 transition-colors",
+    "w-full px-4 py-2.5 rounded-xl border text-navy-900 text-sm bg-steel-50/30 focus:bg-white placeholder:text-steel-400 transition-all duration-200 outline-none",
     error
-      ? "border-error focus:border-error focus:ring-0"
-      : "border-steel-300 focus:border-navy-900 focus:ring-0"
+      ? "border-error focus:border-error focus:ring-1 focus:ring-error"
+      : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
   );
 }
 
@@ -624,7 +624,7 @@ function SuccessState() {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="bg-white rounded-none border border-steel-300 overflow-hidden"
+      className="bg-white rounded-2xl border border-steel-200/85 overflow-hidden shadow-lg"
     >
       <div className="px-6 py-16 sm:px-12 text-center">
         {/* Animated checkmark */}
@@ -673,14 +673,14 @@ function SuccessState() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-navy-900 hover:bg-navy-800 text-white font-semibold text-sm rounded-none transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-navy-900 hover:bg-navy-800 text-white font-semibold text-sm rounded-full transition-colors shadow-sm hover:shadow-md"
             >
               Back to Home
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 px-6 py-3 border border-steel-300 hover:bg-steel-100 text-navy-900 font-semibold text-sm rounded-none transition-colors"
+              className="inline-flex items-center gap-2 px-8 py-3.5 border border-steel-300 hover:bg-steel-100 text-navy-900 font-semibold text-sm rounded-full transition-colors bg-white shadow-sm"
             >
               Browse Products
             </Link>

@@ -99,7 +99,7 @@ export default function CertificationsPage() {
           </div>
 
           {/* Unified Ledger Container */}
-          <div className="bg-white border border-steel-300 rounded-none divide-y divide-steel-200 overflow-hidden">
+          <div className="bg-white border border-steel-200/85 rounded-2xl divide-y divide-steel-250/60 shadow-sm overflow-hidden">
             {certifications.map((cert) => {
               const Icon = iconMap[cert.icon] ?? ShieldCheck;
               return (
@@ -109,14 +109,14 @@ export default function CertificationsPage() {
                 >
                   {/* Left block: Icon, Short Name, Issuing Body */}
                   <div className="md:w-1/3 flex gap-4 items-start">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-none bg-navy-900/5 text-navy-700">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-navy-900/5 text-navy-700">
                       <Icon className="h-5 w-5" />
                     </div>
                     <div className="space-y-1">
                       <h3 className="font-heading text-base font-bold text-navy-900 leading-snug">
                         {cert.name}
                       </h3>
-                      <span className="inline-block rounded-none bg-navy-900/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy-900 border border-navy-900/10">
+                      <span className="inline-block rounded-full bg-navy-900/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy-900 border border-navy-900/10">
                         {cert.shortName}
                       </span>
                     </div>
@@ -213,7 +213,7 @@ export default function CertificationsPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-none bg-copper-500 px-8 py-3.5 font-semibold text-white transition-colors hover:bg-copper-600 cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-full bg-copper-500 px-8 py-3.5 font-semibold text-white transition-colors hover:bg-copper-600 cursor-pointer shadow-md hover:shadow-lg"
           >
             Request Sample Dossier
             <ArrowRight className="h-4 w-4" />

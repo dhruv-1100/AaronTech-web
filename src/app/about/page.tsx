@@ -202,7 +202,7 @@ export default function AboutPage() {
               const PropIcon = prop.icon;
               return (
                 <div key={prop.title} className="flex gap-5 items-start">
-                  <div className="w-10 h-10 rounded-none bg-copper-500/10 text-copper-600 flex items-center justify-center shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-copper-500/10 text-copper-600 flex items-center justify-center shrink-0">
                     <PropIcon className="w-5 h-5" />
                   </div>
                   <div>
@@ -239,7 +239,7 @@ export default function AboutPage() {
           </div>
 
           {/* Vertical Stepper timeline */}
-          <div className="max-w-3xl mx-auto relative pl-8 sm:pl-12 border-l border-steel-300 space-y-12">
+          <div className="max-w-3xl mx-auto relative pl-8 sm:pl-12 border-l border-steel-350 space-y-12">
             {howItWorks.map((step, idx) => {
               const StepIcon = step.icon;
               return (
@@ -278,14 +278,14 @@ export default function AboutPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/quote"
-              className="inline-flex items-center gap-2 rounded-none bg-copper-500 px-8 py-3.5 font-semibold text-white transition-colors hover:bg-copper-600 cursor-pointer"
+              className="inline-flex items-center gap-2 rounded-full bg-copper-500 px-8 py-3.5 font-semibold text-white transition-colors hover:bg-copper-600 cursor-pointer shadow-md hover:shadow-lg"
             >
               Request Sourcing Quote
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-none border border-steel-600 px-8 py-3.5 font-semibold text-steel-300 transition-colors hover:border-steel-400 hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full border border-steel-600 px-8 py-3.5 font-semibold text-steel-300 transition-all hover:border-steel-400 hover:text-white hover:bg-white/5"
             >
               Contact Sourcing Team
             </Link>

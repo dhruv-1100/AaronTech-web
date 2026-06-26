@@ -119,7 +119,7 @@ export default function IndustriesPage() {
                 {/* Left side: Sticky info panel (Minimal context card, NOT a generic grid card) */}
                 <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-4">
                   <span className={cn(
-                    "inline-flex items-center gap-1.5 px-3 py-1 rounded-none text-xs font-semibold uppercase border tracking-wider",
+                    "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase border tracking-wider",
                     visual.badgeText
                   )}>
                     <TierIcon className="w-3.5 h-3.5" />
@@ -142,7 +142,7 @@ export default function IndustriesPage() {
                 </div>
 
                 {/* Right side: Clean row list (No cards!) */}
-                <div className="lg:col-span-8 bg-white border border-steel-300 rounded-none divide-y divide-steel-200 overflow-hidden">
+                <div className="lg:col-span-8 bg-white border border-steel-200/85 rounded-2xl divide-y divide-steel-250/60 shadow-sm overflow-hidden">
                   {tierIndustries.map((ind) => {
                     const IndustryIcon = iconMap[ind.icon] || Warehouse;
                     return (
@@ -152,7 +152,7 @@ export default function IndustriesPage() {
                       >
                         {/* Icon & Title Group */}
                         <div className="md:w-1/3 flex gap-4 items-start">
-                          <div className="w-10 h-10 rounded-none bg-navy-900/5 text-navy-700 flex items-center justify-center shrink-0">
+                          <div className="w-10 h-10 rounded-xl bg-navy-900/5 text-navy-700 flex items-center justify-center shrink-0">
                             <IndustryIcon className="w-5 h-5" />
                           </div>
                           <div>
@@ -177,7 +177,7 @@ export default function IndustriesPage() {
                               <Link
                                 key={slug}
                                 href={`/products/${slug}`}
-                                className="px-2 py-0.5 rounded-none bg-steel-200 hover:bg-copper-500/10 hover:text-copper-600 text-xs font-semibold text-steel-700 transition-colors"
+                                className="px-2.5 py-0.5 rounded-full bg-steel-100 hover:bg-copper-500/10 hover:text-copper-600 text-xs font-semibold text-steel-700 transition-colors"
                               >
                                 {slug
                                   .split("-")
@@ -216,7 +216,7 @@ export default function IndustriesPage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-none bg-copper-500 px-8 py-3.5 font-semibold text-white transition-colors hover:bg-copper-600 cursor-pointer"
+            className="inline-flex items-center gap-2 rounded-full bg-copper-500 px-8 py-3.5 font-semibold text-white transition-colors hover:bg-copper-600 cursor-pointer shadow-md hover:shadow-lg"
           >
             Contact Sourcing Team
             <ArrowRight className="h-4 w-4" />

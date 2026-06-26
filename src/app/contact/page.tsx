@@ -85,7 +85,7 @@ export default function ContactPage() {
             {/* Contact Info Sidebar (Right) */}
             <div className="space-y-8">
               {/* Direct Info Card */}
-              <div className="bg-white rounded-none border border-steel-300 p-6 sm:p-8">
+              <div className="bg-white rounded-2xl border border-steel-200/80 p-6 sm:p-8 shadow-sm">
                 <h3 className="font-heading font-bold text-navy-900 text-lg mb-6 pb-3 border-b border-steel-200">
                   Contact Information
                 </h3>
@@ -94,7 +94,7 @@ export default function ContactPage() {
                     const Icon = item.icon;
                     return (
                       <div key={idx} className="flex gap-4">
-                        <div className="flex-shrink-0 w-10 h-10 rounded-none bg-navy-900/5 text-navy-700 flex items-center justify-center">
+                        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-navy-900/5 text-navy-700 flex items-center justify-center">
                           <Icon className="w-5 h-5" />
                         </div>
                         <div>
@@ -124,10 +124,10 @@ export default function ContactPage() {
               </div>
 
               {/* Sourcing Highlights Card */}
-              <div className="bg-navy-900 text-white rounded-none p-6 sm:p-8 relative overflow-hidden section-dark">
+              <div className="bg-navy-900 text-white rounded-2xl p-6 sm:p-8 relative overflow-hidden section-dark border border-navy-800">
                 {/* Subtle grid pattern */}
                 <div
-                  className="absolute inset-0 opacity-[0.02]"
+                  className="absolute inset-0 opacity-[0.02] pointer-events-none"
                   style={{
                     backgroundImage:
                       "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
@@ -143,7 +143,7 @@ export default function ContactPage() {
                       const Icon = item.icon;
                       return (
                         <div key={idx} className="flex gap-4">
-                          <div className="flex-shrink-0 w-8 h-8 rounded-none bg-white/10 text-copper-400 flex items-center justify-center">
+                          <div className="flex-shrink-0 w-8 h-8 rounded-xl bg-white/10 text-copper-400 flex items-center justify-center">
                             <Icon className="w-4.5 h-4.5" />
                           </div>
                           <div>

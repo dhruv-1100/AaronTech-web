@@ -57,16 +57,16 @@ export default function ResourcesClient({ posts }: ResourcesClientProps) {
   return (
     <div className="space-y-10">
       {/* Category Tabs */}
-      <div className="flex flex-wrap gap-2.5 pb-2 border-b border-steel-300">
+      <div className="flex flex-wrap gap-2.5 pb-3 border-b border-steel-200/80">
         {CATEGORIES.map((category) => (
           <button
             key={category}
             onClick={() => setActiveCategory(category)}
             className={cn(
-              "px-5 py-2.5 rounded-none text-sm font-semibold transition-all duration-200 border cursor-pointer",
+              "px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 border cursor-pointer",
               activeCategory === category
-                ? "bg-navy-900 border-navy-900 text-white"
-                : "bg-white border-steel-300 text-steel-700 hover:border-steel-400 hover:text-navy-900"
+                ? "bg-navy-900 border-navy-900 text-white shadow-sm"
+                : "bg-white border-steel-200/80 text-steel-600 hover:border-steel-300 hover:text-navy-900"
             )}
           >
             {category}
@@ -93,8 +93,8 @@ export default function ResourcesClient({ posts }: ResourcesClientProps) {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.25 }}
                 className={cn(
-                  "group bg-white rounded-none border border-steel-300 overflow-hidden flex flex-col h-full",
-                  "transition-all duration-300 hover:border-copper-400"
+                  "group bg-white rounded-2xl border border-steel-200/80 overflow-hidden flex flex-col h-full",
+                  "transition-all duration-300 hover:border-copper-500/40 hover:shadow-lg"
                 )}
               >
                 {/* Visual Header (instead of missing static image file) */}
@@ -114,7 +114,7 @@ export default function ResourcesClient({ posts }: ResourcesClientProps) {
                     }}
                   />
                   <div className="flex justify-between items-start z-10">
-                    <span className="px-2.5 py-1 bg-white/10 backdrop-blur-md rounded-none text-xs font-semibold uppercase tracking-wider">
+                    <span className="px-2.5 py-1 bg-white/15 backdrop-blur-md rounded-full text-xs font-semibold uppercase tracking-wider">
                       {post.category}
                     </span>
                     <Icon className="w-6 h-6 text-copper-400" />
@@ -157,7 +157,7 @@ export default function ResourcesClient({ posts }: ResourcesClientProps) {
 
       {/* Empty State */}
       {filteredPosts.length === 0 && (
-        <div className="bg-white rounded-none border border-steel-300 p-12 text-center max-w-md mx-auto">
+        <div className="bg-white rounded-2xl border border-steel-200/80 p-12 text-center max-w-md mx-auto shadow-sm">
           <BookOpen className="w-12 h-12 text-steel-400 mx-auto mb-4" />
           <h3 className="font-heading font-bold text-navy-900 text-lg mb-2">
             No articles found

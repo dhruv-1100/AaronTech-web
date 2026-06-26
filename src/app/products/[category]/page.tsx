@@ -129,10 +129,10 @@ export default async function ProductCategoryPage({
             {/* Left Column - Details */}
             <div className="lg:col-span-7">
               <div className="flex items-center gap-3 mb-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-none bg-copper-500/10 text-copper-400 border border-copper-500/20">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-copper-500/10 text-copper-400 border border-copper-500/20">
                   <Icon className="h-6 w-6" />
                 </div>
-                <span className="inline-block rounded-none bg-navy-800 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-copper-400 border border-navy-700">
+                <span className="inline-block rounded-full bg-navy-800 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-copper-400 border border-navy-700">
                   Industrial Sourcing
                 </span>
               </div>
@@ -151,7 +151,7 @@ export default async function ProductCategoryPage({
                 {category.standards.map((std) => (
                   <span
                     key={std}
-                    className="inline-block rounded-none bg-navy-850 px-2.5 py-1 text-xs font-semibold text-steel-300 border border-navy-700"
+                    className="inline-block rounded-full bg-navy-850 px-2.5 py-1 text-xs font-semibold text-steel-300 border border-navy-700"
                   >
                     {std}
                   </span>
@@ -163,15 +163,15 @@ export default async function ProductCategoryPage({
             <div className="lg:col-span-5">
               <div className="relative group">
                 {/* Border frames for premium/industrial design */}
-                <div className="absolute -inset-2 border border-steel-700/30 pointer-events-none transition-transform duration-300 group-hover:scale-[1.02]" />
-                <div className="relative overflow-hidden bg-navy-950 border border-steel-700 p-2 shadow-2xl">
+                <div className="absolute -inset-2 border border-steel-750/30 rounded-3xl pointer-events-none transition-transform duration-300 group-hover:scale-[1.02]" />
+                <div className="relative overflow-hidden bg-navy-950 border border-steel-700/80 p-2 shadow-2xl rounded-2xl">
                   <img
                     src={category.heroImage}
                     alt={category.name}
                     className="w-full h-72 md:h-80 lg:h-96 object-cover filter brightness-95 contrast-105 transition-transform duration-500 group-hover:scale-105"
                   />
                   {/* Subtle caption or tag */}
-                  <div className="absolute bottom-4 right-4 bg-navy-900/90 backdrop-blur-sm border border-steel-700 px-3 py-1 text-[11px] font-medium text-steel-300">
+                  <div className="absolute bottom-4 right-4 bg-navy-900/90 backdrop-blur-sm border border-steel-700/85 px-3 py-1 text-[11px] font-medium text-steel-300 rounded-lg">
                     High-traceability ISO Product Line
                   </div>
                 </div>
@@ -193,7 +193,7 @@ export default async function ProductCategoryPage({
                   Technical Specifications
                 </h2>
 
-                <div className="overflow-x-auto rounded-none border border-steel-300 bg-white">
+                <div className="overflow-x-auto rounded-2xl border border-steel-200/85 bg-white shadow-sm overflow-hidden">
                   <table className="spec-table">
                     <thead>
                       <tr>
@@ -260,11 +260,11 @@ export default async function ProductCategoryPage({
                       <div
                         key={app}
                         className={cn(
-                          "flex items-center gap-3 rounded-none border border-steel-300 bg-white p-4",
-                          "transition-colors hover:border-copper-400"
+                          "flex items-center gap-3 rounded-2xl border border-steel-200/80 bg-white p-4",
+                          "transition-all duration-300 hover:border-copper-500/40 hover:shadow-md"
                         )}
                       >
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-none bg-copper-500/10 text-copper-600">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-copper-500/10 text-copper-600">
                           <CheckCircle2 className="h-5 w-5" />
                         </div>
                         <span className="text-sm font-medium text-navy-900">
@@ -280,7 +280,7 @@ export default async function ProductCategoryPage({
             {/* ── Sidebar (1/3) ───────────────────────────────────── */}
             <aside className="space-y-8">
               {/* Required Documents */}
-              <div className="rounded-none border border-steel-300 bg-white p-6">
+              <div className="rounded-2xl border border-steel-200/80 bg-white p-6 shadow-sm">
                 <div className="flex items-center gap-2 mb-4">
                   <FileText className="h-5 w-5 text-copper-500" />
                   <h3 className="font-heading text-lg font-bold text-navy-900">
@@ -304,7 +304,7 @@ export default async function ProductCategoryPage({
               </div>
 
               {/* Standards quick list */}
-              <div className="rounded-none border border-steel-300 bg-white p-6">
+              <div className="rounded-2xl border border-steel-200/80 bg-white p-6 shadow-sm">
                 <h3 className="font-heading text-lg font-bold text-navy-900 mb-4">
                   Applicable Standards
                 </h3>
@@ -312,7 +312,7 @@ export default async function ProductCategoryPage({
                   {category.standards.map((std) => (
                     <span
                       key={std}
-                      className="inline-block rounded-none bg-navy-900/5 border border-navy-900/10 px-2.5 py-1 text-xs font-medium text-navy-800"
+                      className="inline-block rounded-full bg-navy-900/5 border border-navy-900/10 px-2.5 py-1 text-xs font-medium text-navy-800"
                     >
                       {std}
                     </span>
@@ -321,7 +321,7 @@ export default async function ProductCategoryPage({
               </div>
 
               {/* Materials quick list */}
-              <div className="rounded-none border border-steel-300 bg-white p-6">
+              <div className="rounded-2xl border border-steel-200/80 bg-white p-6 shadow-sm">
                 <h3 className="font-heading text-lg font-bold text-navy-900 mb-4">
                   Available Materials
                 </h3>
@@ -357,14 +357,14 @@ export default async function ProductCategoryPage({
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <Link
                 href="/quote"
-                className="inline-flex items-center gap-2 px-7 py-3.5 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-none transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-full transition-all shadow-md hover:shadow-lg"
               >
                 Get a Quote
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 href="/products"
-                className="inline-flex items-center gap-2 px-7 py-3.5 border border-steel-600 hover:border-steel-400 text-steel-300 hover:text-steel-100 font-medium rounded-none transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 border border-steel-600 hover:border-steel-400 text-steel-300 hover:text-steel-100 font-semibold rounded-full transition-all hover:bg-white/5"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Back to All Products

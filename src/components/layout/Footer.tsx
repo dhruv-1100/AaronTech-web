@@ -21,7 +21,7 @@ export default function Footer() {
           </div>
           <Link
             href="/quote"
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-none transition-colors shrink-0"
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-full transition-colors shrink-0"
           >
             Request a Quote
             <ArrowUpRight className="w-4 h-4" />

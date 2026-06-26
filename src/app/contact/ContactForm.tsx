@@ -139,7 +139,7 @@ export default function ContactForm() {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ duration: 0.35 }}
-          className="bg-white rounded-none border border-steel-300 p-8 sm:p-12 text-center"
+          className="bg-white rounded-2xl border border-steel-200/85 p-8 sm:p-12 text-center shadow-lg"
         >
           <div className="w-16 h-16 bg-success/10 text-success rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="w-10 h-10 animate-bounce" />
@@ -155,7 +155,7 @@ export default function ContactForm() {
               setFormData(INITIAL_FORM);
               setIsSubmitted(false);
             }}
-            className="px-6 py-3 bg-navy-900 hover:bg-navy-800 text-white font-semibold rounded-none transition-colors cursor-pointer"
+            className="px-8 py-3.5 bg-navy-900 hover:bg-navy-800 text-white font-semibold rounded-full transition-all cursor-pointer shadow-sm hover:shadow-md"
           >
             Send Another Message
           </button>
@@ -167,7 +167,7 @@ export default function ContactForm() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.35 }}
-          className="bg-white rounded-none border border-steel-300 overflow-hidden"
+          className="bg-white rounded-2xl border border-steel-200/85 overflow-hidden shadow-sm"
         >
           <div className="px-6 py-5 sm:px-8 border-b border-steel-200">
             <h2 className="font-heading font-bold text-navy-900 text-xl">
@@ -198,10 +198,10 @@ export default function ContactForm() {
                   aria-describedby={errors.name ? "name-error" : undefined}
                   required
                   className={cn(
-                    "w-full px-4 py-3 rounded-none border-0 border-b text-base outline-none transition-all duration-200 bg-transparent min-h-[48px]",
+                    "w-full px-4 py-3 rounded-xl border text-base outline-none transition-all duration-200 bg-steel-50/30 focus:bg-white min-h-[48px]",
                     errors.name
-                      ? "border-error focus:border-error"
-                      : "border-steel-300 focus:border-navy-900"
+                      ? "border-error focus:border-error focus:ring-1 focus:ring-error"
+                      : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
                   )}
                 />
                 {errors.name && (
@@ -229,10 +229,10 @@ export default function ContactForm() {
                   aria-describedby={errors.email ? "email-error" : undefined}
                   required
                   className={cn(
-                    "w-full px-4 py-3 rounded-none border-0 border-b text-base outline-none transition-all duration-200 bg-transparent min-h-[48px]",
+                    "w-full px-4 py-3 rounded-xl border text-base outline-none transition-all duration-200 bg-steel-50/30 focus:bg-white min-h-[48px]",
                     errors.email
-                      ? "border-error focus:border-error"
-                      : "border-steel-300 focus:border-navy-900"
+                      ? "border-error focus:border-error focus:ring-1 focus:ring-error"
+                      : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
                   )}
                 />
                 {errors.email && (
@@ -263,10 +263,10 @@ export default function ContactForm() {
                   aria-describedby={errors.company ? "company-error" : undefined}
                   required
                   className={cn(
-                    "w-full px-4 py-3 rounded-none border-0 border-b text-base outline-none transition-all duration-200 bg-transparent min-h-[48px]",
+                    "w-full px-4 py-3 rounded-xl border text-base outline-none transition-all duration-200 bg-steel-50/30 focus:bg-white min-h-[48px]",
                     errors.company
-                      ? "border-error focus:border-error"
-                      : "border-steel-300 focus:border-navy-900"
+                      ? "border-error focus:border-error focus:ring-1 focus:ring-error"
+                      : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
                   )}
                 />
                 {errors.company && (
@@ -294,10 +294,10 @@ export default function ContactForm() {
                   aria-describedby={errors.phone ? "phone-error" : undefined}
                   required
                   className={cn(
-                    "w-full px-4 py-3 rounded-none border-0 border-b text-base outline-none transition-all duration-200 bg-transparent min-h-[48px]",
+                    "w-full px-4 py-3 rounded-xl border text-base outline-none transition-all duration-200 bg-steel-50/30 focus:bg-white min-h-[48px]",
                     errors.phone
-                      ? "border-error focus:border-error"
-                      : "border-steel-300 focus:border-navy-900"
+                      ? "border-error focus:border-error focus:ring-1 focus:ring-error"
+                      : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
                   )}
                 />
                 {errors.phone && (
@@ -325,10 +325,10 @@ export default function ContactForm() {
                 aria-describedby={errors.message ? "message-error" : undefined}
                 required
                 className={cn(
-                  "w-full px-4 py-3 rounded-none border-0 border-b text-base outline-none transition-all duration-200 bg-transparent min-h-[120px] resize-y",
+                  "w-full px-4 py-3 rounded-xl border text-base outline-none transition-all duration-200 bg-steel-50/30 focus:bg-white min-h-[120px] resize-y",
                   errors.message
-                    ? "border-error focus:border-error"
-                    : "border-steel-300 focus:border-navy-900"
+                    ? "border-error focus:border-error focus:ring-1 focus:ring-error"
+                    : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
                 )}
               />
               {errors.message && (
@@ -344,7 +344,7 @@ export default function ContactForm() {
               type="submit"
               disabled={isSubmitting}
               className={cn(
-                "w-full sm:w-auto px-8 py-3.5 rounded-none font-semibold text-white transition-all duration-200 cursor-pointer",
+                "w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-white transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg",
                 "bg-copper-500 hover:bg-copper-600 active:scale-[0.99]",
                 "disabled:bg-copper-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
               )}

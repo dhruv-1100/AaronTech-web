@@ -59,13 +59,13 @@ function ProductCard({ category }: { category: ProductCategory }) {
     <Link
       href={`/products/${category.slug}`}
       className={cn(
-        "group relative flex flex-col rounded-none border border-steel-300 bg-white overflow-hidden",
+        "group relative flex flex-col rounded-2xl border border-steel-200/85 bg-white overflow-hidden shadow-sm",
         "transition-all duration-300",
-        "hover:border-copper-400 hover:shadow-md"
+        "hover:border-copper-500/40 hover:shadow-lg"
       )}
     >
       {/* Top Header Image */}
-      <div className="h-44 w-full overflow-hidden relative bg-steel-200 border-b border-steel-300">
+      <div className="h-44 w-full overflow-hidden relative bg-steel-100 border-b border-steel-200/80">
         <img
           src={category.heroImage}
           alt={category.name}
@@ -73,7 +73,7 @@ function ProductCard({ category }: { category: ProductCategory }) {
           loading="lazy"
         />
         {/* Overlay Icon Badge */}
-        <div className="absolute bottom-0 left-6 translate-y-1/2 flex h-12 w-12 items-center justify-center bg-white text-navy-900 border border-steel-300 shadow-sm transition-colors group-hover:border-copper-500 group-hover:text-copper-600">
+        <div className="absolute bottom-0 left-6 translate-y-1/2 flex h-12 w-12 items-center justify-center bg-white text-navy-900 border border-steel-200/80 shadow-md transition-all rounded-xl group-hover:border-copper-500 group-hover:text-copper-600">
           <Icon className="h-6 w-6" />
         </div>
       </div>
@@ -95,13 +95,13 @@ function ProductCard({ category }: { category: ProductCategory }) {
           {category.standards.slice(0, 3).map((std) => (
             <span
               key={std}
-              className="inline-block rounded-none bg-steel-200 px-2 py-0.5 text-[11px] font-medium text-steel-700 leading-snug"
+              className="inline-block rounded-full bg-steel-100 px-2.5 py-1 text-[10px] font-bold text-steel-600 leading-none border border-steel-200/40"
             >
               {std}
             </span>
           ))}
           {category.standards.length > 3 && (
-            <span className="inline-block rounded-none bg-steel-200 px-2 py-0.5 text-[11px] font-medium text-steel-500 leading-snug">
+            <span className="inline-block rounded-full bg-steel-100 px-2.5 py-1 text-[10px] font-bold text-steel-500 leading-none border border-steel-200/40">
               +{category.standards.length - 3} more
             </span>
           )}
@@ -190,22 +190,32 @@ export default function ProductsPage() {
           </div>
 
           {/* Bottom CTA */}
-          <div className="mt-16 rounded-none bg-navy-900 p-8 md:p-12 text-center">
-            <h3 className="text-2xl md:text-3xl font-bold text-steel-100 mb-3">
-              Can&apos;t find what you need?
-            </h3>
-            <p className="text-steel-400 max-w-xl mx-auto mb-6 text-base leading-relaxed">
-              We source a wide range of industrial components beyond what&apos;s
-              listed here. Tell us what you&apos;re looking for and we&apos;ll
-              provide a competitive quote.
-            </p>
-            <Link
-              href="/quote"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-none transition-colors"
-            >
-              Request a Custom Quote
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+          <div className="mt-16 rounded-2xl bg-navy-900 border border-navy-800/80 p-8 md:p-12 text-center shadow-xl relative overflow-hidden section-dark">
+            <div
+              className="absolute inset-0 opacity-[0.02] pointer-events-none"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
+                backgroundSize: "30px 30px",
+              }}
+            />
+            <div className="relative z-10">
+              <h3 className="text-2xl md:text-3xl font-bold text-steel-100 mb-3">
+                Can&apos;t find what you need?
+              </h3>
+              <p className="text-steel-400 max-w-xl mx-auto mb-8 text-base leading-relaxed">
+                We source a wide range of industrial components beyond what&apos;s
+                listed here. Tell us what you&apos;re looking for and we&apos;ll
+                provide a competitive quote.
+              </p>
+              <Link
+                href="/quote"
+                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-full transition-all shadow-md hover:shadow-lg"
+              >
+                Request a Custom Quote
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

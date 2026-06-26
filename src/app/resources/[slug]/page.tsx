@@ -138,7 +138,7 @@ export default async function BlogDetailPage({
             {/* Sidebar Column (1/3) */}
             <aside className="space-y-8">
               {/* Quote CTA Card */}
-              <div className="bg-navy-900 text-white rounded-none p-6 sm:p-8 relative overflow-hidden section-dark border border-navy-850">
+              <div className="bg-navy-900 text-white rounded-2xl p-6 sm:p-8 relative overflow-hidden section-dark border border-navy-800">
                 <div
                   className="absolute inset-0 opacity-[0.02] pointer-events-none"
                   style={{
@@ -148,7 +148,7 @@ export default async function BlogDetailPage({
                   }}
                 />
                 <div className="relative z-10 space-y-6">
-                  <div className="flex h-12 w-12 items-center justify-center bg-copper-500/10 border border-copper-500/20 text-copper-400">
+                  <div className="flex h-12 w-12 items-center justify-center bg-copper-500/10 border border-copper-500/20 text-copper-400 rounded-xl">
                     <FileText className="h-6 w-6" />
                   </div>
                   <div>
@@ -161,7 +161,7 @@ export default async function BlogDetailPage({
                   </div>
                   <Link
                     href="/quote"
-                    className="group inline-flex items-center justify-center gap-2 w-full px-5 py-3 bg-copper-500 hover:bg-copper-600 text-white font-semibold text-sm rounded-none transition-colors cursor-pointer"
+                    className="group inline-flex items-center justify-center gap-2 w-full px-5 py-3 bg-copper-500 hover:bg-copper-600 text-white font-semibold text-sm rounded-full transition-all cursor-pointer shadow-md hover:shadow-lg"
                   >
                     Request a Quote
                     <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -170,7 +170,7 @@ export default async function BlogDetailPage({
               </div>
 
               {/* Related Posts Card */}
-              <div className="bg-white border border-steel-300 p-6">
+              <div className="bg-white border border-steel-200/80 rounded-2xl p-6 shadow-sm">
                 <h3 className="font-heading font-bold text-navy-900 text-base mb-5 pb-3 border-b border-steel-200">
                   Related Insights
                 </h3>
