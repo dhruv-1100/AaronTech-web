@@ -15,12 +15,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.7 },
   ];
 
-  const productPages: MetadataRoute.Sitemap = productCategories.map((cat) => ({
+  const categoryPages: MetadataRoute.Sitemap = productCategories.map((cat) => ({
     url: `${baseUrl}/products/${cat.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
 
-  return [...staticPages, ...productPages];
+  const productDetailPages: MetadataRoute.Sitemap = [];
+  productCategories.forEach((cat) => {
+    cat.types.forEach((type) => {
+      const productSlug = type
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w\-]+/g, "");
+      productDetailPages.push({
+        url: `${baseUrl}/products/${cat.slug}/${productSlug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+      });
+    });
+  });
+
+  return [...staticPages, ...categoryPages, ...productDetailPages];
 }

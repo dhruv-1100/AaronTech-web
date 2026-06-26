@@ -208,15 +208,30 @@ export default function ProductCategoryPage({
                           <td>
                             {Array.isArray(row.values) ? (
                               <ul className="list-none space-y-1">
-                                {row.values.map((v) => (
-                                  <li
-                                    key={v}
-                                    className="flex items-start gap-2 text-steel-700"
-                                  >
-                                    <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-copper-500 shrink-0" />
-                                    {v}
-                                  </li>
-                                ))}
+                                {row.values.map((v) => {
+                                  const isTypes = row.label === "Types";
+                                  const productSlug = v.toLowerCase()
+                                    .replace(/\s+/g, "-")
+                                    .replace(/[^\w\-]+/g, "");
+                                  return (
+                                    <li
+                                      key={v}
+                                      className="flex items-start gap-2 text-steel-700"
+                                    >
+                                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-copper-500 shrink-0" />
+                                      {isTypes ? (
+                                        <Link
+                                          href={`/products/${category.slug}/${productSlug}`}
+                                          className="text-copper-600 hover:text-copper-500 font-semibold hover:underline"
+                                        >
+                                          {v}
+                                        </Link>
+                                      ) : (
+                                        v
+                                      )}
+                                    </li>
+                                  );
+                                })}
                               </ul>
                             ) : (
                               <span className="text-steel-700">

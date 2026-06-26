@@ -354,12 +354,14 @@ export default function LandedCostCalculator() {
                     value={breakdown.customsDuty}
                     delay={0.15}
                     highlight
+                    tooltipContent="Calculated at 18% based on the US-India Bilateral Trade Agreement 2026 guidelines. Actual duty rates are determined by the specific HS Code classification of your products."
                   />
                   <BreakdownRow
                     label="Handling & Brokerage"
                     sublabel="Flat fee"
                     value={breakdown.handlingFees}
                     delay={0.2}
+                    tooltipContent="Covers standard documentation, customs entry filing, ISF filing, and port processing charges. This flat-rate benchmark is typical for our consolidated shipping services."
                   />
                 </div>
 
@@ -407,28 +409,54 @@ function BreakdownRow({
   value,
   delay = 0,
   highlight = false,
+  tooltipContent,
 }: {
   label: string;
   sublabel: string;
   value: number;
   delay?: number;
   highlight?: boolean;
+  tooltipContent?: string;
 }) {
+  const [showTooltip, setShowTooltip] = useState(false);
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -10 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ delay }}
-      className="flex items-center justify-between py-3"
+      className="flex items-center justify-between py-3 relative"
     >
       <div>
         <span
           className={cn(
-            "text-sm font-medium",
+            "text-sm font-medium inline-flex items-center gap-1.5",
             highlight ? "text-copper-600" : "text-navy-900"
           )}
         >
           {label}
+          {tooltipContent && (
+            <div 
+              className="relative inline-block"
+              onMouseEnter={() => setShowTooltip(true)}
+              onMouseLeave={() => setShowTooltip(false)}
+            >
+              <Info className="w-3.5 h-3.5 text-steel-400 hover:text-navy-900 cursor-pointer transition-colors" />
+              <AnimatePresence>
+                {showTooltip && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 5 }}
+                    className="absolute z-50 left-1/2 bottom-full mb-2 w-64 -translate-x-1/2 p-3 bg-navy-900 text-white text-xs font-normal normal-case leading-relaxed border border-navy-800 shadow-xl rounded-none text-left"
+                  >
+                    {tooltipContent}
+                    <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-navy-900" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
         </span>
         <span className="block text-xs text-steel-500">{sublabel}</span>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -94,10 +95,41 @@ function validateForm(data: RFQSubmission): RFQFormErrors {
 }
 
 export default function QuotePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-[70vh] bg-steel-100 flex items-center justify-center">
+        <Loader2 className="w-8 h-8 text-copper-500 animate-spin" />
+      </div>
+    }>
+      <QuotePageContent />
+    </Suspense>
+  );
+}
+
+function QuotePageContent() {
   const [formData, setFormData] = useState<RFQSubmission>(INITIAL_FORM);
   const [errors, setErrors] = useState<RFQFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const searchParams = useSearchParams();
+  const catParam = searchParams.get("category");
+  const prodParam = searchParams.get("product");
+
+  useEffect(() => {
+    if (catParam || prodParam) {
+      const matchedCat = productCategories.find(
+        (c) => c.id === catParam || c.slug === catParam
+      );
+      setFormData((prev) => ({
+        ...prev,
+        productCategory: matchedCat ? matchedCat.id : prev.productCategory,
+        productDetails: prodParam 
+          ? `Sourcing request for: ${prodParam}\nSpecs: ` 
+          : prev.productDetails,
+      }));
+    }
+  }, [catParam, prodParam]);
 
   function updateField(field: keyof RFQSubmission, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
