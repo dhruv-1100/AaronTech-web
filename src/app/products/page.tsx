@@ -64,16 +64,19 @@ function ProductCard({ category }: { category: ProductCategory }) {
         "hover:border-copper-500/40 hover:shadow-lg"
       )}
     >
-      {/* Top Header Image */}
-      <div className="h-44 w-full overflow-hidden relative bg-steel-100 border-b border-steel-200/80">
-        <img
-          src={category.heroImage}
-          alt={category.name}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          loading="lazy"
-        />
+      {/* Top Header Image Container */}
+      <div className="relative h-44 w-full bg-steel-100 border-b border-steel-200/80">
+        {/* Overflow hidden wrapper for the image zoom effect */}
+        <div className="absolute inset-0 overflow-hidden rounded-t-2xl">
+          <img
+            src={category.heroImage}
+            alt={category.name}
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            loading="lazy"
+          />
+        </div>
         {/* Overlay Icon Badge */}
-        <div className="absolute bottom-0 left-6 translate-y-1/2 flex h-12 w-12 items-center justify-center bg-white text-navy-900 border border-steel-200/80 shadow-md transition-all rounded-xl group-hover:border-copper-500 group-hover:text-copper-600">
+        <div className="absolute bottom-0 left-6 translate-y-1/2 flex h-12 w-12 items-center justify-center bg-white text-navy-900 border border-steel-200/80 shadow-md transition-all rounded-xl group-hover:border-copper-500 group-hover:text-copper-600 z-10">
           <Icon className="h-6 w-6" />
         </div>
       </div>
