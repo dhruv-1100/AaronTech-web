@@ -63,6 +63,7 @@ export const certifications: Certification[] = [
 
 export const mainNav: NavItem[] = [
   { label: "Products", href: "/products" },
+  { label: "Consolidation", href: "/consolidation" },
   { label: "Industries", href: "/industries" },
   { label: "Certifications", href: "/certifications" },
   { label: "About", href: "/about" },
