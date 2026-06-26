@@ -110,11 +110,11 @@ export default function LandedCostCalculator() {
   }
 
   return (
-    <div className="bg-white rounded-none border border-steel-300 overflow-hidden">
+    <div className="bg-white rounded-2xl border border-steel-200/80 shadow-xl overflow-hidden">
       {/* Header */}
       <div className="bg-navy-900 px-6 py-5 sm:px-8">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-none bg-copper-500/20 flex items-center justify-center">
+          <div className="w-10 h-10 rounded-xl bg-copper-500/20 flex items-center justify-center">
             <Calculator className="w-5 h-5 text-copper-400" />
           </div>
           <div>
@@ -150,7 +150,7 @@ export default function LandedCostCalculator() {
                   setShowResults(false);
                 }}
                 placeholder="0.00"
-                className="w-full pl-7 pr-3 py-2.5 rounded-none border-0 border-b border-steel-300 text-navy-900 text-sm placeholder:text-steel-400 bg-transparent focus:border-navy-900 focus:ring-0 transition-colors"
+                className="w-full pl-8 pr-4 py-2.5 rounded-xl border border-steel-250 text-navy-900 text-sm placeholder:text-steel-400 bg-white focus:border-copper-500 focus:ring-1 focus:ring-copper-500/20 transition-all outline-none"
               />
             </div>
           </div>
@@ -167,7 +167,7 @@ export default function LandedCostCalculator() {
                 setShowResults(false);
               }}
               placeholder="e.g. 1000"
-              className="w-full px-3 py-2.5 rounded-none border-0 border-b border-steel-300 text-navy-900 text-sm placeholder:text-steel-400 bg-transparent focus:border-navy-900 focus:ring-0 transition-colors"
+              className="w-full px-4 py-2.5 rounded-xl border border-steel-250 text-navy-900 text-sm placeholder:text-steel-400 bg-white focus:border-copper-500 focus:ring-1 focus:ring-copper-500/20 transition-all outline-none"
             />
           </div>
           <div>
@@ -184,7 +184,7 @@ export default function LandedCostCalculator() {
                 setShowResults(false);
               }}
               placeholder="e.g. 0.5"
-              className="w-full px-3 py-2.5 rounded-none border-0 border-b border-steel-300 text-navy-900 text-sm placeholder:text-steel-400 bg-transparent focus:border-navy-900 focus:ring-0 transition-colors"
+              className="w-full px-4 py-2.5 rounded-xl border border-steel-250 text-navy-900 text-sm placeholder:text-steel-400 bg-white focus:border-copper-500 focus:ring-1 focus:ring-copper-500/20 transition-all outline-none"
             />
           </div>
         </div>
@@ -207,15 +207,15 @@ export default function LandedCostCalculator() {
                     setShowResults(false);
                   }}
                   className={cn(
-                    "flex items-center gap-3 p-3.5 rounded-none border text-left transition-all",
+                    "flex items-center gap-3 p-3.5 rounded-xl border text-left transition-all",
                     isSelected
                       ? "border-copper-500 bg-copper-500/5 ring-1 ring-copper-500/20"
-                      : "border-steel-300 hover:border-steel-400 bg-white"
+                      : "border-steel-250 hover:border-steel-450 bg-white"
                   )}
                 >
                   <div
                     className={cn(
-                      "w-9 h-9 rounded-none flex items-center justify-center shrink-0",
+                      "w-9 h-9 rounded-lg flex items-center justify-center shrink-0",
                       isSelected
                         ? "bg-copper-500 text-white"
                         : "bg-steel-200 text-steel-600"
@@ -254,7 +254,7 @@ export default function LandedCostCalculator() {
                 setProductCategory(e.target.value);
                 setShowResults(false);
               }}
-              className="w-full appearance-none px-3 py-2.5 pr-10 rounded-none border-0 border-b border-steel-300 text-navy-900 text-sm bg-transparent focus:border-navy-900 focus:ring-0 transition-colors"
+              className="w-full appearance-none px-4 py-2.5 pr-10 rounded-xl border border-steel-250 text-navy-900 text-sm bg-white focus:border-copper-500 focus:ring-1 focus:ring-copper-500/20 transition-all outline-none cursor-pointer"
             >
               <option value="">Select a category…</option>
               {productCategories.map((cat) => (
@@ -268,7 +268,7 @@ export default function LandedCostCalculator() {
         </div>
 
         {/* Duty Rate Note */}
-        <div className="flex items-start gap-2.5 p-3.5 rounded-none bg-navy-900/5 border border-navy-700/10">
+        <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-navy-900/5 border border-navy-700/10">
           <Info className="w-4 h-4 text-navy-700 mt-0.5 shrink-0" />
           <p className="text-xs text-steel-700 leading-relaxed">
             Customs duty is calculated at{" "}
@@ -288,7 +288,7 @@ export default function LandedCostCalculator() {
             onClick={handleCalculate}
             disabled={!isValid}
             className={cn(
-              "flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-none font-semibold text-sm transition-all",
+              "flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all shadow-md hover:shadow-lg cursor-pointer",
               isValid
                 ? "bg-copper-500 hover:bg-copper-600 text-white"
                 : "bg-steel-200 text-steel-500 cursor-not-allowed"
