@@ -114,7 +114,7 @@ export default function Header() {
           {/* Desktop Nav */}
           <nav className="hidden lg:flex items-center gap-1 h-full">
             {mainNav.map((item) => {
-              const hasDropdown = ["Products", "Industries", "Resources"].includes(item.label);
+              const hasDropdown = ["Products", "Resources"].includes(item.label);
               return (
                 <div
                   key={item.href}
@@ -153,7 +153,6 @@ export default function Header() {
                         className={cn(
                           "absolute top-full bg-white rounded-2xl border border-steel-200/80 shadow-2xl p-6 z-50 mt-1.5 flex flex-col",
                           item.label === "Products" && "w-[660px] left-1/2 -translate-x-1/2",
-                          item.label === "Industries" && "w-[440px] left-1/2 -translate-x-1/2",
                           item.label === "Resources" && "w-[290px] left-1/2 -translate-x-1/2"
                         )}
                       >
@@ -197,42 +196,7 @@ export default function Header() {
                           </>
                         )}
 
-                        {/* Industries Content */}
-                        {item.label === "Industries" && (
-                          <>
-                            <div className="flex flex-col gap-3">
-                              {industries.slice(0, 4).map((ind) => (
-                                <Link
-                                  key={ind.id}
-                                  href="/industries"
-                                  className="flex items-start gap-4 p-3 rounded-xl hover:bg-steel-50/80 transition-all group"
-                                >
-                                  <div className="w-10 h-10 rounded-xl bg-copper-500/10 text-copper-600 flex items-center justify-center shrink-0 group-hover:bg-copper-500 group-hover:text-white transition-colors">
-                                    <Globe className="w-5 h-5" />
-                                  </div>
-                                  <div>
-                                    <div className="text-sm font-bold text-navy-900 group-hover:text-copper-600 transition-colors">
-                                      {ind.name}
-                                    </div>
-                                    <div className="text-xs text-steel-500 mt-1 leading-relaxed line-clamp-1">
-                                      {ind.description}
-                                    </div>
-                                  </div>
-                                </Link>
-                              ))}
-                            </div>
-                            <div className="border-t border-steel-100 pt-4 mt-4 flex justify-between items-center text-xs">
-                              <span className="text-steel-400 font-medium">Custom Engineering Solutions</span>
-                              <Link
-                                href="/industries"
-                                className="text-copper-500 hover:text-copper-600 font-bold flex items-center gap-1 group/more"
-                              >
-                                <span>All Industries</span>
-                                <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover/more:translate-x-0.5" />
-                              </Link>
-                            </div>
-                          </>
-                        )}
+
 
                         {/* Resources Content */}
                         {item.label === "Resources" && (
