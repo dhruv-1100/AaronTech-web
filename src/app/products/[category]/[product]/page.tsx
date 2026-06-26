@@ -251,9 +251,9 @@ export default async function ProductDetailPage({
                   {product.keyFeatures.map((feat) => (
                     <li
                       key={feat}
-                      className="flex items-start gap-3 bg-white p-4 border border-steel-300 transition-colors hover:border-copper-400"
+                      className="flex items-start gap-3 bg-white p-4 border border-steel-200/80 rounded-2xl shadow-sm hover:border-copper-500/40 hover:shadow-md transition-all duration-300"
                     >
-                      <CheckCircle2 className="h-5 w-5 mt-0.5 shrink-0 text-copper-600" />
+                      <CheckCircle2 className="h-5 w-5 mt-[3px] shrink-0 text-copper-600" />
                       <span className="text-sm text-steel-700 leading-relaxed">
                         {feat}
                       </span>
@@ -271,12 +271,12 @@ export default async function ProductDetailPage({
                     {product.applications.map((app) => (
                       <div
                         key={app}
-                        className="flex items-center gap-3 bg-white p-4 border border-steel-200/80 rounded-2xl shadow-sm hover:border-copper-500/40 transition-colors"
+                        className="flex items-center gap-3 bg-white p-4 border border-steel-200/80 rounded-2xl shadow-sm hover:border-copper-500/40 hover:shadow-md transition-all duration-300"
                       >
                         <div className="h-8 w-8 rounded-xl bg-copper-500/10 flex items-center justify-center shrink-0">
                           <Wrench className="w-4 h-4 text-copper-600" />
                         </div>
-                        <span className="text-sm font-semibold text-navy-900">
+                        <span className="text-sm font-semibold text-navy-900 leading-relaxed">
                           {app}
                         </span>
                       </div>
