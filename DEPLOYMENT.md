@@ -49,13 +49,13 @@ Because HubSpot Contacts do not have a default `message` field, a custom propert
 
 ## ✉️ Step 3: Resend Email Integration
 
-The system uses Resend to send automated B2B RFQ summaries to both your sales team (`sales@aarontechnologies.com`) and the submitting customer:
+The system uses Resend to send automated B2B RFQ summaries to both your sales team (`kushal@aarontechno.com`) and the submitting customer:
 
 1. Sign up for a free account at [Resend](https://resend.com).
 2. Go to the dashboard and navigate to **API Keys** -> **Create API Key**.
 3. Name the key `Aaron Sourcing Webapp`, set permissions to **Full Access**, and click **Add**.
 4. Copy the generated API key (starts with `re_...`). This will be used as `RESEND_API_KEY`.
-5. *(Optional for production)* To send emails from a custom domain (e.g. `@aarontechnologies.com` instead of Resend's default onboarding address), go to **Domains**, add your domain, and configure the DNS MX/TXT records at your registrar.
+5. *(Optional for production)* To send emails from a custom domain (e.g. `@aarontechno.com` instead of Resend's default onboarding address), go to **Domains**, add your domain, and configure the DNS MX/TXT records at your registrar.
 
 ---
 

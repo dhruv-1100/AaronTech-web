@@ -12,16 +12,16 @@ const CONTACT_INFO = [
   {
     icon: Phone,
     title: "Call Us",
-    detail: "+1 (555) 010-0100",
+    detail: "+1 (640) 272-1906",
     description: "Mon-Fri, 8:00 AM – 5:00 PM EST",
-    href: "tel:+15550100",
+    href: "tel:+16402721906",
   },
   {
     icon: Mail,
     title: "Email Us",
-    detail: "sales@aarontechnologies.com",
+    detail: "kushal@aarontechno.com",
     description: "We respond within 24 hours",
-    href: "mailto:sales@aarontechnologies.com",
+    href: "mailto:kushal@aarontechno.com",
   },
   {
     icon: MapPin,

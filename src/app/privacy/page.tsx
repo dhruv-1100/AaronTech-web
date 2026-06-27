@@ -94,8 +94,8 @@ export default function PrivacyPage() {
             <p className="text-steel-700 text-sm sm:text-base leading-relaxed">
               For any questions regarding data removal, drawing confidentiality, or our data handling practices, please contact us at:
               <br />
-              <a href="mailto:privacy@aarontechnologies.com" className="text-copper-600 hover:text-copper-500 font-semibold mt-1 inline-block">
-                privacy@aarontechnologies.com
+              <a href="mailto:kushal@aarontechno.com" className="text-copper-600 hover:text-copper-500 font-semibold mt-1 inline-block">
+                kushal@aarontechno.com
               </a>
             </p>
           </div>

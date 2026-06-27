@@ -57,8 +57,8 @@ export async function POST(request: Request) {
 
         // A. Admin Alert Email
         await resend.emails.send({
-          from: "Aaron Tech RFQ <rfq@aarontechnologies.com>",
-          to: "sales@aarontechnologies.com",
+          from: "Aaron Tech RFQ <rfq@aarontechno.com>",
+          to: "kushal@aarontechno.com",
           subject: `New RFQ Received - ${companyName}`,
           html: `
             <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0;">
@@ -83,7 +83,7 @@ export async function POST(request: Request) {
 
         // B. Customer Confirmation Copy
         await resend.emails.send({
-          from: "Aaron Technologies <sourcing@aarontechnologies.com>",
+          from: "Aaron Technologies <sourcing@aarontechno.com>",
           to: email,
           subject: "We've received your Request for Quote (RFQ)",
           html: `

@@ -40,8 +40,8 @@ export async function POST(request: Request) {
       try {
         const resend = new Resend(resendApiKey);
         await resend.emails.send({
-          from: "Aaron Tech Contact <contact@aarontechnologies.com>",
-          to: "sales@aarontechnologies.com",
+          from: "Aaron Tech Contact <contact@aarontechno.com>",
+          to: "kushal@aarontechno.com",
           subject: `Contact Inquiry - ${subject}`,
           html: `
             <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0;">

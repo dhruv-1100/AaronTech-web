@@ -545,18 +545,18 @@ function QuotePageContent() {
                 </p>
                 <div className="space-y-2 text-sm">
                   <a
-                    href="tel:+1-555-0100"
+                    href="tel:+16402721906"
                     className="flex items-center gap-2 text-steel-700 hover:text-copper-600 transition-colors"
                   >
                     <span className="font-semibold">Phone:</span>{" "}
-                    +1 (555) 010-0100
+                    +1 (640) 272-1906
                   </a>
                   <a
-                    href="mailto:sales@aarontechnologies.com"
+                    href="mailto:kushal@aarontechno.com"
                     className="flex items-center gap-2 text-steel-700 hover:text-copper-600 transition-colors"
                   >
                     <span className="font-semibold">Email:</span>{" "}
-                    sales@aarontechnologies.com
+                    kushal@aarontechno.com
                   </a>
                 </div>
               </motion.div>
