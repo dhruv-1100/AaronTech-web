@@ -1,24 +1,6 @@
 import { productCategories } from "./products";
 
-export interface DetailedProduct {
-  id: string;
-  categoryId: string;
-  categorySlug: string;
-  name: string;
-  slug: string;
-  description: string;
-  material: string;
-  standards: string[];
-  sizes: string;
-  finishes: string[];
-  imageUrl: string;
-  moq: string;
-  leadTime: string;
-  keyFeatures: string[];
-  applications: string[];
-  tolerances: string;
-  certifications: string[];
-}
+import { DetailedProduct } from "@/types";
 
 export const detailedProducts: Record<string, Record<string, Partial<DetailedProduct>>> = {
   "fasteners": {

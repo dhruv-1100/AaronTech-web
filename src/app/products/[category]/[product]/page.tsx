@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
@@ -155,9 +156,12 @@ export default async function ProductDetailPage({
               <div className="relative group">
                 <div className="absolute -inset-2 border border-steel-750/30 rounded-3xl pointer-events-none" />
                 <div className="relative overflow-hidden bg-navy-950 border border-steel-700/80 p-2 shadow-2xl rounded-2xl">
-                  <img
+                  <Image
                     src={product.imageUrl}
                     alt={product.name}
+                    width={640}
+                    height={320}
+                    priority
                     className="w-full h-64 sm:h-80 object-cover filter brightness-95 contrast-105"
                   />
                   <div className="absolute bottom-4 right-4 bg-navy-900/90 backdrop-blur-sm border border-steel-700/85 px-3 py-1 text-[11px] font-medium text-steel-300 rounded-lg">
@@ -253,7 +257,7 @@ export default async function ProductDetailPage({
                       key={feat}
                       className="flex items-start gap-3 bg-white p-4 border border-steel-200/80 rounded-2xl shadow-sm hover:border-copper-500/40 hover:shadow-md transition-all duration-300"
                     >
-                      <CheckCircle2 className="h-5 w-5 mt-[3px] shrink-0 text-copper-600" />
+                      <CheckCircle2 className="h-5 w-5 mt-[3px] shrink-0 text-copper-600" aria-hidden="true" />
                       <span className="text-sm text-steel-700 leading-relaxed">
                         {feat}
                       </span>
@@ -274,7 +278,7 @@ export default async function ProductDetailPage({
                         className="flex items-center gap-3 bg-white p-4 border border-steel-200/80 rounded-2xl shadow-sm hover:border-copper-500/40 hover:shadow-md transition-all duration-300"
                       >
                         <div className="h-8 w-8 rounded-xl bg-copper-500/10 flex items-center justify-center shrink-0">
-                          <Wrench className="w-4 h-4 text-copper-600" />
+                          <Wrench className="w-4 h-4 text-copper-600" aria-hidden="true" />
                         </div>
                         <span className="text-sm font-semibold text-navy-900 leading-relaxed">
                           {app}
@@ -312,7 +316,7 @@ export default async function ProductDetailPage({
                     className="w-full inline-flex items-center justify-center gap-2 px-5 py-3.5 bg-copper-500 hover:bg-copper-600 text-white font-semibold text-sm rounded-full transition-all shadow-md hover:shadow-lg"
                   >
                     Request a Quote
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4" aria-hidden="true" />
                   </Link>
                 </div>
               </div>
@@ -320,7 +324,7 @@ export default async function ProductDetailPage({
               {/* Quality & Traceability Certification */}
               <div className="rounded-2xl border border-steel-200/80 bg-white p-6 shadow-sm">
                 <div className="flex items-center gap-2.5 mb-4">
-                  <ShieldCheck className="w-5 h-5 text-success" />
+                  <ShieldCheck className="w-5 h-5 text-success" aria-hidden="true" />
                   <h3 className="font-heading text-base font-bold text-navy-900">
                     Quality Assurance
                   </h3>
@@ -343,7 +347,7 @@ export default async function ProductDetailPage({
               {/* Sourcing Support Callout */}
               <div className="rounded-2xl bg-navy-900 text-white p-6 shadow-sm border border-navy-800 section-dark">
                 <div className="flex items-center gap-2 mb-3">
-                  <Package className="w-5 h-5 text-copper-400" />
+                  <Package className="w-5 h-5 text-copper-400" aria-hidden="true" />
                   <h4 className="font-heading font-bold text-white text-sm">
                     Supply Security
                   </h4>

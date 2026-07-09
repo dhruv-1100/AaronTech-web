@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://www.aarontechno.com'),
   title: {
     default: "Aaron Technologies Inc. | Industrial Components from India",
     template: "%s | Aaron Technologies Inc.",
@@ -32,10 +33,27 @@ export const metadata: Metadata = {
     title: "Aaron Technologies Inc. | Industrial Components from India",
     description:
       "Precision-engineered industrial components sourced from ISO-certified Indian manufacturers. Competitive landed costs and full traceability.",
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Aaron Technologies — Industrial Components from India',
+      },
+    ],
   },
   robots: {
     index: true,
     follow: true,
+  },
+  alternates: {
+    canonical: '/',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Aaron Technologies Inc. | Industrial Components from India',
+    description:
+      'Precision-engineered industrial components sourced from ISO-certified Indian manufacturers.',
   },
 };
 
@@ -50,8 +68,40 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-copper-500 focus:text-white focus:rounded-lg focus:text-sm"
+        >
+          Skip to content
+        </a>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: 'Aaron Technologies Inc.',
+              url: 'https://www.aarontechno.com',
+              logo: 'https://www.aarontechno.com/logo.png',
+              contactPoint: {
+                '@type': 'ContactPoint',
+                telephone: '+1-640-272-1906',
+                email: 'kushal@aarontechno.com',
+                contactType: 'sales',
+                areaServed: 'US',
+                availableLanguage: 'English',
+              },
+              address: {
+                '@type': 'PostalAddress',
+                addressRegion: 'NJ',
+                addressCountry: 'US',
+              },
+              sameAs: [],
+            }),
+          }}
+        />
         <Header />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

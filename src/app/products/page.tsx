@@ -1,28 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import {
-  Wrench,
-  Flame,
-  FlaskConical,
-  CircleDot,
-  Gauge,
-  Target,
-  ToggleRight,
-  Droplets,
-  Layers,
-  Zap,
-  Spline,
-  Circle,
   ArrowRight,
   Search,
-  type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { productCategories } from "@/lib/data/products";
 import type { ProductCategory } from "@/types";
+import { resolveIcon } from "@/lib/icons";
 
 export const metadata: Metadata = {
-  title: "Products",
+  title: "Industrial Components Catalog | Fasteners, Forgings, Castings & More",
   description:
     "Browse 12 categories of precision-engineered industrial components — fasteners, forgings, castings, bearings, valves, and more — sourced from ISO-certified Indian manufacturers.",
 };
@@ -30,24 +19,6 @@ export const metadata: Metadata = {
 // ---------------------------------------------------------------------------
 // Icon Resolver — maps the icon name stored in data to the Lucide component
 // ---------------------------------------------------------------------------
-const iconMap: Record<string, LucideIcon> = {
-  Wrench,
-  Flame,
-  FlaskConical,
-  CircleDot,
-  Gauge,
-  Target,
-  ToggleRight,
-  Droplets,
-  Layers,
-  Zap,
-  Spline,
-  Circle,
-};
-
-function resolveIcon(name: string): LucideIcon {
-  return iconMap[name] ?? Circle;
-}
 
 // ---------------------------------------------------------------------------
 // ProductCard (server sub-component — no hooks)
@@ -68,16 +39,17 @@ function ProductCard({ category }: { category: ProductCategory }) {
       <div className="relative h-44 w-full bg-steel-100 border-b border-steel-200/80">
         {/* Overflow hidden wrapper for the image zoom effect */}
         <div className="absolute inset-0 overflow-hidden rounded-t-2xl">
-          <img
+          <Image
             src={category.heroImage}
             alt={category.name}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-            loading="lazy"
           />
         </div>
         {/* Overlay Icon Badge */}
         <div className="absolute bottom-0 left-6 translate-y-1/2 flex h-12 w-12 items-center justify-center bg-white text-navy-900 border border-steel-200/80 shadow-md transition-all rounded-xl group-hover:border-copper-500 group-hover:text-copper-600 z-10">
-          <Icon className="h-6 w-6" />
+          <Icon className="h-6 w-6" aria-hidden="true" />
         </div>
       </div>
 
@@ -113,7 +85,7 @@ function ProductCard({ category }: { category: ProductCategory }) {
         {/* View Details link */}
         <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-copper-600 transition-colors group-hover:text-copper-500">
           View Details
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
         </span>
       </div>
     </Link>
@@ -178,7 +150,7 @@ export default function ProductsPage() {
               </p>
             </div>
             <div className="flex items-center gap-2 text-sm text-steel-500">
-              <Search className="h-4 w-4" />
+              <Search className="h-4 w-4" aria-hidden="true" />
               <span>
                 {productCategories.length} categories available
               </span>
@@ -216,7 +188,7 @@ export default function ProductsPage() {
                 className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-full transition-all shadow-md hover:shadow-lg"
               >
                 Request a Custom Quote
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </div>
           </div>

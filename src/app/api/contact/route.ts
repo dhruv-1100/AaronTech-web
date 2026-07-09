@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { db, isMock } from "@/lib/firebaseAdmin";
 import { Resend } from "resend";
+import { escapeHtml, validateEmail, MAX_MESSAGE_LENGTH, MAX_NAME_LENGTH, MAX_SUBJECT_LENGTH } from "@/lib/security";
 
 export async function POST(request: Request) {
   try {
@@ -11,6 +12,20 @@ export async function POST(request: Request) {
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { success: false, error: "Missing required fields" },
+        { status: 400 }
+      );
+    }
+
+    if (!validateEmail(email)) {
+      return NextResponse.json(
+        { success: false, error: "Invalid email format" },
+        { status: 400 }
+      );
+    }
+
+    if (name.length > MAX_NAME_LENGTH || subject.length > MAX_SUBJECT_LENGTH || message.length > MAX_MESSAGE_LENGTH) {
+      return NextResponse.json(
+        { success: false, error: "One or more fields exceed the maximum allowed length" },
         { status: 400 }
       );
     }
@@ -47,10 +62,10 @@ export async function POST(request: Request) {
             <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0;">
               <h2 style="color: #0A1628; border-bottom: 2px solid #C75B2A; padding-bottom: 10px;">Contact Inquiry Received</h2>
               <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-                <tr><td style="padding: 8px 0; font-weight: bold; width: 120px;">From:</td><td>${name}</td></tr>
-                <tr><td style="padding: 8px 0; font-weight: bold;">Email:</td><td>${email}</td></tr>
-                <tr><td style="padding: 8px 0; font-weight: bold;">Subject:</td><td>${subject}</td></tr>
-                <tr><td style="padding: 8px 0; font-weight: bold; vertical-align: top;">Message:</td><td>${message}</td></tr>
+                <tr><td style="padding: 8px 0; font-weight: bold; width: 120px;">From:</td><td>${escapeHtml(name)}</td></tr>
+                <tr><td style="padding: 8px 0; font-weight: bold;">Email:</td><td>${escapeHtml(email)}</td></tr>
+                <tr><td style="padding: 8px 0; font-weight: bold;">Subject:</td><td>${escapeHtml(subject)}</td></tr>
+                <tr><td style="padding: 8px 0; font-weight: bold; vertical-align: top;">Message:</td><td>${escapeHtml(message)}</td></tr>
               </table>
               <div style="margin-top: 30px; font-size: 11px; color: #64748B;">
                 Lead generated automatically from website contact form. Firestore document ID: ${docId}
@@ -58,7 +73,7 @@ export async function POST(request: Request) {
             </div>
           `,
         });
-        console.log(`[Resend] Contact email sent successfully to sales@`);
+        console.log(`[Resend] Contact email sent successfully to kushal@aarontechno.com`);
       } catch (emailError: any) {
         console.error("[Resend] Email delivery failed:", emailError.message);
       }
@@ -94,6 +109,35 @@ export async function POST(request: Request) {
 
         if (response.ok) {
           console.log("[HubSpot] Contact created/synced successfully");
+        } else if (response.status === 409) {
+          // Handle existing contact conflict — update instead
+          try {
+            const conflictData = await response.json();
+            const existingId = conflictData?.message?.match(/Existing ID: (\d+)/)?.[1];
+            if (existingId) {
+              const patchResponse = await fetch(
+                `https://api.hubapi.com/crm/v3/objects/contacts/${existingId}`,
+                {
+                  method: "PATCH",
+                  headers: {
+                    Authorization: `Bearer ${hubspotToken}`,
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify(hubspotPayload),
+                }
+              );
+              if (patchResponse.ok) {
+                console.log(`[HubSpot] Existing contact ${existingId} updated successfully`);
+              } else {
+                const patchErr = await patchResponse.json();
+                console.error(`[HubSpot] Failed to update existing contact ${existingId}:`, patchErr);
+              }
+            } else {
+              console.error("[HubSpot] 409 conflict but could not extract existing contact ID:", conflictData);
+            }
+          } catch (conflictError: any) {
+            console.error("[HubSpot] Error handling 409 conflict:", conflictError.message);
+          }
         } else {
           const errData = await response.json();
           console.error("[HubSpot] Lead sync failed:", errData);

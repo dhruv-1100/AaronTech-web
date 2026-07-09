@@ -19,7 +19,7 @@ import { industries } from "@/lib/data/industries";
 import type { Industry } from "@/types";
 
 export const metadata: Metadata = {
-  title: "Industries Served",
+  title: "Industries We Supply — MRO, OEM, Aerospace, Energy & Automotive",
   description:
     "Aaron Technologies supplies precision-engineered industrial components to MRO distributors, OEMs, automotive, aerospace, and energy sectors.",
 };
@@ -49,7 +49,7 @@ const tierVisuals: Record<
   1: {
     title: "Tier 1: Fast Sourcing & Distribution",
     description:
-      "Distributors, machine shops, and supply houses requiring standard specifications and rapid procurement cycles. Highly price-sensitive with low technical barriers.",
+      "Distributors, machine shops, and supply houses requiring standard specifications and rapid procurement cycles. Standard specification requirements with fast procurement cycles and competitive pricing focus.",
     badgeText: "text-emerald-700 bg-emerald-50 border-emerald-200",
     badgeBg: "bg-emerald-500",
     icon: Zap,
@@ -142,7 +142,7 @@ export default function IndustriesPage() {
                 </div>
 
                 {/* Right side: Clean row list (No cards!) */}
-                <div className="lg:col-span-8 bg-white border border-steel-200/85 rounded-2xl divide-y divide-steel-250/60 shadow-sm overflow-hidden">
+                <div className="lg:col-span-8 bg-white border border-steel-200/85 rounded-2xl divide-y divide-steel-200 shadow-sm overflow-hidden">
                   {tierIndustries.map((ind) => {
                     const IndustryIcon = iconMap[ind.icon] || Warehouse;
                     return (

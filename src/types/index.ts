@@ -21,20 +21,24 @@ export interface ProductCategory {
   applications?: string[];
 }
 
-export interface Product {
+export interface DetailedProduct {
   id: string;
   categoryId: string;
+  categorySlug: string;
   name: string;
+  slug: string;
   description: string;
   material: string;
-  standardCodes: string[];
-  sizeRange: string;
-  finishOptions: string[];
+  standards: string[];
+  sizes: string;
+  finishes: string[];
   imageUrl: string;
-  specSheetUrl?: string;
-  certifications: string[];
-  leadTimeEstimate: string;
   moq: string;
+  leadTime: string;
+  keyFeatures: string[];
+  applications: string[];
+  tolerances: string;
+  certifications: string[];
 }
 
 // --- Industries ---

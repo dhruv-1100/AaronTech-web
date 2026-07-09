@@ -174,7 +174,7 @@ export default function AboutPage() {
                 </div>
                 <div className="w-8 h-0.5 bg-copper-500 mb-2" />
                 <div className="text-xs font-semibold text-steel-500 uppercase tracking-wider">
-                  US Contracts & support
+                  US Contracts & Support
                 </div>
               </div>
             </div>

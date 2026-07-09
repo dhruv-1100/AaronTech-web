@@ -8,7 +8,7 @@ export const industries: Industry[] = [
     tier: 1,
     tierLabel: "Tier 1 — Fastest to Partner",
     description:
-      "Bearing & power transmission distributors, fastener distributors, and pump & valve distributors actively diversifying their supplier base for cost advantage. High-volume, recurring orders with lower technical scrutiny — ideal first partners.",
+      "Bearing & power transmission distributors, fastener distributors, and pump & valve distributors actively diversifying their supplier base for cost advantage. Standard specification requirements with efficient procurement cycles and competitive pricing focus.",
     icon: "Warehouse",
     relatedCategories: [
       "fasteners",
@@ -30,7 +30,7 @@ export const industries: Industry[] = [
     tier: 1,
     tierLabel: "Tier 1 — Fastest to Partner",
     description:
-      "Independent machine shops and job shops with fast decision cycles and strong price sensitivity. Excellent early partners for building case studies and proving supply chain reliability.",
+      "Independent machine shops and job shops with fast decision cycles and strong price sensitivity. Competitive landed pricing with flexible MOQs suited to small-batch and prototype production workflows.",
     icon: "Factory",
     relatedCategories: [
       "precision-machined",

@@ -1,27 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
   CheckCircle2,
   FileText,
-  Wrench,
-  Flame,
-  FlaskConical,
-  CircleDot,
-  Gauge,
-  Target,
-  ToggleRight,
-  Droplets,
-  Layers,
-  Zap,
-  Spline,
-  Circle,
-  type LucideIcon,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { productCategories } from "@/lib/data/products";
+import { resolveIcon } from "@/lib/icons";
 
 // ---------------------------------------------------------------------------
 // Static route generation
@@ -43,31 +32,9 @@ export async function generateMetadata({
   if (!category) return { title: "Product Not Found" };
 
   return {
-    title: category.name,
-    description: category.shortDescription,
+    title: `${category.name} — Industrial ${category.name} Supplier`,
+    description: `${category.shortDescription}. Sourced from ISO-certified Indian manufacturers with full traceability. Request a quote today.`,
   };
-}
-
-// ---------------------------------------------------------------------------
-// Icon resolver
-// ---------------------------------------------------------------------------
-const iconMap: Record<string, LucideIcon> = {
-  Wrench,
-  Flame,
-  FlaskConical,
-  CircleDot,
-  Gauge,
-  Target,
-  ToggleRight,
-  Droplets,
-  Layers,
-  Zap,
-  Spline,
-  Circle,
-};
-
-function resolveIcon(name: string): LucideIcon {
-  return iconMap[name] ?? Circle;
 }
 
 // ---------------------------------------------------------------------------
@@ -121,7 +88,7 @@ export default async function ProductCategoryPage({
             href="/products"
             className="inline-flex items-center gap-1.5 text-sm text-steel-400 hover:text-steel-200 transition-colors mb-10"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
             All Products
           </Link>
 
@@ -130,7 +97,7 @@ export default async function ProductCategoryPage({
             <div className="lg:col-span-7">
               <div className="flex items-center gap-3 mb-6">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-copper-500/10 text-copper-400 border border-copper-500/20">
-                  <Icon className="h-6 w-6" />
+                  <Icon className="h-6 w-6" aria-hidden="true" />
                 </div>
                 <span className="inline-block rounded-full bg-navy-800 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-copper-400 border border-navy-700">
                   Industrial Sourcing
@@ -165,9 +132,12 @@ export default async function ProductCategoryPage({
                 {/* Border frames for premium/industrial design */}
                 <div className="absolute -inset-2 border border-steel-750/30 rounded-3xl pointer-events-none transition-transform duration-300 group-hover:scale-[1.02]" />
                 <div className="relative overflow-hidden bg-navy-950 border border-steel-700/80 p-2 shadow-2xl rounded-2xl">
-                  <img
+                  <Image
                     src={category.heroImage}
                     alt={category.name}
+                    width={640}
+                    height={384}
+                    priority
                     className="w-full h-72 md:h-80 lg:h-96 object-cover filter brightness-95 contrast-105 transition-transform duration-500 group-hover:scale-105"
                   />
                   {/* Subtle caption or tag */}
@@ -265,7 +235,7 @@ export default async function ProductCategoryPage({
                         )}
                       >
                         <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-copper-500/10 text-copper-600">
-                          <CheckCircle2 className="h-5 w-5" />
+                          <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
                         </div>
                         <span className="text-sm font-medium text-navy-900">
                           {app}
@@ -282,7 +252,7 @@ export default async function ProductCategoryPage({
               {/* Required Documents */}
               <div className="rounded-2xl border border-steel-200/80 bg-white p-6 shadow-sm">
                 <div className="flex items-center gap-2 mb-4">
-                  <FileText className="h-5 w-5 text-copper-500" />
+                  <FileText className="h-5 w-5 text-copper-500" aria-hidden="true" />
                   <h3 className="font-heading text-lg font-bold text-navy-900">
                     Required Documents
                   </h3>
@@ -294,7 +264,7 @@ export default async function ProductCategoryPage({
                 <ul className="space-y-3">
                   {category.requiredDocs.map((doc) => (
                     <li key={doc} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="h-4.5 w-4.5 mt-0.5 shrink-0 text-success" />
+                      <CheckCircle2 className="h-4.5 w-4.5 mt-0.5 shrink-0 text-success" aria-hidden="true" />
                       <span className="text-sm text-steel-700 leading-snug">
                         {doc}
                       </span>
@@ -360,13 +330,13 @@ export default async function ProductCategoryPage({
                 className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-full transition-all shadow-md hover:shadow-lg"
               >
                 Get a Quote
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
               <Link
                 href="/products"
                 className="inline-flex items-center justify-center gap-2 px-8 py-3.5 border border-steel-600 hover:border-steel-400 text-steel-300 hover:text-steel-100 font-semibold rounded-full transition-all hover:bg-white/5"
               >
-                <ArrowLeft className="h-4 w-4" />
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                 Back to All Products
               </Link>
             </div>

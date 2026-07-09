@@ -203,7 +203,7 @@ export const productCategories: ProductCategory[] = [
       "CNC Milled Parts",
       "Piston Rods",
       "Machined Shafts",
-      "Ground & Grinded Bars",
+      "Ground & Polished Bars",
       "Multi-Axis Complex Parts",
     ],
     standards: ["ASME Y14.5 (GD&T)"],

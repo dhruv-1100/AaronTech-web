@@ -77,7 +77,7 @@ export default function CertificationsPage() {
               Quality First
             </p>
             <h1 className="max-w-4xl text-4xl sm:text-5xl font-heading font-bold leading-tight text-white mb-4">
-              Certifications &amp; <span className="text-gradient">Quality</span>
+              Certifications {"&"} <span className="text-gradient">Quality</span>
             </h1>
             <p className="text-steel-400 text-lg leading-relaxed max-w-2xl">
               Every component we supply is backed by internationally recognized standards, documented material traceability, and a rigorous multi-stage quality control process.
@@ -91,7 +91,7 @@ export default function CertificationsPage() {
         <div className="max-w-7xl mx-auto px-6 py-12 sm:py-20">
           <div className="max-w-3xl mb-12">
             <h2 className="text-3xl font-heading font-bold text-navy-900 mb-3">
-              Standards &amp; Accreditations
+              Standards {"&"} Accreditations
             </h2>
             <p className="text-steel-600 leading-relaxed">
               We partner exclusively with manufacturing facilities that maintain active accreditations and comply with global industrial specifications.

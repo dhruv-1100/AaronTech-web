@@ -3,7 +3,7 @@ import ContactForm from "./ContactForm";
 import { Mail, Phone, MapPin, Clock, ShieldCheck, Headphones } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact Aaron Technologies",
+  title: "Contact Us — Get Pricing & Sourcing Support",
   description:
     "Get in touch with Aaron Technologies for pricing, product catalog questions, or quality assurance inquiries. Speak to our US-based support team today.",
 };
@@ -13,7 +13,7 @@ const CONTACT_INFO = [
     icon: Phone,
     title: "Call Us",
     detail: "+1 (640) 272-1906",
-    description: "Mon-Fri, 8:00 AM – 5:00 PM EST",
+    description: "Mon-Fri, 8:00 AM – 6:00 PM EST",
     href: "tel:+16402721906",
   },
   {
@@ -27,7 +27,7 @@ const CONTACT_INFO = [
     icon: MapPin,
     title: "Headquarters",
     detail: "Aaron Technologies Inc.",
-    description: "United States",
+    description: "New Jersey, United States",
   },
 ];
 

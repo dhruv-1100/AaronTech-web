@@ -284,7 +284,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-lg md:text-xl text-steel-405 leading-relaxed mb-10 max-w-2xl"
+                className="text-lg md:text-xl text-steel-400 leading-relaxed mb-10 max-w-2xl"
               >
                 Precision-engineered fasteners, forgings, castings, and machined
                 parts sourced from ISO-certified Indian manufacturers — delivered
@@ -306,7 +306,7 @@ export default function HomePage() {
                 </Link>
                 <Link
                   href="/products"
-                  className="group inline-flex items-center justify-center gap-2 px-8 py-4 border border-steel-700 text-steel-305 hover:text-white hover:border-steel-500 font-semibold rounded-full hover:bg-white/5 transition-all text-base"
+                  className="group inline-flex items-center justify-center gap-2 px-8 py-4 border border-steel-700 text-steel-300 hover:text-white hover:border-steel-500 font-semibold rounded-full hover:bg-white/5 transition-all text-base"
                 >
                   Browse Products
                   <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
@@ -545,7 +545,7 @@ export default function HomePage() {
                 Value Assessment
               </span>
               <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4 text-white">
-                Sourcing Consolidation Matrix
+                Why Consolidate with Aaron Technologies?
               </h2>
               <p className="text-steel-400 text-lg leading-relaxed">
                 Compare the operational overhead of managing multiple isolated international foundries against routing your pipeline through Aaron Technologies.
@@ -577,13 +577,13 @@ export default function HomePage() {
                       </td>
                       <td className="px-6 py-4 text-xs sm:text-sm text-steel-400">
                         <div className="flex items-start gap-2">
-                          <X className="w-4 h-4 mt-0.5 text-error shrink-0" />
+                          <X className="w-4 h-4 mt-0.5 text-error shrink-0" aria-hidden="true" />
                           <span>{row.fragmented}</span>
                         </div>
                       </td>
                       <td className="px-6 py-4 text-xs sm:text-sm text-white font-medium">
                         <div className="flex items-start gap-2">
-                          <Check className="w-4 h-4 mt-0.5 text-success shrink-0" />
+                          <Check className="w-4 h-4 mt-0.5 text-success shrink-0" aria-hidden="true" />
                           <span>{row.consolidated}</span>
                         </div>
                       </td>
@@ -855,7 +855,7 @@ export default function HomePage() {
       {/* ================================================================
           LANDED COST CALCULATOR
           ================================================================ */}
-      <section className="py-20 md:py-28 bg-white">
+      <section id="calculator" className="py-20 md:py-28 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
             <div className="lg:col-span-5">
@@ -901,7 +901,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-6 text-center">
           <AnimatedSection>
             <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-navy-900">
-              Ready to Settle Your Supply Chain?
+              Ready to Streamline Your Supply Chain?
             </h2>
             <p className="text-steel-600 text-lg max-w-xl mx-auto mb-8">
               Submit an RFQ and receive a detailed, transparent landed-cost quote within 24–48 hours. No obligation.

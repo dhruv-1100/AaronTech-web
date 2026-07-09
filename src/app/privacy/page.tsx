@@ -74,7 +74,7 @@ export default function PrivacyPage() {
               <li>Generating custom landed-cost quotes matching your specifications.</li>
               <li>Sharing technical drawings with vetted, ISO-certified Indian foundries/manufacturers under strict confidentiality agreements for quotation feasibility.</li>
               <li>Processing domestic shipments, invoices, and customs documentation.</li>
-              <li>Syncing details with HubSpot CRM to maintain sourcing history.</li>
+              <li>Syncing details with secure customer relationship management systems to maintain sourcing history.</li>
             </ul>
           </div>
 
@@ -89,7 +89,18 @@ export default function PrivacyPage() {
 
           <div className="space-y-6">
             <h2 className="text-xl font-heading font-bold text-navy-900">
-              4. Contact Privacy Officer
+              4. Data Retention &amp; Deletion
+            </h2>
+            <p className="text-steel-700 text-sm sm:text-base leading-relaxed">
+              We retain your submitted information for as long as necessary to fulfill the purposes outlined in this policy, typically for the duration of any active business relationship plus a reasonable period thereafter. To request access to, correction of, or deletion of your personal data, please contact us at{" "}
+              <a href="mailto:kushal@aarontechno.com" className="text-copper-600 hover:text-copper-500 font-semibold">kushal@aarontechno.com</a>.
+              We will respond to all legitimate requests within 30 business days.
+            </p>
+          </div>
+
+          <div className="space-y-6">
+            <h2 className="text-xl font-heading font-bold text-navy-900">
+              5. Contact Privacy Officer
             </h2>
             <p className="text-steel-700 text-sm sm:text-base leading-relaxed">
               For any questions regarding data removal, drawing confidentiality, or our data handling practices, please contact us at:

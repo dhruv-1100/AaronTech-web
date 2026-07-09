@@ -115,7 +115,7 @@ export default function LandedCostCalculator() {
       <div className="bg-navy-900 px-6 py-5 sm:px-8">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-copper-500/20 flex items-center justify-center">
-            <Calculator className="w-5 h-5 text-copper-400" />
+            <Calculator className="w-5 h-5 text-copper-400" aria-hidden="true" />
           </div>
           <div>
             <h3 className="font-heading font-bold text-white text-lg">
@@ -133,7 +133,7 @@ export default function LandedCostCalculator() {
         {/* Price, Quantity, Weight */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-navy-900 mb-1.5">
+            <label htmlFor="fob-price" className="block text-sm font-medium text-navy-900 mb-1.5">
               FOB Unit Price ($)
             </label>
             <div className="relative">
@@ -141,6 +141,7 @@ export default function LandedCostCalculator() {
                 $
               </span>
               <input
+                id="fob-price"
                 type="number"
                 min="0"
                 step="0.01"
@@ -155,10 +156,11 @@ export default function LandedCostCalculator() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-navy-900 mb-1.5">
+            <label htmlFor="quantity" className="block text-sm font-medium text-navy-900 mb-1.5">
               Quantity
             </label>
             <input
+              id="quantity"
               type="number"
               min="1"
               value={quantity}
@@ -171,10 +173,11 @@ export default function LandedCostCalculator() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-navy-900 mb-1.5">
+            <label htmlFor="weight-per-unit" className="block text-sm font-medium text-navy-900 mb-1.5">
               Weight per Unit (kg)
             </label>
             <input
+              id="weight-per-unit"
               type="number"
               min="0"
               step="0.01"
@@ -194,7 +197,7 @@ export default function LandedCostCalculator() {
           <label className="block text-sm font-medium text-navy-900 mb-2">
             Shipping Method
           </label>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" role="radiogroup" aria-label="Shipping method">
             {SHIPPING_METHODS.map((method) => {
               const Icon = method.icon;
               const isSelected = shippingMethod === method.id;
@@ -202,6 +205,8 @@ export default function LandedCostCalculator() {
                 <button
                   key={method.id}
                   type="button"
+                  role="radio"
+                  aria-checked={method.id === shippingMethod}
                   onClick={() => {
                     setShippingMethod(method.id);
                     setShowResults(false);
@@ -221,7 +226,7 @@ export default function LandedCostCalculator() {
                         : "bg-steel-200 text-steel-600"
                     )}
                   >
-                    <Icon className="w-4.5 h-4.5" />
+                    <Icon className="w-4.5 h-4.5" aria-hidden="true" />
                   </div>
                   <div>
                     <div
@@ -244,11 +249,12 @@ export default function LandedCostCalculator() {
 
         {/* Product Category */}
         <div>
-          <label className="block text-sm font-medium text-navy-900 mb-1.5">
-            Product Category (optional)
+            <label htmlFor="product-category" className="block text-sm font-medium text-navy-900 mb-1.5">
+              Product Category (optional)
           </label>
           <div className="relative">
             <select
+              id="product-category"
               value={productCategory}
               onChange={(e) => {
                 setProductCategory(e.target.value);
@@ -263,13 +269,13 @@ export default function LandedCostCalculator() {
                 </option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-steel-500 pointer-events-none" />
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-steel-500 pointer-events-none" aria-hidden="true" />
           </div>
         </div>
 
         {/* Duty Rate Note */}
         <div className="flex items-start gap-2.5 p-3.5 rounded-xl bg-navy-900/5 border border-navy-700/10">
-          <Info className="w-4 h-4 text-navy-700 mt-0.5 shrink-0" />
+          <Info className="w-4 h-4 text-navy-700 mt-0.5 shrink-0" aria-hidden="true" />
           <p className="text-xs text-steel-700 leading-relaxed">
             Customs duty is calculated at{" "}
             <span className="font-bold text-navy-900">18%</span> based on the{" "}
@@ -294,7 +300,7 @@ export default function LandedCostCalculator() {
                 : "bg-steel-200 text-steel-500 cursor-not-allowed"
             )}
           >
-            <TrendingUp className="w-4 h-4" />
+            <TrendingUp className="w-4 h-4" aria-hidden="true" />
             Calculate Landed Cost
           </button>
           {showResults && (
@@ -370,7 +376,7 @@ export default function LandedCostCalculator() {
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="mt-4 p-4 rounded-none bg-navy-900 text-white"
+                  className="mt-4 p-4 rounded-xl bg-navy-900 text-white"
                 >
                   <div className="flex items-center justify-between mb-2">
                     <span className="font-heading font-bold text-base">
@@ -441,14 +447,14 @@ function BreakdownRow({
               onMouseEnter={() => setShowTooltip(true)}
               onMouseLeave={() => setShowTooltip(false)}
             >
-              <Info className="w-3.5 h-3.5 text-steel-400 hover:text-navy-900 cursor-pointer transition-colors" />
+              <Info className="w-3.5 h-3.5 text-steel-400 hover:text-navy-900 cursor-pointer transition-colors" aria-hidden="true" />
               <AnimatePresence>
                 {showTooltip && (
                   <motion.div
                     initial={{ opacity: 0, y: 5 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 5 }}
-                    className="absolute z-50 left-1/2 bottom-full mb-2 w-64 -translate-x-1/2 p-3 bg-navy-900 text-white text-xs font-normal normal-case leading-relaxed border border-navy-800 shadow-xl rounded-none text-left"
+                    className="absolute z-50 left-1/2 bottom-full mb-2 w-64 -translate-x-1/2 p-3 bg-navy-900 text-white text-xs font-normal normal-case leading-relaxed border border-navy-800 shadow-xl rounded-xl text-left"
                   >
                     {tooltipContent}
                     <div className="absolute left-1/2 top-full -translate-x-1/2 border-4 border-transparent border-t-navy-900" />

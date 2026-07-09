@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Phone, Mail, MapPin, ArrowUpRight, ShieldCheck } from "lucide-react";
 import { mainNav } from "@/lib/data/site";
 
@@ -24,7 +25,7 @@ export default function Footer() {
             className="inline-flex items-center gap-2 px-8 py-3.5 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-full transition-colors shrink-0"
           >
             Request a Quote
-            <ArrowUpRight className="w-4 h-4" />
+            <ArrowUpRight className="w-4 h-4" aria-hidden="true" />
           </Link>
         </div>
       </div>
@@ -36,9 +37,11 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-3 mb-5">
               <div className="w-9 h-9 overflow-hidden relative rounded flex items-center justify-center shrink-0">
-                <img
+                <Image
                   src="/logo.png"
                   alt="Aaron Technologies Logo"
+                  width={36}
+                  height={36}
                   className="w-9 h-9 object-contain scale-[1.45] absolute"
                 />
               </div>
@@ -57,7 +60,7 @@ export default function Footer() {
               full material traceability, and US-based support.
             </p>
             <div className="flex items-center gap-2 text-xs text-steel-500">
-              <ShieldCheck className="w-4 h-4 text-copper-500" />
+              <ShieldCheck className="w-4 h-4 text-copper-500" aria-hidden="true" />
               <span>ISO 9001 · RoHS · ASTM/ASME Compliant</span>
             </div>
           </div>
@@ -118,7 +121,7 @@ export default function Footer() {
                   href="tel:+16402721906"
                   className="flex items-start gap-3 text-sm hover:text-copper-400 transition-colors group"
                 >
-                  <Phone className="w-4 h-4 mt-0.5 text-steel-600 group-hover:text-copper-400" />
+                  <Phone className="w-4 h-4 mt-0.5 text-steel-600 group-hover:text-copper-400" aria-hidden="true" />
                   <span>+1 (640) 272-1906</span>
                 </a>
               </li>
@@ -127,17 +130,17 @@ export default function Footer() {
                   href="mailto:kushal@aarontechno.com"
                   className="flex items-start gap-3 text-sm hover:text-copper-400 transition-colors group"
                 >
-                  <Mail className="w-4 h-4 mt-0.5 text-steel-600 group-hover:text-copper-400" />
+                  <Mail className="w-4 h-4 mt-0.5 text-steel-600 group-hover:text-copper-400" aria-hidden="true" />
                   <span>kushal@aarontechno.com</span>
                 </a>
               </li>
               <li>
                 <div className="flex items-start gap-3 text-sm">
-                  <MapPin className="w-4 h-4 mt-0.5 text-steel-600" />
+                  <MapPin className="w-4 h-4 mt-0.5 text-steel-600" aria-hidden="true" />
                   <span>
                     Aaron Technologies Inc.
                     <br />
-                    United States
+                    New Jersey, United States
                   </span>
                 </div>
               </li>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -72,14 +73,14 @@ export default function Header() {
               href="tel:+16402721906"
               className="flex items-center gap-1.5 hover:text-steel-200 transition-colors"
             >
-              <Phone className="w-3.5 h-3.5" />
+              <Phone className="w-3.5 h-3.5" aria-hidden="true" />
               <span>+1 (640) 272-1906</span>
             </a>
             <a
               href="mailto:kushal@aarontechno.com"
               className="flex items-center gap-1.5 hover:text-steel-200 transition-colors"
             >
-              <Mail className="w-3.5 h-3.5" />
+              <Mail className="w-3.5 h-3.5" aria-hidden="true" />
               <span>kushal@aarontechno.com</span>
             </a>
           </div>
@@ -95,9 +96,11 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 group">
             <div className="w-10 h-10 overflow-hidden relative rounded-xl flex items-center justify-center shrink-0 shadow-sm border border-steel-200">
-              <img
+              <Image
                 src="/logo.png"
                 alt="Aaron Technologies Logo"
+                width={40}
+                height={40}
                 className="w-10 h-10 object-contain scale-[1.45] absolute"
               />
             </div>
@@ -124,6 +127,7 @@ export default function Header() {
                 >
                   <Link
                     href={item.href}
+                    {...(hasDropdown ? { "aria-haspopup": "true" as const, "aria-expanded": hoveredItem === item.label } : {})}
                     className={cn(
                       "px-4 py-2 rounded-full text-sm font-medium transition-all flex items-center gap-1.5 cursor-pointer",
                       pathname === item.href || pathname.startsWith(item.href + "/")
@@ -134,6 +138,7 @@ export default function Header() {
                     <span>{item.label}</span>
                     {hasDropdown && (
                       <ChevronDown
+                        aria-hidden="true"
                         className={cn(
                           "w-3.5 h-3.5 transition-transform duration-300 text-steel-500",
                           hoveredItem === item.label && "rotate-180 text-copper-500"
@@ -169,7 +174,7 @@ export default function Header() {
                                     className="flex items-start gap-4 p-3 rounded-xl hover:bg-steel-50/80 transition-all group"
                                   >
                                     <div className="w-10 h-10 rounded-xl bg-copper-500/10 text-copper-600 flex items-center justify-center shrink-0 group-hover:bg-copper-500 group-hover:text-white transition-colors">
-                                      <Icon className="w-5 h-5" />
+                                      <Icon className="w-5 h-5" aria-hidden="true" />
                                     </div>
                                     <div>
                                       <div className="text-sm font-bold text-navy-900 group-hover:text-copper-600 transition-colors">
@@ -190,7 +195,7 @@ export default function Header() {
                                 className="text-copper-500 hover:text-copper-600 font-bold flex items-center gap-1 group/more"
                               >
                                 <span>View All 12 Categories</span>
-                                <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover/more:translate-x-0.5" />
+                                <ChevronRight className="w-3.5 h-3.5 transition-transform group-hover/more:translate-x-0.5" aria-hidden="true" />
                               </Link>
                             </div>
                           </>
@@ -215,7 +220,7 @@ export default function Header() {
                                   className="flex items-start gap-3.5 p-3 rounded-xl hover:bg-steel-50/80 transition-all group"
                                 >
                                   <div className="w-9 h-9 rounded-xl bg-copper-500/10 text-copper-600 flex items-center justify-center shrink-0 group-hover:bg-copper-500 group-hover:text-white transition-colors">
-                                    <Icon className="w-4.5 h-4.5" />
+                                    <Icon className="w-4.5 h-4.5" aria-hidden="true" />
                                   </div>
                                   <div>
                                     <div className="text-xs font-bold text-navy-900 group-hover:text-copper-600 transition-colors leading-tight">
@@ -245,15 +250,16 @@ export default function Header() {
               className="hidden sm:inline-flex items-center gap-2 px-6 py-3 bg-copper-500 hover:bg-copper-600 text-white font-semibold text-sm rounded-full shadow-md hover:shadow-lg transition-all cursor-pointer"
             >
               Request a Quote
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-4 h-4" aria-hidden="true" />
             </Link>
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
               className="lg:hidden p-2 rounded-full text-steel-700 hover:bg-steel-100 transition-colors"
               aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
             >
-              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
@@ -283,7 +289,7 @@ export default function Header() {
                 className="mt-3 flex items-center justify-center gap-2 px-5 py-3 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-full transition-colors"
               >
                 Request a Quote
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4" aria-hidden="true" />
               </Link>
             </nav>
           </div>

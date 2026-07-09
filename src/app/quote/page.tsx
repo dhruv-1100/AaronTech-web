@@ -193,7 +193,7 @@ function QuotePageContent() {
             className="max-w-2xl"
           >
             <div className="flex items-center gap-2 text-copper-400 text-sm font-semibold uppercase tracking-wider mb-4">
-              <Send className="w-4 h-4" />
+              <Send className="w-4 h-4" aria-hidden="true" />
               <span>Request for Quote</span>
             </div>
             <h1 className="font-heading font-bold text-4xl sm:text-5xl text-white mb-4 leading-[1.1]">
@@ -248,14 +248,19 @@ function QuotePageContent() {
                             label="Company Name"
                             required
                             error={errors.companyName}
+                            htmlFor="companyName"
                           >
                             <input
+                              id="companyName"
+                              name="companyName"
                               type="text"
                               value={formData.companyName}
                               onChange={(e) =>
                                 updateField("companyName", e.target.value)
                               }
                               placeholder="Acme Manufacturing Inc."
+                              autoComplete="organization"
+                              aria-invalid={!!errors.companyName}
                               className={inputClasses(errors.companyName)}
                             />
                           </FormField>
@@ -263,14 +268,19 @@ function QuotePageContent() {
                             label="Contact Name"
                             required
                             error={errors.contactName}
+                            htmlFor="contactName"
                           >
                             <input
+                              id="contactName"
+                              name="contactName"
                               type="text"
                               value={formData.contactName}
                               onChange={(e) =>
                                 updateField("contactName", e.target.value)
                               }
                               placeholder="John Smith"
+                              autoComplete="name"
+                              aria-invalid={!!errors.contactName}
                               className={inputClasses(errors.contactName)}
                             />
                           </FormField>
@@ -282,14 +292,19 @@ function QuotePageContent() {
                             label="Email"
                             required
                             error={errors.email}
+                            htmlFor="email"
                           >
                             <input
+                              id="email"
+                              name="email"
                               type="email"
                               value={formData.email}
                               onChange={(e) =>
                                 updateField("email", e.target.value)
                               }
                               placeholder="john@acmemfg.com"
+                              autoComplete="email"
+                              aria-invalid={!!errors.email}
                               className={inputClasses(errors.email)}
                             />
                           </FormField>
@@ -297,14 +312,19 @@ function QuotePageContent() {
                             label="Phone"
                             required
                             error={errors.phone}
+                            htmlFor="phone"
                           >
                             <input
+                              id="phone"
+                              name="phone"
                               type="tel"
                               value={formData.phone}
                               onChange={(e) =>
                                 updateField("phone", e.target.value)
                               }
                               placeholder="+1 (555) 000-0000"
+                              autoComplete="tel"
+                              aria-invalid={!!errors.phone}
                               className={inputClasses(errors.phone)}
                             />
                           </FormField>
@@ -315,13 +335,17 @@ function QuotePageContent() {
                           label="Product Category"
                           required
                           error={errors.productCategory}
+                          htmlFor="productCategory"
                         >
                           <div className="relative">
                             <select
+                              id="productCategory"
+                              name="productCategory"
                               value={formData.productCategory}
                               onChange={(e) =>
                                 updateField("productCategory", e.target.value)
                               }
+                              aria-invalid={!!errors.productCategory}
                               className={cn(
                                 inputClasses(errors.productCategory),
                                 "appearance-none pr-10"
@@ -336,7 +360,7 @@ function QuotePageContent() {
                                 </option>
                               ))}
                             </select>
-                            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-steel-500 pointer-events-none" />
+                            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-steel-500 pointer-events-none" aria-hidden="true" />
                           </div>
                         </FormField>
 
@@ -345,14 +369,18 @@ function QuotePageContent() {
                           label="Product Details"
                           required
                           error={errors.productDetails}
+                          htmlFor="productDetails"
                         >
                           <textarea
+                            id="productDetails"
+                            name="productDetails"
                             value={formData.productDetails}
                             onChange={(e) =>
                               updateField("productDetails", e.target.value)
                             }
                             rows={4}
                             placeholder="Describe the parts you need — include material specs, dimensions, standards, drawings references, and any special requirements."
+                            aria-invalid={!!errors.productDetails}
                             className={cn(
                               inputClasses(errors.productDetails),
                               "resize-y min-h-[100px]"
@@ -366,23 +394,29 @@ function QuotePageContent() {
                             label="Estimated Quantity"
                             required
                             error={errors.quantity}
+                            htmlFor="quantity"
                           >
                             <input
+                              id="quantity"
+                              name="quantity"
                               type="text"
                               value={formData.quantity}
                               onChange={(e) =>
                                 updateField("quantity", e.target.value)
                               }
                               placeholder="e.g. 5,000 pcs"
+                              aria-invalid={!!errors.quantity}
                               className={inputClasses(errors.quantity)}
                             />
                           </FormField>
-                          <FormField label="Target Unit Price" required={false}>
+                          <FormField label="Target Unit Price" required={false} htmlFor="targetPrice">
                             <div className="relative">
                               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-500 text-sm">
                                 $
                               </span>
                               <input
+                                id="targetPrice"
+                                name="targetPrice"
                                 type="text"
                                 value={formData.targetPrice}
                                 onChange={(e) =>
@@ -399,8 +433,11 @@ function QuotePageContent() {
                         <FormField
                           label="Additional Message"
                           required={false}
+                          htmlFor="message"
                         >
                           <textarea
+                            id="message"
+                            name="message"
                             value={formData.message}
                             onChange={(e) =>
                               updateField("message", e.target.value)
@@ -428,12 +465,12 @@ function QuotePageContent() {
                           >
                             {isSubmitting ? (
                               <>
-                                <Loader2 className="w-4 h-4 animate-spin" />
+                                <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
                                 Submitting…
                               </>
                             ) : (
                               <>
-                                <Send className="w-4 h-4" />
+                                <Send className="w-4 h-4" aria-hidden="true" />
                                 Submit Quote Request
                               </>
                             )}
@@ -467,7 +504,7 @@ function QuotePageContent() {
                       <div key={step.step} className="flex gap-4">
                         <div className="shrink-0">
                           <div className="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center">
-                            <Icon className="w-5 h-5 text-copper-400" />
+                            <Icon className="w-5 h-5 text-copper-400" aria-hidden="true" />
                           </div>
                         </div>
                         <div>
@@ -509,7 +546,7 @@ function QuotePageContent() {
                           className="flex items-center gap-3"
                         >
                           <div className="w-8 h-8 rounded-xl bg-navy-700 flex items-center justify-center shrink-0">
-                            <Icon className="w-4 h-4 text-copper-400" />
+                            <Icon className="w-4 h-4 text-copper-400" aria-hidden="true" />
                           </div>
                           <span className="text-sm text-steel-300 font-medium">
                             {signal.label}
@@ -524,7 +561,7 @@ function QuotePageContent() {
                       className="inline-flex items-center gap-1.5 text-copper-400 hover:text-copper-300 text-sm font-medium transition-colors"
                     >
                       Learn more about us
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
                     </Link>
                   </div>
                 </div>
@@ -574,16 +611,18 @@ function FormField({
   label,
   required,
   error,
+  htmlFor,
   children,
 }: {
   label: string;
   required: boolean;
   error?: string;
+  htmlFor?: string;
   children: React.ReactNode;
 }) {
   return (
     <div>
-      <label className="block text-sm font-medium text-navy-900 mb-1.5">
+      <label htmlFor={htmlFor} className="block text-sm font-medium text-navy-900 mb-1.5">
         {label}
         {required && <span className="text-error ml-0.5">*</span>}
       </label>
@@ -598,7 +637,7 @@ function FormField({
             className="overflow-hidden"
           >
             <p className="flex items-center gap-1.5 mt-1.5 text-xs text-error">
-              <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <AlertCircle className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
               {error}
             </p>
           </motion.div>
@@ -610,7 +649,7 @@ function FormField({
 
 function inputClasses(error?: string) {
   return cn(
-    "w-full px-4 py-2.5 rounded-xl border text-navy-900 text-sm bg-steel-50/30 focus:bg-white placeholder:text-steel-400 transition-all duration-200 outline-none",
+    "w-full px-4 py-2.5 min-h-[48px] rounded-xl border text-navy-900 text-sm bg-steel-50/30 focus:bg-white placeholder:text-steel-400 transition-all duration-200 outline-none",
     error
       ? "border-error focus:border-error focus:ring-1 focus:ring-error"
       : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
@@ -676,7 +715,7 @@ function SuccessState() {
               className="inline-flex items-center gap-2 px-8 py-3.5 bg-navy-900 hover:bg-navy-800 text-white font-semibold text-sm rounded-full transition-colors shadow-sm hover:shadow-md"
             >
               Back to Home
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
             <Link
               href="/products"
