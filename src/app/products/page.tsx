@@ -1,123 +1,46 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
-import {
-  ArrowRight,
-  Search,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ArrowRight } from "lucide-react";
 import { productCategories } from "@/lib/data/products";
-import type { ProductCategory } from "@/types";
-import { resolveIcon } from "@/lib/icons";
+import ProductsDeckClient from "@/components/ProductsDeckClient";
 
 export const metadata: Metadata = {
   title: "Industrial Components Catalog | Fasteners, Forgings, Castings & More",
   description:
-    "Browse 12 categories of precision-engineered industrial components — fasteners, forgings, castings, bearings, valves, and more — sourced from vetted Indian manufacturers.",
+    "Browse precision-engineered industrial components — fasteners, forgings, castings, bearings, valves, and more — sourced from vetted Indian manufacturers.",
 };
 
-// ---------------------------------------------------------------------------
-// Icon Resolver — maps the icon name stored in data to the Lucide component
-// ---------------------------------------------------------------------------
-
-// ---------------------------------------------------------------------------
-// ProductCard (server sub-component — no hooks)
-// ---------------------------------------------------------------------------
-function ProductCard({ category }: { category: ProductCategory }) {
-  const Icon = resolveIcon(category.icon);
-
-  return (
-    <Link
-      href={`/products/${category.slug}`}
-      className={cn(
-        "group relative flex flex-col rounded-2xl border border-steel-200/85 bg-white overflow-hidden shadow-sm",
-        "transition-all duration-300",
-        "hover:border-copper-500/40 hover:shadow-lg"
-      )}
-    >
-      {/* Top Header Image Container */}
-      <div className="relative h-44 w-full bg-steel-100 border-b border-steel-200/80">
-        {/* Overflow hidden wrapper for the image zoom effect */}
-        <div className="absolute inset-0 overflow-hidden rounded-t-2xl">
-          <Image
-            src={category.heroImage}
-            alt={category.name}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        </div>
-        {/* Overlay Icon Badge */}
-        <div className="absolute bottom-0 left-6 translate-y-1/2 flex h-12 w-12 items-center justify-center bg-white text-navy-900 border border-steel-200/80 shadow-md transition-all rounded-xl group-hover:border-copper-500 group-hover:text-copper-600 z-10">
-          <Icon className="h-6 w-6" aria-hidden="true" />
-        </div>
-      </div>
-
-      {/* Content Container */}
-      <div className="p-6 pt-8 flex-1 flex flex-col">
-        {/* Name */}
-        <h3 className="font-heading text-lg font-bold text-navy-900 mb-1.5">
-          {category.name}
-        </h3>
-
-        {/* Short description */}
-        <p className="text-sm leading-relaxed text-steel-600 mb-4 flex-1">
-          {category.shortDescription}
-        </p>
-
-        {/* Standard badges */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
-          {category.standards.slice(0, 3).map((std) => (
-            <span
-              key={std}
-              className="inline-block rounded-full bg-steel-100 px-2.5 py-1 text-[10px] font-bold text-steel-600 leading-none border border-steel-200/40"
-            >
-              {std}
-            </span>
-          ))}
-          {category.standards.length > 3 && (
-            <span className="inline-block rounded-full bg-steel-100 px-2.5 py-1 text-[10px] font-bold text-steel-500 leading-none border border-steel-200/40">
-              +{category.standards.length - 3} more
-            </span>
-          )}
-        </div>
-
-        {/* View Details link */}
-        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-copper-600 transition-colors group-hover:text-copper-500">
-          View Details
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Page
-// ---------------------------------------------------------------------------
 export default function ProductsPage() {
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="section-dark">
-        <div className="max-w-7xl mx-auto px-6 py-20 md:py-28">
+      {/* ── Hero Banner (Clay Style) ─────────────────────────────────── */}
+      <section className="section-dark relative overflow-hidden">
+        {/* Subtle grid pattern background */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
+            backgroundSize: "40px 40px",
+          }}
+        />
+        <div className="absolute top-1/2 right-1/4 -translate-y-1/2 w-[350px] h-[350px] bg-copper-500/10 rounded-full blur-[120px] pointer-events-none" />
+
+        <div className="relative max-w-7xl mx-auto px-6 py-20 md:py-24">
           <div className="max-w-3xl">
             <p className="text-copper-400 font-heading text-sm font-semibold uppercase tracking-widest mb-3">
               Product Catalog
             </p>
-            <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] mb-5">
-              Our Product Lines
+            <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] mb-5 tracking-tight">
+              Precision <span className="text-gradient">Sourcing lines</span>
             </h1>
-            <p className="text-lg md:text-xl text-steel-400 leading-relaxed max-w-2xl">
-              A comprehensive catalog of precision-engineered industrial
-              components — sourced from vetted manufacturers in India and
-              delivered with full material traceability, test reports, and
-              US-based support.
+            <p className="text-lg text-steel-400 leading-relaxed max-w-2xl">
+              Select one of our product lines below to view size capacities, engineering standards, and finishes. Sourced direct-from-foundry with full lot traceability.
             </p>
           </div>
 
-          {/* Quick stats row */}
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-navy-700 pt-8">
+          {/* Quick stats row (Swap style) */}
+          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-navy-800 pt-8">
             {[
               { value: "12", label: "Product Categories" },
               { value: "50+", label: "Standards Covered" },
@@ -128,44 +51,22 @@ export default function ProductsPage() {
                 <p className="text-2xl md:text-3xl font-heading font-bold text-copper-400">
                   {stat.value}
                 </p>
-                <p className="text-sm text-steel-500 mt-1">{stat.label}</p>
+                <p className="text-xs text-steel-500 mt-1 uppercase font-semibold tracking-wider">{stat.label}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Product Grid ─────────────────────────────────────────── */}
-      <section className="bg-steel-100">
-        <div className="max-w-7xl mx-auto px-6 py-16 md:py-24">
-          {/* Section header with decorative search hint */}
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-navy-900">
-                Browse Categories
-              </h2>
-              <p className="text-steel-600 mt-1.5 text-base">
-                Select a category to view specifications, standards, and
-                available materials.
-              </p>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-steel-500">
-              <Search className="h-4 w-4" aria-hidden="true" />
-              <span>
-                {productCategories.length} categories available
-              </span>
-            </div>
-          </div>
+      {/* ── Products Display Deck Section ─────────────────────────────── */}
+      <section className="bg-steel-100 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
+          
+          {/* Client Interactive Filter & Deck Grid */}
+          <ProductsDeckClient categories={productCategories} />
 
-          {/* Grid */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {productCategories.map((category) => (
-              <ProductCard key={category.id} category={category} />
-            ))}
-          </div>
-
-          {/* Bottom CTA */}
-          <div className="mt-16 rounded-2xl bg-navy-900 border border-navy-800/80 p-8 md:p-12 text-center shadow-xl relative overflow-hidden section-dark">
+          {/* Bottom CTA Card */}
+          <div className="mt-20 rounded-2xl bg-navy-900 border border-navy-800/80 p-8 md:p-12 text-center shadow-xl relative overflow-hidden section-dark">
             <div
               className="absolute inset-0 opacity-[0.02] pointer-events-none"
               style={{
@@ -176,12 +77,10 @@ export default function ProductsPage() {
             />
             <div className="relative z-10">
               <h3 className="text-2xl md:text-3xl font-bold text-steel-100 mb-3">
-                Can&apos;t find what you need?
+                Can&apos;t find your specific drawing match?
               </h3>
-              <p className="text-steel-400 max-w-xl mx-auto mb-8 text-base leading-relaxed">
-                We source a wide range of industrial components beyond what&apos;s
-                listed here. Tell us what you&apos;re looking for and we&apos;ll
-                provide a competitive quote.
+              <p className="text-steel-400 max-w-xl mx-auto mb-8 text-sm sm:text-base leading-relaxed">
+                We manufacture custom components according to proprietary blueprints and standard tolerances. Contact our US engineering desk with your spec sheets.
               </p>
               <Link
                 href="/quote"
@@ -192,6 +91,7 @@ export default function ProductsPage() {
               </Link>
             </div>
           </div>
+
         </div>
       </section>
     </>
