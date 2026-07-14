@@ -43,6 +43,7 @@ import { productCategories } from "@/lib/data/products";
 import { trustMetrics } from "@/lib/data/site";
 import { industries } from "@/lib/data/industries";
 import LandedCostCalculator from "@/components/LandedCostCalculator";
+import SourcingDashboard from "@/components/SourcingDashboard";
 
 // Icon map for dynamic rendering
 const iconMap: Record<string, React.ElementType> = {
@@ -130,81 +131,7 @@ function StatCounter({
   );
 }
 
-function SupplyChainVisualizer() {
-  return (
-    <div className="relative border border-navy-800 bg-navy-900 p-8 shadow-2xl rounded-2xl overflow-hidden flex flex-col justify-between h-[360px]">
-      {/* Soft background glow */}
-      <div className="absolute top-0 right-0 w-32 h-32 bg-copper-500/10 rounded-full blur-2xl pointer-events-none" />
 
-      <div className="relative space-y-6 flex-1 flex flex-col justify-center">
-        {/* Step 1 */}
-        <div className="flex items-start gap-4 relative">
-          <div className="absolute left-5 top-10 bottom-[-20px] w-[2px] bg-gradient-to-b from-copper-500 to-navy-800 pointer-events-none" />
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-copper-500/10 border border-copper-500/30 text-copper-400 rounded-xl relative z-10">
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ repeat: Infinity, duration: 2.2, ease: "easeInOut" }}
-              className="absolute inset-0 bg-copper-500/5 rounded-xl pointer-events-none"
-            />
-            <Factory className="h-5 w-5" />
-          </div>
-          <div>
-            <span className="text-[9px] font-bold font-mono text-copper-400 uppercase tracking-widest block mb-0.5">Stage 01</span>
-            <h4 className="text-xs font-bold text-white font-heading">ISO 9001 India Factory Hubs</h4>
-            <p className="text-[11px] text-steel-300 mt-0.5 leading-relaxed">Direct coordination with vetted forging, casting & fastener hubs.</p>
-          </div>
-        </div>
-
-        {/* Step 2 */}
-        <div className="flex items-start gap-4 relative">
-          <div className="absolute left-5 top-10 bottom-[-20px] w-[2px] bg-gradient-to-b from-navy-800 to-copper-500 pointer-events-none" />
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-copper-500/10 border border-copper-500/30 text-copper-400 rounded-xl relative z-10 overflow-hidden">
-            <motion.div
-              animate={{ y: [-18, 18] }}
-              transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-              className="absolute left-0 right-0 h-[2px] bg-copper-400 shadow-[0_0_8px_#C75B2A]"
-            />
-            <ShieldCheck className="h-5 w-5" />
-          </div>
-          <div>
-            <span className="text-[9px] font-bold font-mono text-copper-400 uppercase tracking-widest block mb-0.5">Stage 02</span>
-            <h4 className="text-xs font-bold text-white font-heading">100% Compliance Inspection</h4>
-            <p className="text-[11px] text-steel-300 mt-0.5 leading-relaxed">Dimensional checks, material chemical testing, and full trace reports.</p>
-          </div>
-        </div>
-
-        {/* Step 3 */}
-        <div className="flex items-start gap-4 relative">
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-copper-500/10 border border-copper-500/30 text-copper-400 rounded-xl relative z-10">
-            <motion.div
-              animate={{ x: [0, 3, 0] }}
-              transition={{ repeat: Infinity, duration: 2.8, ease: "easeInOut" }}
-            >
-              <Globe className="h-5 w-5" />
-            </motion.div>
-          </div>
-          <div>
-            <span className="text-[9px] font-bold font-mono text-copper-400 uppercase tracking-widest block mb-0.5">Stage 03</span>
-            <h4 className="text-xs font-bold text-white font-heading">Landed Duty-Paid US Delivery</h4>
-            <p className="text-[11px] text-steel-300 mt-0.5 leading-relaxed">Customs clearance, freight consolidation, and delivery directly to your warehouse.</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Live tracking overlay simulator */}
-      <div className="mt-4 pt-4 border-t border-navy-800 flex items-center justify-between text-[11px] text-steel-400">
-        <div className="flex items-center gap-2">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-success"></span>
-          </span>
-          <span>Global shipment status: Active</span>
-        </div>
-        <span className="font-mono text-copper-400/80">RFQ Pipeline</span>
-      </div>
-    </div>
-  );
-}
 
 export default function HomePage() {
   const [activeAdvantage, setActiveAdvantage] = useState<number | null>(null);
@@ -321,7 +248,7 @@ export default function HomePage() {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="lg:col-span-5 w-full max-w-lg lg:max-w-none mx-auto"
             >
-              <SupplyChainVisualizer />
+              <SourcingDashboard />
             </motion.div>
           </div>
         </div>
