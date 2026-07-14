@@ -13,7 +13,7 @@ import { resolveIcon } from "@/lib/icons";
 export const metadata: Metadata = {
   title: "Industrial Components Catalog | Fasteners, Forgings, Castings & More",
   description:
-    "Browse 12 categories of precision-engineered industrial components — fasteners, forgings, castings, bearings, valves, and more — sourced from ISO-certified Indian manufacturers.",
+    "Browse 12 categories of precision-engineered industrial components — fasteners, forgings, castings, bearings, valves, and more — sourced from vetted Indian manufacturers.",
 };
 
 // ---------------------------------------------------------------------------
@@ -110,7 +110,7 @@ export default function ProductsPage() {
             </h1>
             <p className="text-lg md:text-xl text-steel-400 leading-relaxed max-w-2xl">
               A comprehensive catalog of precision-engineered industrial
-              components — sourced from ISO-certified manufacturers in India and
+              components — sourced from vetted manufacturers in India and
               delivered with full material traceability, test reports, and
               US-based support.
             </p>
@@ -122,7 +122,7 @@ export default function ProductsPage() {
               { value: "12", label: "Product Categories" },
               { value: "50+", label: "Standards Covered" },
               { value: "100%", label: "Lot Traceability" },
-              { value: "ISO 9001", label: "Certified Suppliers" },
+              { value: "Vetted", label: "Supplier Network" },
             ].map((stat) => (
               <div key={stat.label}>
                 <p className="text-2xl md:text-3xl font-heading font-bold text-copper-400">

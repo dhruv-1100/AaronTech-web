@@ -85,7 +85,7 @@ export default function Header() {
             </a>
           </div>
           <span className="text-steel-500">
-            US-Based · India-Sourced · ISO 9001 Certified Suppliers
+            US-Based · India-Sourced · Quality Sourcing & Inspections
           </span>
         </div>
       </div>
@@ -209,7 +209,6 @@ export default function Header() {
                             {[
                               { label: "Sourcing Guides & News", href: "/resources", desc: "Latest technical publications", icon: BookOpen },
                               { label: "Landed Cost Calculator", href: "/#calculator", desc: "Estimate import unit rates", icon: Calculator },
-                              { label: "Quality Certifications", href: "/certifications", desc: "ISO 9001 compliance logs", icon: ShieldCheck },
                               { label: "About Our Company", href: "/about", desc: "US-India operational network", icon: Info },
                             ].map((sub) => {
                               const Icon = sub.icon;

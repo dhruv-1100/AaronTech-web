@@ -14,6 +14,7 @@ import {
 import { cn } from "@/lib/utils";
 import { productCategories } from "@/lib/data/products";
 import { getProductDetails } from "@/lib/data/products-detail";
+import ProductSpecsAccordion from "@/components/ProductSpecsAccordion";
 
 // ---------------------------------------------------------------------------
 // Static route generation
@@ -180,70 +181,12 @@ export default async function ProductDetailPage({
           <div className="grid gap-12 lg:grid-cols-3">
             {/* Left 2 Columns: Technical Details */}
             <div className="lg:col-span-2 space-y-12">
-              {/* Spec Table */}
+              {/* Spec Accordion */}
               <div>
                 <h2 className="text-xl md:text-2xl font-bold text-navy-900 mb-5 font-heading">
                   Technical Specifications
                 </h2>
-                <div className="overflow-x-auto rounded-2xl border border-steel-200/85 bg-white shadow-sm overflow-hidden">
-                  <table className="spec-table">
-                    <thead>
-                      <tr>
-                        <th className="w-44">Attribute</th>
-                        <th>Details</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="font-semibold text-navy-900 align-top">
-                          Materials & Grades
-                        </td>
-                        <td className="text-steel-700 leading-relaxed whitespace-pre-line">
-                          {product.material}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="font-semibold text-navy-900 align-top">
-                          Applicable Standards
-                        </td>
-                        <td className="text-steel-700">
-                          <div className="flex flex-wrap gap-1.5">
-                            {product.standards.map((std) => (
-                              <span
-                                key={std}
-                                className="inline-block bg-steel-200 text-steel-800 text-xs px-2 py-0.5"
-                              >
-                                {std}
-                              </span>
-                            ))}
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="font-semibold text-navy-900 align-top">
-                          Size Capabilities
-                        </td>
-                        <td className="text-steel-700">{product.sizes}</td>
-                      </tr>
-                      <tr>
-                        <td className="font-semibold text-navy-900 align-top">
-                          Available Finishes
-                        </td>
-                        <td className="text-steel-700">
-                          {product.finishes.join(", ")}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="font-semibold text-navy-900 align-top">
-                          Machining Tolerances
-                        </td>
-                        <td className="text-steel-700 leading-relaxed">
-                          {product.tolerances}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                <ProductSpecsAccordion product={product} />
               </div>
 
               {/* Key Features */}

@@ -56,12 +56,12 @@ export default function Footer() {
             </div>
             <p className="text-sm text-steel-500 leading-relaxed mb-6">
               US-based industrial component supplier sourcing precision-engineered
-              products from ISO-certified Indian manufacturers. Competitive pricing,
+              products from vetted Indian manufacturers. Competitive pricing,
               full material traceability, and US-based support.
             </p>
             <div className="flex items-center gap-2 text-xs text-steel-500">
               <ShieldCheck className="w-4 h-4 text-copper-500" aria-hidden="true" />
-              <span>ISO 9001 · RoHS · ASTM/ASME Compliant</span>
+              <span>Vetted Suppliers · Quality Checked</span>
             </div>
           </div>
 

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | Aaron Technologies Inc.",
   },
   description:
-    "US-based industrial component supplier sourcing precision-engineered fasteners, forgings, castings, bearings, valves, and machined parts from ISO-certified Indian manufacturers. Competitive landed costs, full material traceability, and US-based support.",
+    "US-based industrial component supplier sourcing precision-engineered fasteners, forgings, castings, bearings, valves, and machined parts from vetted Indian manufacturers. Competitive landed costs, full material traceability, and US-based support.",
   keywords: [
     "industrial components",
     "India import",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "industrial valves",
     "precision machined parts",
     "B2B supplier",
-    "ISO certified",
+    "vetted manufacturers",
     "RFQ",
     "engineering components",
   ],
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     siteName: "Aaron Technologies Inc.",
     title: "Aaron Technologies Inc. | Industrial Components from India",
     description:
-      "Precision-engineered industrial components sourced from ISO-certified Indian manufacturers. Competitive landed costs and full traceability.",
+      "Precision-engineered industrial components sourced from vetted Indian manufacturers. Competitive landed costs and full traceability.",
     images: [
       {
         url: '/og-image.png',
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Aaron Technologies Inc. | Industrial Components from India',
     description:
-      'Precision-engineered industrial components sourced from ISO-certified Indian manufacturers.',
+      'Precision-engineered industrial components sourced from vetted Indian manufacturers.',
   },
 };
 

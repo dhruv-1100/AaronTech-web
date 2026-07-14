@@ -267,7 +267,7 @@ export default function HomePage() {
                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-copper-500/10 border border-copper-500/30 text-copper-300 text-sm font-semibold mb-6"
               >
                 <ShieldCheck className="w-4 h-4" />
-                ISO 9001 Certified Supplier Network
+                Vetted Supplier Network
               </motion.div>
 
               <motion.h1
@@ -287,7 +287,7 @@ export default function HomePage() {
                 className="text-lg md:text-xl text-steel-400 leading-relaxed mb-10 max-w-2xl"
               >
                 Precision-engineered fasteners, forgings, castings, and machined
-                parts sourced from ISO-certified Indian manufacturers — delivered
+                parts sourced from vetted Indian manufacturers — delivered
                 with full material traceability and competitive landed costs.
               </motion.p>
 
@@ -466,8 +466,8 @@ export default function HomePage() {
                 },
                 {
                   icon: ShieldCheck,
-                  title: "ISO 9001 Audited Supplier Network",
-                  desc: "We work exclusively with ISO-certified manufacturers. Our local Indian engineering staff runs first-article inspections and stage QC audits before any batch leaves the dock.",
+                  title: "Vetted Supplier Network",
+                  desc: "We work exclusively with vetted manufacturers. Our local Indian engineering staff runs first-article inspections and stage QC audits before any batch leaves the dock.",
                 },
                 {
                   icon: FileCheck,

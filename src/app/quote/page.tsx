@@ -47,7 +47,7 @@ const PROCESS_STEPS = [
     icon: Search,
     title: "We Source & Quote in 24–48 Hours",
     description:
-      "We match your requirements to our vetted ISO-certified supplier network and deliver a detailed quote with landed-cost pricing.",
+      "We match your requirements to our vetted supplier network and deliver a detailed quote with landed-cost pricing.",
   },
   {
     step: 3,
@@ -59,7 +59,7 @@ const PROCESS_STEPS = [
 ];
 
 const TRUST_SIGNALS = [
-  { icon: ShieldCheck, label: "ISO 9001 Certified Suppliers" },
+  { icon: ShieldCheck, label: "Vetted Supplier Network" },
   { icon: Boxes, label: "500+ SKUs Available" },
   { icon: Clock, label: "24–48 Hour Quote Turnaround" },
 ];

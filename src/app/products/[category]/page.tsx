@@ -33,7 +33,7 @@ export async function generateMetadata({
 
   return {
     title: `${category.name} — Industrial ${category.name} Supplier`,
-    description: `${category.shortDescription}. Sourced from ISO-certified Indian manufacturers with full traceability. Request a quote today.`,
+    description: `${category.shortDescription}. Sourced from vetted Indian manufacturers with full traceability. Request a quote today.`,
   };
 }
 

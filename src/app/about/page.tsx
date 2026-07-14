@@ -18,7 +18,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "About Aaron Technologies",
   description:
-    "US-based industrial component supplier with an India sourcing network. Competitive pricing, ISO-certified quality, full traceability, and local support.",
+    "US-based industrial component supplier with an India sourcing network. Competitive pricing, vetted quality, full traceability, and local support.",
 };
 
 const valueProps = [
@@ -32,9 +32,9 @@ const valueProps = [
   {
     icon: ShieldCheck,
     title: "Double-Verified Quality",
-    stat: "ISO 9001",
+    stat: "Vetted",
     description:
-      "Every factory in our network is ISO certified. We supplement their checks with our local Indian engineering inspectors for double quality assurance.",
+      "Every factory in our network is thoroughly vetted. We supplement their checks with our local Indian engineering inspectors for double quality assurance.",
   },
   {
     icon: FileSearch,
