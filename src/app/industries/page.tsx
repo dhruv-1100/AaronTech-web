@@ -16,7 +16,6 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { industries } from "@/lib/data/industries";
-import type { Industry } from "@/types";
 
 export const metadata: Metadata = {
   title: "Industries We Supply — MRO, OEM, Aerospace, Energy & Automotive",
@@ -25,14 +24,7 @@ export const metadata: Metadata = {
 };
 
 const iconMap: Record<string, React.ElementType> = {
-  Warehouse,
-  Factory,
-  Cog,
-  Settings,
-  Building2,
-  Car,
-  Plane,
-  Fuel,
+  Warehouse, Factory, Cog, Settings, Building2, Car, Plane, Fuel,
 };
 
 const tierVisuals: Record<
@@ -40,37 +32,29 @@ const tierVisuals: Record<
   {
     title: string;
     description: string;
-    badgeText: string;
-    badgeBg: string;
-    icon: React.ElementType;
+    label: string;
     timeframe: string;
   }
 > = {
   1: {
-    title: "Tier 1: Fast Sourcing & Distribution",
+    title: "Fast Sourcing & Distribution",
     description:
-      "Distributors, machine shops, and supply houses requiring standard specifications and rapid procurement cycles. Standard specification requirements with fast procurement cycles and competitive pricing focus.",
-    badgeText: "text-emerald-700 bg-emerald-50 border-emerald-200",
-    badgeBg: "bg-emerald-500",
-    icon: Zap,
+      "Distributors, machine shops, and supply houses requiring standard specifications and rapid procurement cycles.",
+    label: "Tier 01",
     timeframe: "1-2 weeks qualification",
   },
   2: {
-    title: "Tier 2: Engineering & Mid-Market OEMs",
+    title: "Engineering & Mid-Market OEMs",
     description:
       "Equipment manufacturers, custom engineering shops, and Tier 2 automotive suppliers. Requires first-article inspections and dimensional reporting.",
-    badgeText: "text-amber-700 bg-amber-50 border-amber-200",
-    badgeBg: "bg-amber-500",
-    icon: TrendingUp,
+    label: "Tier 02",
     timeframe: "3-6 weeks qualification",
   },
   3: {
-    title: "Tier 3: Critical & High-Value Sectors",
+    title: "Critical & High-Value Sectors",
     description:
       "Aerospace, defense, and oil & gas sectors with strict material traceability, AS9100/API certification requirements, and long qualification runs.",
-    badgeText: "text-copper-700 bg-copper-50 border-copper-200",
-    badgeBg: "bg-copper-500",
-    icon: ShieldCheck,
+    label: "Tier 03",
     timeframe: "3-6 months qualification",
   },
 };
@@ -79,105 +63,92 @@ export default function IndustriesPage() {
   return (
     <>
       {/* Hero */}
-      <section className="section-dark relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="relative max-w-7xl mx-auto px-6 py-16 sm:py-24">
-          <div className="max-w-3xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-copper-400">
-              Market Focus
-            </p>
-            <h1 className="max-w-3xl text-4xl sm:text-5xl font-heading font-bold leading-tight text-white mb-4">
-              Industries We <span className="text-gradient">Serve</span>
-            </h1>
-            <p className="text-steel-400 text-lg leading-relaxed max-w-2xl">
-              From volume MRO supply houses to mission-critical aerospace OEMs, we deliver precision-engineered industrial components matching your exact cost, quality, and documentation specs.
-            </p>
-          </div>
+      <section className="border-b border-border">
+        <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
+          <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+            Market Focus
+          </span>
+          <h1 className="text-4xl sm:text-5xl leading-[1.1] mb-5 max-w-3xl">
+            Industries We <strong>Serve</strong>
+          </h1>
+          <p className="text-lg text-text-secondary leading-relaxed max-w-2xl">
+            From volume MRO supply houses to mission-critical aerospace OEMs, we
+            deliver precision-engineered industrial components matching your exact
+            cost, quality, and documentation specs.
+          </p>
         </div>
       </section>
 
-      {/* Main content - non-card split layout */}
-      <section className="bg-steel-100">
-        <div className="max-w-7xl mx-auto px-6 py-12 sm:py-20 space-y-16 sm:space-y-24">
+      {/* Tiered Industry Grid */}
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6 space-y-24">
           {([1, 2, 3] as const).map((tier) => {
             const visual = tierVisuals[tier];
             const tierIndustries = industries.filter((i) => i.tier === tier);
-            const TierIcon = visual.icon;
 
             return (
               <div
                 key={tier}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start"
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start"
               >
-                {/* Left side: Sticky info panel (Minimal context card, NOT a generic grid card) */}
-                <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-4">
-                  <span className={cn(
-                    "inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase border tracking-wider",
-                    visual.badgeText
-                  )}>
-                    <TierIcon className="w-3.5 h-3.5" />
-                    Tier {tier} Sourcing
+                {/* Left: Sticky label */}
+                <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-3">
+                  <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight block">
+                    {visual.label}
                   </span>
-                  <h2 className="font-heading font-bold text-2xl text-navy-900 leading-tight">
+                  <h2 className="text-2xl leading-tight">
                     {visual.title}
                   </h2>
-                  <p className="text-sm text-steel-600 leading-relaxed">
+                  <p className="text-sm text-text-secondary leading-relaxed">
                     {visual.description}
                   </p>
-                  <div className="pt-2">
-                    <span className="text-xs font-semibold text-navy-900 uppercase tracking-wider block">
+                  <div className="pt-1">
+                    <span className="font-mono text-[10px] uppercase text-text-muted tracking-tight block mb-0.5">
                       Target Timeframe
                     </span>
-                    <span className="text-sm text-steel-600 mt-1 block">
+                    <span className="text-sm text-text-secondary">
                       {visual.timeframe}
                     </span>
                   </div>
                 </div>
 
-                {/* Right side: Clean row list (No cards!) */}
-                <div className="lg:col-span-8 bg-white border border-steel-200/85 rounded-2xl divide-y divide-steel-200 shadow-sm overflow-hidden">
-                  {tierIndustries.map((ind) => {
+                {/* Right: Industry rows */}
+                <div className="lg:col-span-8 rounded-xl border border-border overflow-hidden">
+                  {tierIndustries.map((ind, i) => {
                     const IndustryIcon = iconMap[ind.icon] || Warehouse;
                     return (
                       <div
                         key={ind.id}
-                        className="p-6 sm:p-8 flex flex-col md:flex-row gap-6 md:items-start transition-colors hover:bg-steel-50/50"
+                        className={cn(
+                          "p-6 sm:p-8 flex flex-col md:flex-row gap-6 md:items-start hover:bg-bg-subtle transition-colors",
+                          i < tierIndustries.length - 1 && "border-b border-border"
+                        )}
                       >
-                        {/* Icon & Title Group */}
-                        <div className="md:w-1/3 flex gap-4 items-start">
-                          <div className="w-10 h-10 rounded-xl bg-navy-900/5 text-navy-700 flex items-center justify-center shrink-0">
-                            <IndustryIcon className="w-5 h-5" />
+                        {/* Icon & Title */}
+                        <div className="md:w-1/3 flex gap-3 items-start">
+                          <div className="w-9 h-9 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center shrink-0">
+                            <IndustryIcon className="w-4 h-4" aria-hidden="true" />
                           </div>
-                          <div>
-                            <h3 className="font-heading font-bold text-navy-900 text-base leading-snug">
-                              {ind.name}
-                            </h3>
-                          </div>
+                          <h3 className="text-[15px] font-medium text-text-primary leading-snug">
+                            {ind.name}
+                          </h3>
                         </div>
 
-                        {/* Description & Metadata (Products / Customers) */}
-                        <div className="md:w-2/3 space-y-4">
-                          <p className="text-sm text-steel-600 leading-relaxed">
+                        {/* Description & Tags */}
+                        <div className="md:w-2/3 space-y-3">
+                          <p className="text-sm text-text-secondary leading-relaxed">
                             {ind.description}
                           </p>
 
-                          {/* Related Products Badges */}
                           <div className="flex flex-wrap gap-1.5 items-center">
-                            <span className="text-[10px] font-semibold text-steel-500 uppercase tracking-wider mr-1">
+                            <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight mr-1">
                               Related:
                             </span>
                             {ind.relatedCategories.map((slug) => (
                               <Link
                                 key={slug}
                                 href={`/products/${slug}`}
-                                className="px-2.5 py-0.5 rounded-full bg-steel-100 hover:bg-copper-500/10 hover:text-copper-600 text-xs font-semibold text-steel-700 transition-colors"
+                                className="font-mono text-[9px] uppercase text-text-tertiary bg-bg-subtle hover:bg-primary hover:text-white px-2 py-1 rounded tracking-tight transition-colors"
                               >
                                 {slug
                                   .split("-")
@@ -187,12 +158,11 @@ export default function IndustriesPage() {
                             ))}
                           </div>
 
-                          {/* Target Buyers */}
-                          <div className="text-xs text-steel-500 flex flex-wrap gap-1">
-                            <span className="font-semibold text-steel-600">
-                              Example Customers:
+                          <div className="text-xs text-text-tertiary">
+                            <span className="font-medium text-text-secondary">
+                              Example Customers:{" "}
                             </span>
-                            <span>{ind.examples.join(", ")}</span>
+                            {ind.examples.join(", ")}
                           </div>
                         </div>
                       </div>
@@ -206,17 +176,18 @@ export default function IndustriesPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-white border-t border-steel-300">
-        <div className="max-w-7xl mx-auto px-6 py-20 text-center">
-          <h2 className="text-3xl font-heading font-bold text-navy-900 mb-4">
-            Custom Component Requirements?
+      <section className="border-t border-border py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6 text-center max-w-2xl">
+          <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-6">
+            Custom component <strong>requirements?</strong>
           </h2>
-          <p className="mx-auto mb-8 max-w-xl text-steel-600 leading-relaxed">
-            We partner with buyers across dozens of sub-sectors to supply custom forgings, assemblies, and specialty fasteners. Reach out to discuss your drawings and volume needs.
+          <p className="text-lg text-text-secondary leading-relaxed mb-10">
+            We partner with buyers across dozens of sub-sectors to supply custom
+            forgings, assemblies, and specialty fasteners.
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-copper-500 px-8 py-3.5 font-semibold text-white transition-colors hover:bg-copper-600 cursor-pointer shadow-md hover:shadow-lg"
+            className="btn-primary px-8 py-3.5 text-base"
           >
             Contact Sourcing Team
             <ArrowRight className="h-4 w-4" />

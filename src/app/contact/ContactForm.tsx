@@ -29,13 +29,21 @@ const INITIAL_FORM: ContactSubmission = {
   message: "",
 };
 
+function inputClasses(error?: string) {
+  return cn(
+    "w-full px-4 py-2.5 rounded-lg border text-text-primary text-sm bg-white placeholder:text-text-muted transition-all duration-200 outline-none min-h-[48px]",
+    error
+      ? "border-error focus:border-error focus:ring-1 focus:ring-error"
+      : "border-border-strong focus:border-primary/50 hover:border-text-muted focus:ring-1 focus:ring-primary/50"
+  );
+}
+
 export default function ContactForm() {
   const [formData, setFormData] = useState<ContactSubmission>(INITIAL_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // Validate a single field
   function validateField(field: keyof ContactSubmission, value: string): string | undefined {
     switch (field) {
       case "name":
@@ -58,11 +66,8 @@ export default function ContactForm() {
     return undefined;
   }
 
-  // Handle Input Changes
   function handleChange(field: keyof ContactSubmission, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
-    
-    // Clear error on input (non-intrusive)
     if (errors[field]) {
       setErrors((prev) => {
         const next = { ...prev };
@@ -72,17 +77,14 @@ export default function ContactForm() {
     }
   }
 
-  // Handle Blur Events (validate when user is "done" with a field)
   function handleBlur(field: keyof ContactSubmission) {
     const error = validateField(field, formData[field]);
     setErrors((prev) => ({ ...prev, [field]: error }));
   }
 
-  // Handle Form Submission
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    // Validate all fields
     const formErrors: FormErrors = {};
     Object.keys(formData).forEach((key) => {
       const field = key as keyof ContactSubmission;
@@ -94,9 +96,7 @@ export default function ContactForm() {
 
     setErrors(formErrors);
 
-    // If there are errors, block submission
     if (Object.keys(formErrors).length > 0) {
-      // Focus on the first invalid field
       const firstErrorField = Object.keys(formErrors)[0];
       const element = document.getElementById(firstErrorField);
       element?.focus();
@@ -135,27 +135,28 @@ export default function ContactForm() {
       {isSubmitted ? (
         <motion.div
           key="success"
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.35 }}
-          className="bg-white rounded-2xl border border-steel-200/85 p-8 sm:p-12 text-center shadow-lg"
+          exit={{ opacity: 0, scale: 0.98 }}
+          transition={{ duration: 0.3 }}
+          className="p-8 sm:p-12 text-center"
         >
-          <div className="w-16 h-16 bg-success/10 text-success rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle2 className="w-10 h-10 animate-bounce" />
+          <div className="w-14 h-14 bg-success/10 text-success rounded-full flex items-center justify-center mx-auto mb-6">
+            <CheckCircle2 className="w-7 h-7" />
           </div>
-          <h2 className="font-heading font-bold text-navy-900 text-2xl sm:text-3xl mb-4">
-            Message Sent Successfully!
+          <h2 className="text-2xl sm:text-3xl text-text-primary mb-4">
+            Message <strong>Sent!</strong>
           </h2>
-          <p className="text-steel-600 text-base leading-relaxed max-w-md mx-auto mb-8">
-            Thank you for reaching out. A sourcing expert from our US office will review your message and contact you within 24 hours.
+          <p className="text-text-secondary text-sm leading-relaxed max-w-md mx-auto mb-8">
+            Thank you for reaching out. A sourcing expert from our US office
+            will review your message and contact you within 24 hours.
           </p>
           <button
             onClick={() => {
               setFormData(INITIAL_FORM);
               setIsSubmitted(false);
             }}
-            className="px-8 py-3.5 bg-navy-900 hover:bg-navy-800 text-white font-semibold rounded-full transition-all cursor-pointer shadow-sm hover:shadow-md"
+            className="btn-primary px-8 py-3 cursor-pointer"
           >
             Send Another Message
           </button>
@@ -163,27 +164,25 @@ export default function ContactForm() {
       ) : (
         <motion.div
           key="form"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.35 }}
-          className="bg-white rounded-2xl border border-steel-200/85 overflow-hidden shadow-sm"
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.3 }}
         >
-          <div className="px-6 py-5 sm:px-8 border-b border-steel-200">
-            <h2 className="font-heading font-bold text-navy-900 text-xl">
+          <div className="px-6 py-5 sm:px-8 border-b border-border">
+            <h2 className="text-lg font-medium text-text-primary">
               Send Us a Message
             </h2>
-            <p className="text-steel-600 text-sm mt-1">
+            <p className="text-text-tertiary text-sm mt-1">
               Fill out the form below and we will get back to you shortly.
             </p>
           </div>
 
           <form onSubmit={handleSubmit} noValidate className="p-6 sm:p-8 space-y-6">
-            {/* Name & Email Group */}
+            {/* Name & Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {/* Full Name */}
               <div className="space-y-1.5">
-                <label htmlFor="name" className="block text-sm font-semibold text-navy-900">
+                <label htmlFor="name" className="block text-sm font-medium text-text-primary">
                   Full Name <span className="text-error" aria-hidden="true">*</span>
                 </label>
                 <input
@@ -197,12 +196,7 @@ export default function ContactForm() {
                   aria-invalid={!!errors.name}
                   aria-describedby={errors.name ? "name-error" : undefined}
                   required
-                  className={cn(
-                    "w-full px-4 py-3 rounded-xl border text-base outline-none transition-all duration-200 bg-steel-50/30 focus:bg-white min-h-[48px]",
-                    errors.name
-                      ? "border-error focus:border-error focus:ring-1 focus:ring-error"
-                      : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
-                  )}
+                  className={inputClasses(errors.name)}
                 />
                 {errors.name && (
                   <p id="name-error" className="text-xs text-error flex items-center gap-1 mt-1" role="alert">
@@ -212,9 +206,8 @@ export default function ContactForm() {
                 )}
               </div>
 
-              {/* Email Address */}
               <div className="space-y-1.5">
-                <label htmlFor="email" className="block text-sm font-semibold text-navy-900">
+                <label htmlFor="email" className="block text-sm font-medium text-text-primary">
                   Email Address <span className="text-error" aria-hidden="true">*</span>
                 </label>
                 <input
@@ -228,12 +221,7 @@ export default function ContactForm() {
                   aria-invalid={!!errors.email}
                   aria-describedby={errors.email ? "email-error" : undefined}
                   required
-                  className={cn(
-                    "w-full px-4 py-3 rounded-xl border text-base outline-none transition-all duration-200 bg-steel-50/30 focus:bg-white min-h-[48px]",
-                    errors.email
-                      ? "border-error focus:border-error focus:ring-1 focus:ring-error"
-                      : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
-                  )}
+                  className={inputClasses(errors.email)}
                 />
                 {errors.email && (
                   <p id="email-error" className="text-xs text-error flex items-center gap-1 mt-1" role="alert">
@@ -244,11 +232,10 @@ export default function ContactForm() {
               </div>
             </div>
 
-            {/* Company & Phone Group */}
+            {/* Company & Phone */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              {/* Company Name */}
               <div className="space-y-1.5">
-                <label htmlFor="company" className="block text-sm font-semibold text-navy-900">
+                <label htmlFor="company" className="block text-sm font-medium text-text-primary">
                   Company Name <span className="text-error" aria-hidden="true">*</span>
                 </label>
                 <input
@@ -262,12 +249,7 @@ export default function ContactForm() {
                   aria-invalid={!!errors.company}
                   aria-describedby={errors.company ? "company-error" : undefined}
                   required
-                  className={cn(
-                    "w-full px-4 py-3 rounded-xl border text-base outline-none transition-all duration-200 bg-steel-50/30 focus:bg-white min-h-[48px]",
-                    errors.company
-                      ? "border-error focus:border-error focus:ring-1 focus:ring-error"
-                      : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
-                  )}
+                  className={inputClasses(errors.company)}
                 />
                 {errors.company && (
                   <p id="company-error" className="text-xs text-error flex items-center gap-1 mt-1" role="alert">
@@ -277,9 +259,8 @@ export default function ContactForm() {
                 )}
               </div>
 
-              {/* Phone Number */}
               <div className="space-y-1.5">
-                <label htmlFor="phone" className="block text-sm font-semibold text-navy-900">
+                <label htmlFor="phone" className="block text-sm font-medium text-text-primary">
                   Phone Number <span className="text-error" aria-hidden="true">*</span>
                 </label>
                 <input
@@ -293,12 +274,7 @@ export default function ContactForm() {
                   aria-invalid={!!errors.phone}
                   aria-describedby={errors.phone ? "phone-error" : undefined}
                   required
-                  className={cn(
-                    "w-full px-4 py-3 rounded-xl border text-base outline-none transition-all duration-200 bg-steel-50/30 focus:bg-white min-h-[48px]",
-                    errors.phone
-                      ? "border-error focus:border-error focus:ring-1 focus:ring-error"
-                      : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
-                  )}
+                  className={inputClasses(errors.phone)}
                 />
                 {errors.phone && (
                   <p id="phone-error" className="text-xs text-error flex items-center gap-1 mt-1" role="alert">
@@ -309,9 +285,9 @@ export default function ContactForm() {
               </div>
             </div>
 
-            {/* Message field */}
+            {/* Message */}
             <div className="space-y-1.5">
-              <label htmlFor="message" className="block text-sm font-semibold text-navy-900">
+              <label htmlFor="message" className="block text-sm font-medium text-text-primary">
                 Message <span className="text-error" aria-hidden="true">*</span>
               </label>
               <textarea
@@ -324,12 +300,7 @@ export default function ContactForm() {
                 aria-invalid={!!errors.message}
                 aria-describedby={errors.message ? "message-error" : undefined}
                 required
-                className={cn(
-                  "w-full px-4 py-3 rounded-xl border text-base outline-none transition-all duration-200 bg-steel-50/30 focus:bg-white min-h-[120px] resize-y",
-                  errors.message
-                    ? "border-error focus:border-error focus:ring-1 focus:ring-error"
-                    : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
-                )}
+                className={cn(inputClasses(errors.message), "min-h-[120px] resize-y")}
               />
               {errors.message && (
                 <p id="message-error" className="text-xs text-error flex items-center gap-1 mt-1" role="alert">
@@ -339,14 +310,15 @@ export default function ContactForm() {
               )}
             </div>
 
-            {/* Submit Button */}
+            {/* Submit */}
             <button
               type="submit"
               disabled={isSubmitting}
               className={cn(
-                "w-full sm:w-auto px-8 py-3.5 rounded-full font-semibold text-white transition-all duration-200 cursor-pointer shadow-md hover:shadow-lg",
-                "bg-copper-500 hover:bg-copper-600 active:scale-[0.99]",
-                "disabled:bg-copper-400 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                "w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full font-medium text-sm transition-all cursor-pointer",
+                isSubmitting
+                  ? "bg-primary/70 text-white cursor-wait"
+                  : "bg-primary hover:opacity-85 text-white"
               )}
             >
               {isSubmitting ? (

@@ -110,7 +110,7 @@ export default function LandedCostCalculator() {
   }
 
   return (
-    <div className="bg-white rounded-2xl border border-steel-200/80 shadow-xl overflow-hidden">
+    <div className="glass-card rounded-2xl shadow-xl overflow-hidden">
       {/* Header */}
       <div className="bg-navy-900 px-6 py-5 sm:px-8">
         <div className="flex items-center gap-3">
@@ -327,7 +327,7 @@ export default function LandedCostCalculator() {
           >
             <div className="border-t border-steel-300">
               {/* Results Header */}
-              <div className="bg-steel-100 px-6 py-4 sm:px-8">
+              <div className="bg-bg-subtle/50 px-6 py-4 sm:px-8 border-b border-border">
                 <h4 className="font-heading font-bold text-navy-900 text-base">
                   Cost Breakdown
                 </h4>

@@ -10,10 +10,7 @@ import {
   Factory,
   PackageCheck,
   ArrowRight,
-  Globe,
-  Handshake,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "About Aaron Technologies",
@@ -45,7 +42,7 @@ const valueProps = [
   },
   {
     icon: Headphones,
-    title: "US Contracts & Liability",
+    title: "US Contracts & Support",
     stat: "US Entity",
     description:
       "We are a registered US corporation. You get USD invoicing, local contracts, domestic liability protections, and local support.",
@@ -54,29 +51,29 @@ const valueProps = [
 
 const howItWorks = [
   {
-    icon: Send,
     step: "01",
+    icon: Send,
     title: "Submit RFQ & Blueprints",
     description:
       "Send us your CAD drawings, standard specifications, quantities, and target unit pricing. We accept inquiries via our website, email, or direct calls.",
   },
   {
-    icon: Search,
     step: "02",
+    icon: Search,
     title: "Sourcing & Landed Quote",
     description:
       "Our engineers match your blueprints to our vetted network and issue a transparent quote covering FOB, freight, insurance, and the 18% customs duty within 24–48 hours.",
   },
   {
-    icon: Factory,
     step: "03",
+    icon: Factory,
     title: "Tooling, Production & QC",
     description:
       "Production begins under ISO processes. Our Indian inspectors audit first-articles and run dimensional assays at critical production stages.",
   },
   {
-    icon: PackageCheck,
     step: "04",
+    icon: PackageCheck,
     title: "Delivered to Loading Dock",
     description:
       "We manage door-to-door freight forwarding, customs clearances, and final trucking, delivering parts and quality dossiers directly to your loading dock.",
@@ -87,132 +84,110 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="section-dark relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="relative max-w-7xl mx-auto px-6 py-16 sm:py-24">
-          <div className="max-w-3xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-copper-400">
-              Our Story
-            </p>
-            <h1 className="max-w-3xl text-4xl sm:text-5xl font-heading font-bold leading-tight text-white mb-4">
-              About Aaron <span className="text-gradient">Technologies</span>
-            </h1>
-            <p className="text-steel-400 text-lg leading-relaxed max-w-2xl">
-              We bridge American buyers with India&rsquo;s world-class manufacturing ecosystem — delivering premium industrial components with full traceability and significant cost savings.
-            </p>
-          </div>
+      <section className="border-b border-border">
+        <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
+          <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+            Our Story
+          </span>
+          <h1 className="text-4xl sm:text-5xl leading-[1.1] mb-5 max-w-3xl">
+            About Aaron <strong>Technologies</strong>
+          </h1>
+          <p className="text-lg text-text-secondary leading-relaxed max-w-2xl">
+            We bridge American buyers with India&rsquo;s world-class manufacturing
+            ecosystem — delivering premium industrial components with full
+            traceability and significant cost savings.
+          </p>
         </div>
       </section>
 
-      {/* Story & Stats - Clean typographic stats instead of card grids */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-12 sm:py-20">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
+      {/* Story & Stats */}
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6">
+          <div className="grid gap-16 lg:grid-cols-12 lg:items-start">
             {/* Story text */}
             <div className="lg:col-span-7 space-y-6">
-              <p className="text-sm font-semibold uppercase tracking-widest text-copper-500">
+              <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block">
                 Who We Are
-              </p>
-              <h2 className="text-3xl font-heading font-bold text-navy-900 leading-tight">
-                Built for American Procurement Teams, Powered by Indian Engineering
+              </span>
+              <h2 className="text-3xl leading-tight">
+                Built for American Procurement Teams,{" "}
+                <strong>Powered by Indian Engineering</strong>
               </h2>
-              <div className="space-y-4 text-steel-600 leading-relaxed text-sm">
+              <div className="space-y-4 text-text-secondary leading-relaxed">
                 <p>
-                  Aaron Technologies Inc. is a US-registered industrial supplier operating an active sourcing network across India&rsquo;s leading industrial clusters — including Rajkot, Ludhiana, Pune, and Chennai.
+                  Aaron Technologies Inc. is a US-registered industrial supplier
+                  operating an active sourcing network across India&rsquo;s leading
+                  industrial clusters — including Rajkot, Ludhiana, Pune, and Chennai.
                 </p>
                 <p>
-                  We established our firm to solve a common trade problem: American procurement teams want the cost advantages of importing from India, but hesitate due to quality control risks, time-zone disconnects, and customs import logistics.
+                  We established our firm to solve a common trade problem: American
+                  procurement teams want the cost advantages of importing from India,
+                  but hesitate due to quality control risks, time-zone disconnects,
+                  and customs import logistics.
                 </p>
                 <p>
-                  Our local engineering team in India solves this by inspecting production on-site. Meanwhile, our US entity handles the contracts, invoicing, and logistics. You get direct-from-foundry pricing with the security and ease of a domestic supplier.
+                  Our local engineering team in India solves this by inspecting
+                  production on-site. Meanwhile, our US entity handles the contracts,
+                  invoicing, and logistics. You get direct-from-foundry pricing with
+                  the security and ease of a domestic supplier.
                 </p>
               </div>
             </div>
 
-            {/* Flat stats grid (no card backgrounds or borders) */}
-            <div className="lg:col-span-5 grid grid-cols-2 gap-x-8 gap-y-12 lg:pl-8">
-              <div>
-                <div className="text-5xl font-heading font-extrabold text-navy-900 mb-1">
-                  30+
+            {/* Stats grid */}
+            <div className="lg:col-span-5 grid grid-cols-2 gap-px bg-border rounded-xl overflow-hidden border border-border lg:ml-8">
+              {[
+                { value: "30+", label: "Vetted Factories" },
+                { value: "25%+", label: "Average Savings" },
+                { value: "100%", label: "MTC Traceability" },
+                { value: "Local", label: "US Contracts & Support" },
+              ].map((stat) => (
+                <div key={stat.label} className="bg-white p-8 flex flex-col">
+                  <div className="text-3xl md:text-4xl text-text-primary tracking-tight mb-1.5">
+                    {stat.value}
+                  </div>
+                  <div className="font-mono text-[10px] uppercase text-text-tertiary tracking-tight">
+                    {stat.label}
+                  </div>
                 </div>
-                <div className="w-8 h-0.5 bg-copper-500 mb-2" />
-                <div className="text-xs font-semibold text-steel-500 uppercase tracking-wider">
-                  Vetted Factories
-                </div>
-              </div>
-
-              <div>
-                <div className="text-5xl font-heading font-extrabold text-navy-900 mb-1">
-                  25%+
-                </div>
-                <div className="w-8 h-0.5 bg-copper-500 mb-2" />
-                <div className="text-xs font-semibold text-steel-500 uppercase tracking-wider">
-                  Average Savings
-                </div>
-              </div>
-
-              <div>
-                <div className="text-5xl font-heading font-extrabold text-navy-900 mb-1">
-                  100%
-                </div>
-                <div className="w-8 h-0.5 bg-copper-500 mb-2" />
-                <div className="text-xs font-semibold text-steel-500 uppercase tracking-wider">
-                  MTC Traceability
-                </div>
-              </div>
-
-              <div>
-                <div className="text-5xl font-heading font-extrabold text-navy-900 mb-1">
-                  Local
-                </div>
-                <div className="w-8 h-0.5 bg-copper-500 mb-2" />
-                <div className="text-xs font-semibold text-steel-500 uppercase tracking-wider">
-                  US Contracts & Support
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Value Props - Flat text grid (No cards!) */}
-      <section className="bg-steel-100 border-y border-steel-300">
-        <div className="max-w-7xl mx-auto px-6 py-12 sm:py-20">
-          <div className="text-center mb-14">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-copper-500">
+      {/* Value Props */}
+      <section className="border-t border-b border-border py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6">
+          <div className="mb-16">
+            <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
               Why Aaron Technologies
-            </p>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-900 mb-4">
-              The Aaron Advantage
+            </span>
+            <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-4">
+              The Aaron <strong>Advantage</strong>
             </h2>
-            <p className="mx-auto max-w-2xl text-steel-600 leading-relaxed text-base">
-              We eliminate the traditional headaches of international trade to deliver direct manufacturing pricing with zero compromise on quality.
+            <p className="max-w-2xl text-text-secondary text-lg leading-relaxed">
+              We eliminate the traditional headaches of international trade to
+              deliver direct manufacturing pricing with zero compromise on quality.
             </p>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-2 lg:gap-14">
+          <div className="grid gap-px bg-border sm:grid-cols-2 rounded-xl overflow-hidden border border-border">
             {valueProps.map((prop) => {
               const PropIcon = prop.icon;
               return (
-                <div key={prop.title} className="flex gap-5 items-start">
-                  <div className="w-10 h-10 rounded-xl bg-copper-500/10 text-copper-600 flex items-center justify-center shrink-0">
-                    <PropIcon className="w-5 h-5" />
+                <div key={prop.title} className="bg-white p-8 flex gap-5 items-start">
+                  <div className="w-9 h-9 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center shrink-0">
+                    <PropIcon className="w-4 h-4" aria-hidden="true" />
                   </div>
                   <div>
-                    <span className="text-xs font-bold text-copper-600 uppercase tracking-wider block mb-1">
+                    <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight block mb-1.5">
                       {prop.stat}
                     </span>
-                    <h3 className="font-heading font-bold text-navy-900 text-lg mb-2">
+                    <h3 className="text-[15px] font-medium text-text-primary mb-2">
                       {prop.title}
                     </h3>
-                    <p className="text-sm leading-relaxed text-steel-600">
+                    <p className="text-sm leading-relaxed text-text-secondary">
                       {prop.description}
                     </p>
                   </div>
@@ -223,42 +198,35 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* How It Works - Vertical process timeline for visual layout variety */}
-      <section className="bg-white">
-        <div className="max-w-7xl mx-auto px-6 py-12 sm:py-20">
-          <div className="text-center mb-16">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-copper-500">
-              Simple Pipeline
-            </p>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-900 mb-4">
-              Our Sourcing Process
+      {/* How It Works */}
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6">
+          <div className="mb-16">
+            <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+              Process
+            </span>
+            <h2 className="text-3xl md:text-[2.75rem] leading-tight">
+              Our Sourcing <strong>Process</strong>
             </h2>
-            <p className="mx-auto max-w-2xl text-steel-600 leading-relaxed">
-              We manage the entire lifecycle from blueprint design to loading dock delivery.
-            </p>
           </div>
 
-          {/* Vertical Stepper timeline */}
-          <div className="max-w-3xl mx-auto relative pl-8 sm:pl-12 border-l border-steel-350 space-y-12">
-            {howItWorks.map((step, idx) => {
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border border-border">
+            {howItWorks.map((step) => {
               const StepIcon = step.icon;
               return (
-                <div key={step.step} className="relative">
-                  {/* Step circle indicator on the left line */}
-                  <div className="absolute -left-[45px] sm:-left-[61px] top-0.5 flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-navy-900 text-white font-heading font-bold text-xs sm:text-sm border-4 border-white">
-                    {step.step}
+                <div key={step.step} className="bg-white p-8 flex flex-col">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight">
+                      Step {step.step}
+                    </span>
+                    <StepIcon className="w-4 h-4 text-text-tertiary" aria-hidden="true" />
                   </div>
-
-                  {/* Step content */}
-                  <div className="space-y-2">
-                    <h3 className="font-heading font-bold text-navy-900 text-lg sm:text-xl flex items-center gap-2">
-                      <StepIcon className="w-5 h-5 text-copper-500 shrink-0" />
-                      {step.title}
-                    </h3>
-                    <p className="text-sm text-steel-600 leading-relaxed max-w-2xl">
-                      {step.description}
-                    </p>
-                  </div>
+                  <h3 className="text-lg font-medium text-text-primary mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    {step.description}
+                  </p>
                 </div>
               );
             })}
@@ -267,25 +235,26 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="section-dark">
-        <div className="max-w-7xl mx-auto px-6 py-20 text-center">
-          <h2 className="text-3xl font-heading font-bold mb-4">
-            Optimize Your Sourcing Today
+      <section className="border-t border-border py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6 text-center max-w-2xl">
+          <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-6">
+            Optimize your <strong>sourcing today</strong>
           </h2>
-          <p className="mx-auto mb-8 max-w-xl text-steel-400 leading-relaxed">
-            Send us your drawing files, specs, and quantities. Our engineering team will analyze and issue a landed-cost quote.
+          <p className="text-lg text-text-secondary leading-relaxed mb-10">
+            Send us your drawing files, specs, and quantities. Our engineering
+            team will analyze and issue a landed-cost quote.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/quote"
-              className="inline-flex items-center gap-2 rounded-full bg-copper-500 px-8 py-3.5 font-semibold text-white transition-colors hover:bg-copper-600 cursor-pointer shadow-md hover:shadow-lg"
+              className="btn-primary px-8 py-3.5 text-base"
             >
               Request Sourcing Quote
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 rounded-full border border-steel-600 px-8 py-3.5 font-semibold text-steel-300 transition-all hover:border-steel-400 hover:text-white hover:bg-white/5"
+              className="btn-secondary px-8 py-3.5 text-base"
             >
               Contact Sourcing Team
             </Link>

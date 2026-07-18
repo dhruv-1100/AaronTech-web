@@ -97,8 +97,8 @@ function validateForm(data: RFQSubmission): RFQFormErrors {
 export default function QuotePage() {
   return (
     <Suspense fallback={
-      <div className="min-h-[70vh] bg-steel-100 flex items-center justify-center">
-        <Loader2 className="w-8 h-8 text-copper-500 animate-spin" />
+      <div className="min-h-[70vh] flex items-center justify-center">
+        <Loader2 className="w-6 h-6 text-text-tertiary animate-spin" />
       </div>
     }>
       <QuotePageContent />
@@ -133,7 +133,6 @@ function QuotePageContent() {
 
   function updateField(field: keyof RFQSubmission, value: string) {
     setFormData((prev) => ({ ...prev, [field]: value }));
-    // Clear error for field on change
     if (errors[field as keyof RFQFormErrors]) {
       setErrors((prev) => {
         const next = { ...prev };
@@ -174,46 +173,28 @@ function QuotePageContent() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="bg-navy-900 relative overflow-hidden">
-        {/* Subtle grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="relative max-w-7xl mx-auto px-6 py-16 sm:py-20">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="max-w-2xl"
-          >
-            <div className="flex items-center gap-2 text-copper-400 text-sm font-semibold uppercase tracking-wider mb-4">
-              <Send className="w-4 h-4" aria-hidden="true" />
-              <span>Request for Quote</span>
-            </div>
-            <h1 className="font-heading font-bold text-4xl sm:text-5xl text-white mb-4 leading-[1.1]">
-              Request a{" "}
-              <span className="text-gradient">Quote</span>
-            </h1>
-            <p className="text-steel-400 text-lg leading-relaxed max-w-xl">
-              Tell us what you need and our engineering team will deliver a
-              detailed quote with transparent landed-cost pricing within{" "}
-              <span className="text-white font-semibold">24–48 hours</span>.
-            </p>
-          </motion.div>
+      {/* Hero */}
+      <section className="border-b border-border">
+        <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
+          <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+            Request for Quote
+          </span>
+          <h1 className="text-4xl sm:text-5xl leading-[1.1] mb-5 max-w-2xl">
+            Request a <strong>Quote</strong>
+          </h1>
+          <p className="text-lg text-text-secondary leading-relaxed max-w-xl">
+            Tell us what you need and our engineering team will deliver a
+            detailed quote with transparent landed-cost pricing within{" "}
+            <span className="font-medium text-text-primary">24–48 hours</span>.
+          </p>
         </div>
       </section>
 
       {/* Main Content */}
-      <section className="bg-steel-100">
-        <div className="max-w-7xl mx-auto px-6 py-14 sm:py-20">
+      <section className="py-16 md:py-20">
+        <div className="max-w-[1360px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-14">
-            {/* Form Column (wider) */}
+            {/* Form Column */}
             <div className="lg:col-span-2">
               <AnimatePresence mode="wait">
                 {isSubmitted ? (
@@ -221,17 +202,17 @@ function QuotePageContent() {
                 ) : (
                   <motion.div
                     key="form"
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -20 }}
-                    transition={{ duration: 0.35 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.3 }}
                   >
-                    <div className="bg-white rounded-2xl border border-steel-200/85 overflow-hidden shadow-sm">
-                      <div className="px-6 py-5 sm:px-8 border-b border-steel-200">
-                        <h2 className="font-heading font-bold text-navy-900 text-xl">
+                    <div className="rounded-xl border border-border-strong overflow-hidden">
+                      <div className="px-6 py-5 sm:px-8 border-b border-border">
+                        <h2 className="text-lg font-medium text-text-primary">
                           Your Requirements
                         </h2>
-                        <p className="text-steel-600 text-sm mt-1">
+                        <p className="text-text-tertiary text-sm mt-1">
                           Fields marked with{" "}
                           <span className="text-error">*</span> are required
                         </p>
@@ -360,7 +341,7 @@ function QuotePageContent() {
                                 </option>
                               ))}
                             </select>
-                            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-steel-500 pointer-events-none" aria-hidden="true" />
+                            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted pointer-events-none" aria-hidden="true" />
                           </div>
                         </FormField>
 
@@ -411,7 +392,7 @@ function QuotePageContent() {
                           </FormField>
                           <FormField label="Target Unit Price" required={false} htmlFor="targetPrice">
                             <div className="relative">
-                              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-500 text-sm">
+                              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted text-sm">
                                 $
                               </span>
                               <input
@@ -457,10 +438,10 @@ function QuotePageContent() {
                             type="submit"
                             disabled={isSubmitting}
                             className={cn(
-                              "w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full font-semibold text-sm transition-all shadow-md hover:shadow-lg",
+                              "w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full font-medium text-sm transition-all",
                               isSubmitting
-                                ? "bg-copper-400 text-white cursor-wait"
-                                : "bg-copper-500 hover:bg-copper-600 text-white"
+                                ? "bg-primary/70 text-white cursor-wait"
+                                : "bg-primary hover:opacity-85 text-white"
                             )}
                           >
                             {isSubmitting ? (
@@ -486,14 +467,9 @@ function QuotePageContent() {
             {/* Sidebar */}
             <div className="space-y-6">
               {/* What Happens Next */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.15 }}
-                className="bg-white rounded-2xl border border-steel-200/85 overflow-hidden shadow-sm"
-              >
-                <div className="px-6 py-5 border-b border-steel-200">
-                  <h3 className="font-heading font-bold text-navy-900 text-lg">
+              <div className="glass-card rounded-xl overflow-hidden">
+                <div className="px-6 py-4 border-b border-border">
+                  <h3 className="text-[15px] font-medium text-text-primary">
                     What Happens Next?
                   </h3>
                 </div>
@@ -503,20 +479,18 @@ function QuotePageContent() {
                     return (
                       <div key={step.step} className="flex gap-4">
                         <div className="shrink-0">
-                          <div className="w-10 h-10 rounded-xl bg-navy-900 flex items-center justify-center">
-                            <Icon className="w-5 h-5 text-copper-400" aria-hidden="true" />
+                          <div className="w-8 h-8 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center">
+                            <Icon className="w-4 h-4" aria-hidden="true" />
                           </div>
                         </div>
                         <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="text-xs font-bold text-copper-500 uppercase tracking-wider">
-                              Step {step.step}
-                            </span>
-                          </div>
-                          <h4 className="font-heading font-semibold text-navy-900 text-sm mb-1">
+                          <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight block mb-1">
+                            Step {step.step}
+                          </span>
+                          <h4 className="text-sm font-medium text-text-primary mb-1">
                             {step.title}
                           </h4>
-                          <p className="text-xs text-steel-600 leading-relaxed">
+                          <p className="text-xs text-text-secondary leading-relaxed">
                             {step.description}
                           </p>
                         </div>
@@ -524,79 +498,67 @@ function QuotePageContent() {
                     );
                   })}
                 </div>
-              </motion.div>
+              </div>
 
-               {/* Trust Signals */}
-               <motion.div
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 transition={{ duration: 0.5, delay: 0.25 }}
-                 className="bg-navy-900 rounded-2xl border border-navy-800/80 overflow-hidden section-dark shadow-sm"
-               >
-                 <div className="p-6 space-y-4">
-                  <h3 className="font-heading font-bold text-white text-sm uppercase tracking-wider">
-                    Why Aaron Technologies?
-                  </h3>
-                  <div className="space-y-3">
-                    {TRUST_SIGNALS.map((signal) => {
-                      const Icon = signal.icon;
-                      return (
-                        <div
-                          key={signal.label}
-                          className="flex items-center gap-3"
-                        >
-                          <div className="w-8 h-8 rounded-xl bg-navy-700 flex items-center justify-center shrink-0">
-                            <Icon className="w-4 h-4 text-copper-400" aria-hidden="true" />
-                          </div>
-                          <span className="text-sm text-steel-300 font-medium">
-                            {signal.label}
-                          </span>
+              {/* Trust Signals */}
+              <div className="glass-card p-6 rounded-xl">
+                <h3 className="font-mono text-[10px] uppercase text-text-tertiary tracking-tight mb-4">
+                  Why Aaron Technologies?
+                </h3>
+                <div className="space-y-3">
+                  {TRUST_SIGNALS.map((signal) => {
+                    const Icon = signal.icon;
+                    return (
+                      <div
+                        key={signal.label}
+                        className="flex items-center gap-3"
+                      >
+                        <div className="w-7 h-7 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center shrink-0">
+                          <Icon className="w-3.5 h-3.5" aria-hidden="true" />
                         </div>
-                      );
-                    })}
-                  </div>
-                  <div className="pt-3 border-t border-navy-700">
-                    <Link
-                      href="/about"
-                      className="inline-flex items-center gap-1.5 text-copper-400 hover:text-copper-300 text-sm font-medium transition-colors"
-                    >
-                      Learn more about us
-                      <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-                    </Link>
-                  </div>
+                        <span className="text-sm text-text-secondary">
+                          {signal.label}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
-              </motion.div>
+                <div className="pt-4 mt-4 border-t border-border">
+                  <Link
+                    href="/about"
+                    className="inline-flex items-center gap-1.5 text-text-primary hover:text-primary text-sm font-medium transition-colors"
+                  >
+                    Learn more about us
+                    <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                  </Link>
+                </div>
+              </div>
 
               {/* Direct Contact */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.35 }}
-                className="bg-white rounded-2xl border border-steel-200/80 p-6 shadow-sm"
-              >
-                <h3 className="font-heading font-bold text-navy-900 text-sm mb-3">
+              <div className="glass-card p-6 rounded-xl">
+                <h3 className="text-sm font-medium text-text-primary mb-3">
                   Prefer to Talk?
                 </h3>
-                <p className="text-sm text-steel-600 mb-4 leading-relaxed">
+                <p className="text-sm text-text-secondary mb-4 leading-relaxed">
                   Our sales team is available Monday–Friday, 8AM–6PM EST.
                 </p>
                 <div className="space-y-2 text-sm">
                   <a
                     href="tel:+16402721906"
-                    className="flex items-center gap-2 text-steel-700 hover:text-copper-600 transition-colors"
+                    className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"
                   >
-                    <span className="font-semibold">Phone:</span>{" "}
+                    <span className="font-medium">Phone:</span>{" "}
                     +1 (640) 272-1906
                   </a>
                   <a
                     href="mailto:kushal@aarontechno.com"
-                    className="flex items-center gap-2 text-steel-700 hover:text-copper-600 transition-colors"
+                    className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"
                   >
-                    <span className="font-semibold">Email:</span>{" "}
+                    <span className="font-medium">Email:</span>{" "}
                     kushal@aarontechno.com
                   </a>
                 </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </div>
@@ -622,7 +584,7 @@ function FormField({
 }) {
   return (
     <div>
-      <label htmlFor={htmlFor} className="block text-sm font-medium text-navy-900 mb-1.5">
+      <label htmlFor={htmlFor} className="block text-sm font-medium text-text-primary mb-1.5">
         {label}
         {required && <span className="text-error ml-0.5">*</span>}
       </label>
@@ -649,10 +611,10 @@ function FormField({
 
 function inputClasses(error?: string) {
   return cn(
-    "w-full px-4 py-2.5 min-h-[48px] rounded-xl border text-navy-900 text-sm bg-steel-50/30 focus:bg-white placeholder:text-steel-400 transition-all duration-200 outline-none",
+    "w-full px-4 py-2.5 min-h-[48px] rounded-lg border text-text-primary text-sm bg-white placeholder:text-text-muted transition-all duration-200 outline-none",
     error
       ? "border-error focus:border-error focus:ring-1 focus:ring-error"
-      : "border-steel-200/80 focus:border-navy-900/50 hover:border-steel-300 focus:ring-1 focus:ring-navy-900/50"
+      : "border-border-strong focus:border-primary/50 hover:border-text-muted focus:ring-1 focus:ring-primary/50"
   );
 }
 
@@ -660,13 +622,12 @@ function SuccessState() {
   return (
     <motion.div
       key="success"
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className="bg-white rounded-2xl border border-steel-200/85 overflow-hidden shadow-lg"
+      className="rounded-xl border border-border-strong overflow-hidden"
     >
       <div className="px-6 py-16 sm:px-12 text-center">
-        {/* Animated checkmark */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -676,7 +637,7 @@ function SuccessState() {
             damping: 15,
             delay: 0.15,
           }}
-          className="w-20 h-20 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-6"
+          className="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-6"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -688,7 +649,7 @@ function SuccessState() {
               delay: 0.3,
             }}
           >
-            <CheckCircle2 className="w-10 h-10 text-success" />
+            <CheckCircle2 className="w-8 h-8 text-success" />
           </motion.div>
         </motion.div>
 
@@ -697,29 +658,29 @@ function SuccessState() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <h2 className="font-heading font-bold text-navy-900 text-2xl sm:text-3xl mb-3">
-            Quote Request Received!
+          <h2 className="text-2xl sm:text-3xl text-text-primary mb-3">
+            Quote Request <strong>Received!</strong>
           </h2>
-          <p className="text-steel-600 max-w-md mx-auto leading-relaxed mb-2">
+          <p className="text-text-secondary max-w-md mx-auto leading-relaxed mb-2">
             Thank you for your interest in Aaron Technologies. Our engineering
             team will review your requirements and respond with a detailed quote
-            within <span className="font-semibold text-navy-900">24–48 hours</span>.
+            within <span className="font-medium text-text-primary">24–48 hours</span>.
           </p>
-          <p className="text-steel-500 text-sm mb-8">
+          <p className="text-text-tertiary text-sm mb-8">
             A confirmation email has been sent to your address.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-navy-900 hover:bg-navy-800 text-white font-semibold text-sm rounded-full transition-colors shadow-sm hover:shadow-md"
+              className="btn-primary px-8 py-3.5"
             >
               Back to Home
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 px-8 py-3.5 border border-steel-300 hover:bg-steel-100 text-navy-900 font-semibold text-sm rounded-full transition-colors bg-white shadow-sm"
+              className="btn-secondary px-8 py-3.5"
             >
               Browse Products
             </Link>

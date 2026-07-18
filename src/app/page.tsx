@@ -1,14 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import {
   ArrowRight,
   ChevronRight,
-  ShieldCheck,
-  Factory,
   Package,
-  TrendingDown,
   Wrench,
   Flame,
   FlaskConical,
@@ -21,21 +18,16 @@ import {
   Zap,
   Spline,
   Circle,
-  CheckCircle2,
-  Globe,
+  Check,
+  X,
   DollarSign,
   FileCheck,
   Headphones,
-  FileText,
-  Compass,
+  Globe,
+  Factory,
+  ShieldCheck,
+  TrendingDown,
   Truck,
-  Boxes,
-  Database,
-  ArrowUpRight,
-  Check,
-  X,
-  Activity,
-  Terminal,
 } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -43,7 +35,6 @@ import { productCategories } from "@/lib/data/products";
 import { trustMetrics } from "@/lib/data/site";
 import { industries } from "@/lib/data/industries";
 import LandedCostCalculator from "@/components/LandedCostCalculator";
-import SourcingDashboard from "@/components/SourcingDashboard";
 
 // Icon map for dynamic rendering
 const iconMap: Record<string, React.ElementType> = {
@@ -52,6 +43,7 @@ const iconMap: Record<string, React.ElementType> = {
   Package, Factory, ShieldCheck, TrendingDown,
 };
 
+// Comparison data
 const comparisonRows = [
   {
     metric: "Communications & Invoices",
@@ -80,6 +72,58 @@ const comparisonRows = [
   },
 ];
 
+// Advantages data
+const advantages = [
+  {
+    number: "01",
+    title: "Cost Reduction",
+    description: "25%+ landed cost savings through consolidated sourcing, bulk freight, and direct factory pricing — without compromising on quality.",
+    icon: DollarSign,
+  },
+  {
+    number: "02",
+    title: "Quality Assurance",
+    description: "Pre-shipment inspections, dimensional verification, and full material traceability on every order. EN 10204 3.1 mill certs included.",
+    icon: FileCheck,
+  },
+  {
+    number: "03",
+    title: "US-Based Support",
+    description: "A single point-of-contact in the US handles procurement, quality control, logistics, and documentation — one invoice, no language barriers.",
+    icon: Headphones,
+  },
+  {
+    number: "04",
+    title: "Vetted Network",
+    description: "30+ ISO 9001-certified Indian manufacturers, audited and validated by our operations team. Consistent supply across 12 product categories.",
+    icon: Globe,
+  },
+];
+
+// Process steps
+const processSteps = [
+  {
+    number: "01",
+    title: "Submit RFQ",
+    description: "Share your specifications, drawings, and quantities. We respond within 24–48 hours with competitive pricing.",
+  },
+  {
+    number: "02",
+    title: "Source & Verify",
+    description: "We match your requirements to the best-fit manufacturer in our network and validate specs, certifications, and capacity.",
+  },
+  {
+    number: "03",
+    title: "Inspect & Ship",
+    description: "On-site pre-shipment inspections verify dimensions and material. We handle export, freight, and customs documentation.",
+  },
+  {
+    number: "04",
+    title: "Deliver & Support",
+    description: "Components arrive at your facility with full traceability. Ongoing support for reorders, inventory programs, and engineering changes.",
+  },
+];
+
 function AnimatedSection({
   children,
   className,
@@ -90,14 +134,14 @@ function AnimatedSection({
   delay?: number;
 }) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 32 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
       {children}
@@ -105,344 +149,226 @@ function AnimatedSection({
   );
 }
 
-function StatCounter({
-  value,
-  suffix,
-  label,
-  icon,
-}: {
-  value: string;
-  suffix?: string;
-  label: string;
-  icon: string;
-}) {
-  const Icon = iconMap[icon] || Package;
-  return (
-    <div className="flex flex-col items-center text-center">
-      <div className="w-10 h-10 rounded-full bg-copper-500/10 text-copper-500 flex items-center justify-center mb-3">
-        <Icon className="w-5 h-5" />
-      </div>
-      <div className="text-3xl md:text-4xl font-heading font-bold text-navy-900">
-        {value}
-        <span className="text-copper-500">{suffix}</span>
-      </div>
-      <div className="text-xs text-steel-500 font-bold uppercase tracking-wider mt-1">{label}</div>
-    </div>
-  );
-}
-
-
-
 export default function HomePage() {
-  const [activeAdvantage, setActiveAdvantage] = useState<number | null>(null);
-  const featuredCategories = productCategories.slice(0, 8);
+  const featuredCategories = productCategories.slice(0, 9);
   const featuredIndustries = industries.filter((i) => i.tier <= 2).slice(0, 6);
 
   return (
     <>
       {/* ================================================================
-          HERO SECTION
+          HERO SECTION — Clean white, editorial
           ================================================================ */}
-      <section className="relative bg-navy-950 overflow-hidden section-dark">
-        {/* Grid pattern overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(rgba(199,91,42,0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(199,91,42,0.3) 1px, transparent 1px)`,
-            backgroundSize: "60px 60px",
-          }}
-        />
-        {/* Gradient accents - Animated floating glows */}
-        <motion.div
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.5, 0.7, 0.5],
-            x: [0, 20, 0],
-            y: [0, -20, 0],
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 15,
-            ease: "easeInOut",
-          }}
-          className="absolute top-0 right-0 w-[600px] h-[600px] bg-copper-500/5 rounded-full blur-[120px] pointer-events-none"
-        />
-        <motion.div
-          animate={{
-            scale: [1, 1.15, 1],
-            opacity: [0.3, 0.5, 0.3],
-            x: [0, -30, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            repeat: Infinity,
-            duration: 20,
-            ease: "easeInOut",
-          }}
-          className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-navy-600/20 rounded-full blur-[100px] pointer-events-none"
-        />
-
-        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            {/* Left Column - Copy & CTA */}
-            <div className="lg:col-span-7">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-copper-500/10 border border-copper-500/30 text-copper-300 text-sm font-semibold mb-6"
-              >
-                <ShieldCheck className="w-4 h-4" />
-                Vetted Supplier Network
-              </motion.div>
-
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-4xl sm:text-5xl md:text-6xl font-heading font-bold text-white leading-[1.1] mb-6"
-              >
-                Industrial Components. <br />
-                <span className="text-gradient">Sourced Smarter.</span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-lg md:text-xl text-steel-400 leading-relaxed mb-10 max-w-2xl"
-              >
-                Precision-engineered fasteners, forgings, castings, and machined
-                parts sourced from vetted Indian manufacturers — delivered
-                with full material traceability and competitive landed costs.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-4"
-              >
-                <Link
-                  href="/quote"
-                  className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-full shadow-md hover:shadow-lg transition-all text-base cursor-pointer"
-                >
-                  Request a Quote
-                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </Link>
-                <Link
-                  href="/products"
-                  className="group inline-flex items-center justify-center gap-2 px-8 py-4 border border-steel-700 text-steel-300 hover:text-white hover:border-steel-500 font-semibold rounded-full hover:bg-white/5 transition-all text-base"
-                >
-                  Browse Products
-                  <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Right Column - Visualizer */}
+      <section className="border-b border-border">
+        <div className="max-w-[1360px] mx-auto px-6 pt-24 pb-20 md:pt-32 md:pb-28">
+          <div className="max-w-3xl mx-auto text-center">
             <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.3 }}
-              className="lg:col-span-5 w-full max-w-lg lg:max-w-none mx-auto"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="badge mb-8 mx-auto"
             >
-              <SourcingDashboard />
+              US-Based Industrial Sourcing
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="text-4xl sm:text-5xl md:text-[3.5rem] leading-[1.1] mb-6"
+            >
+              Industrial Components.{" "}
+              <strong>Sourced Smarter.</strong>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="text-lg text-text-secondary leading-relaxed mb-10 max-w-xl mx-auto"
+            >
+              Precision-engineered fasteners, forgings, castings, and machined
+              parts sourced from vetted Indian manufacturers — with full
+              material traceability and competitive landed costs.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <Link
+                href="/quote"
+                className="btn-primary px-8 py-3.5 text-base"
+              >
+                Request a Quote
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/products"
+                className="btn-secondary px-8 py-3.5 text-base"
+              >
+                Browse Products
+                <ChevronRight className="w-4 h-4" />
+              </Link>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* ================================================================
-          TRUST METRICS BAR - Rounded Floating Card (Modern SaaS style)
+          TRUST METRICS — Ruled horizontal grid
           ================================================================ */}
-      <section className="relative z-10 -mt-10 px-6">
-        <div className="max-w-7xl mx-auto bg-white border border-steel-200/80 rounded-2xl shadow-xl p-8 md:p-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 divide-y md:divide-y-0 md:divide-x divide-steel-200">
-            {trustMetrics.map((metric, i) => (
-              <motion.div
-                key={metric.label}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-                className="p-2 md:p-4 first:pt-0 md:first:pt-4 md:pl-8 first:pl-0"
-              >
-                <StatCounter
-                  value={metric.value}
-                  suffix={metric.suffix}
-                  label={metric.label}
-                  icon={metric.icon}
-                />
-              </motion.div>
-            ))}
+      <section className="border-b border-border">
+        <div className="max-w-[1360px] mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4">
+            {trustMetrics.map((metric, i) => {
+              const Icon = iconMap[metric.icon] || Package;
+              return (
+                <motion.div
+                  key={metric.label}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
+                  className={cn(
+                    "flex flex-col items-center text-center py-10 px-6",
+                    i < 3 && "md:border-r md:border-border",
+                    i < 2 && "border-r border-border md:border-r",
+                    i >= 2 && "border-t md:border-t-0 border-border"
+                  )}
+                >
+                  <div className="text-3xl md:text-4xl text-text-primary mb-1.5 tracking-tight">
+                    {metric.value}
+                    <span className="text-primary-muted">{metric.suffix}</span>
+                  </div>
+                  <div className="font-mono text-[10px] uppercase text-text-tertiary tracking-tight">
+                    {metric.label}
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* ================================================================
-          PRODUCT CATALOG - Unified Border Grid (No floating cards!)
+          PRODUCT CATALOG — Ruled grid cards
           ================================================================ */}
-      <section className="py-20 md:py-28 bg-steel-100">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6">
           <AnimatedSection>
-            <div className="text-center mb-14">
-              <span className="text-copper-500 font-medium text-sm uppercase tracking-wider">
+            <div className="mb-16">
+              <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
                 Product Lines
               </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4 text-navy-900">
-                Precision Sourced Components
+              <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-4">
+                Precision Sourced <strong>Components</strong>
               </h2>
-              <p className="text-steel-600 max-w-2xl mx-auto text-lg">
-                Explore our featured industrial categories. Every component ships with material test reports (MTCs) and standards verification.
+              <p className="text-text-secondary max-w-xl text-lg">
+                Every component ships with material test reports and standards verification across 12 industrial categories.
               </p>
             </div>
           </AnimatedSection>
 
-          {/* Spacious Grid of Rounded Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {featuredCategories.map((cat, i) => {
               const Icon = iconMap[cat.icon] || Package;
               return (
-                <AnimatedSection key={cat.id} delay={i * 0.04} className="h-full">
+                <AnimatedSection key={cat.id} delay={i * 0.04}>
                   <Link
                     href={`/products/${cat.slug}`}
-                    className="group block p-6 bg-white border border-steel-200/80 rounded-2xl hover:border-copper-500/40 hover:shadow-xl transition-all duration-300 h-full flex flex-col justify-between"
+                    className="flex items-start gap-4 p-6 rounded-xl hover-glass-card h-full"
                   >
-                    <div>
-                      <div className="w-10 h-10 rounded-xl bg-copper-500/10 text-copper-500 flex items-center justify-center mb-5 group-hover:bg-copper-500 group-hover:text-white transition-colors">
-                        <Icon className="w-5 h-5 transition-colors" />
-                      </div>
-                      <h3 className="font-heading font-bold text-navy-900 text-lg mb-2 group-hover:text-copper-600 transition-colors">
+                    <div className="w-10 h-10 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center shrink-0 icon-box-hover transition-colors">
+                      <Icon className="w-5 h-5" aria-hidden="true" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="text-[15px] font-medium text-text-primary mb-1">
                         {cat.name}
-                      </h3>
-                      <p className="text-xs text-steel-500 leading-relaxed mb-4">
-                        {cat.shortDescription}
-                      </p>
-                    </div>
-                    <div>
-                      <div className="flex flex-wrap gap-1.5 mb-5">
-                        {cat.standards.slice(0, 2).map((std) => (
-                          <span
-                            key={std}
-                            className="text-[9px] px-2.5 py-1 rounded-full bg-steel-100 text-steel-600 font-bold border border-steel-200/40"
-                          >
-                            {std.split(" ")[0]}
-                          </span>
-                        ))}
                       </div>
-                      <span className="text-copper-500 text-xs font-bold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                        <span>View Details</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </span>
+                      <div className="text-sm text-text-tertiary leading-relaxed line-clamp-2">
+                        {cat.shortDescription}
+                      </div>
+                      <div className="font-mono text-[10px] uppercase text-text-muted mt-2.5 tracking-tight">
+                        {cat.standards?.[0] || "Industry Standards"}
+                      </div>
                     </div>
+                    <ArrowRight className="w-4 h-4 text-text-muted shrink-0 mt-1 transition-colors" aria-hidden="true" />
                   </Link>
                 </AnimatedSection>
               );
             })}
           </div>
 
-          <AnimatedSection className="text-center mt-10">
+          <AnimatedSection className="mt-8 text-center">
             <Link
               href="/products"
-              className="inline-flex items-center gap-2 px-8 py-3.5 border border-steel-300 text-steel-700 hover:text-navy-900 hover:border-steel-400 font-bold rounded-full transition-all bg-white shadow-sm hover:shadow-md"
+              className="btn-secondary text-sm"
             >
-              View All 12 Product Lines
-              <ArrowRight className="w-4 h-4" />
+              View All 12 Categories
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </AnimatedSection>
         </div>
       </section>
 
       {/* ================================================================
-          WHY AARON TECHNOLOGIES - Asymmetric Split Columns (No cards!)
+          WHY AARON TECHNOLOGIES — Editorial two-column
           ================================================================ */}
-      <section className="py-20 md:py-28 bg-white border-y border-steel-300">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-            {/* Left: Typography & Sourcing Narrative */}
-            <div className="lg:col-span-5 lg:sticky lg:top-24">
-              <span className="text-copper-500 font-medium text-sm uppercase tracking-wider">
-                Why Choose Us
+      <section className="border-t border-b border-border py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+            {/* Left — Heading */}
+            <AnimatedSection>
+              <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+                Why Consolidate With Us
               </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-6 text-navy-900 leading-tight">
-                Sourcing Complexity, Simplified.
+              <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-6">
+                One partner for your entire <strong>India sourcing</strong> supply chain
               </h2>
-              <p className="text-steel-600 text-lg leading-relaxed mb-6">
-                Direct-from-foundry importing offers massive cost advantages, but managing quality controls, freight logistics, and compliance from 8,000 miles away is full of risk.
+              <p className="text-text-secondary text-lg leading-relaxed mb-8">
+                Instead of managing dozens of overseas suppliers, inspectors, freight forwarders,
+                and customs brokers — work with a single US-based team that handles everything
+                from RFQ to delivery.
               </p>
-              <p className="text-steel-600 leading-relaxed mb-8">
-                Aaron Technologies bridges the gap. We qualification-vet manufacturers, inspect components on-site in India, manage container logistics, and invoice as a domestic US partner under US jurisdiction.
-              </p>
-              <Link
-                href="/about"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-navy-900 hover:bg-navy-800 text-white font-semibold rounded-full transition-all cursor-pointer shadow-sm hover:shadow-md"
-              >
-                Learn About Our Sourcing Process
-                <ArrowRight className="w-4 h-4" />
+              <Link href="/about" className="btn-secondary text-sm">
+                Learn More About Us
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
-            </div>
+            </AnimatedSection>
 
-            {/* Right: Premium Editorial Row List - Interactive Hover Ledger */}
-            <div className="lg:col-span-7 divide-y divide-steel-200/80">
-              {[
-                {
-                  icon: DollarSign,
-                  title: "25%+ Sourcing Cost Savings",
-                  desc: "Leverage direct manufacturing rates in India. We compile transparent landed-cost analyses covering FOB, logistics, and customs so you see real unit economics.",
-                },
-                {
-                  icon: ShieldCheck,
-                  title: "Vetted Supplier Network",
-                  desc: "We work exclusively with vetted manufacturers. Our local Indian engineering staff runs first-article inspections and stage QC audits before any batch leaves the dock.",
-                },
-                {
-                  icon: FileCheck,
-                  title: "100% Material Traceability",
-                  desc: "MTCs, heat codes, dimensional logs, and certificates of conformance ship with every container. Your quality team gets complete regulatory assurance.",
-                },
-                {
-                  icon: Headphones,
-                  title: "US-Based Sourcing Support",
-                  desc: "Aaron Technologies Inc. is a registered US corporation. You get USD invoicing, local contracts, domestic liability limits, and direct US-timezone support.",
-                },
-              ].map((item, i) => {
-                const isHovered = activeAdvantage === i;
+            {/* Right — Advantage cards */}
+            <div className="flex flex-col">
+              {advantages.map((adv, i) => {
+                const Icon = adv.icon;
                 return (
-                  <div
-                    key={item.title}
-                    onMouseEnter={() => setActiveAdvantage(i)}
-                    onMouseLeave={() => setActiveAdvantage(null)}
-                    className="group font-sans"
+                  <AnimatedSection
+                    key={adv.number}
+                    delay={i * 0.08}
+                    className={cn(
+                      "py-6",
+                      i < advantages.length - 1 && "border-b border-border"
+                    )}
                   >
-                    <AnimatedSection
-                      delay={i * 0.05}
-                      className={cn(
-                        "flex gap-5 py-6 px-4 -mx-4 items-start transition-all duration-300 border-l-2 cursor-default",
-                        isHovered
-                          ? "border-l-copper-500 bg-steel-100/50 shadow-sm"
-                          : "border-l-transparent bg-transparent"
-                      )}
-                    >
-                      <div className={cn(
-                        "w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors duration-300",
-                        isHovered ? "bg-copper-500 text-white" : "bg-copper-500/10 text-copper-600"
-                      )}>
-                        <item.icon className="w-5 h-5" />
+                    <div className="flex items-start gap-4">
+                      <div className="w-9 h-9 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center shrink-0">
+                        <Icon className="w-4 h-4" aria-hidden="true" />
                       </div>
                       <div>
-                        <h3 className={cn(
-                          "font-heading font-bold text-base mb-1.5 transition-colors duration-300",
-                          isHovered ? "text-copper-600" : "text-navy-900"
-                        )}>
-                          {item.title}
-                        </h3>
-                        <p className="text-sm text-steel-600 leading-relaxed">
-                          {item.desc}
+                        <div className="flex items-center gap-3 mb-1.5">
+                          <span className="font-mono text-[10px] text-text-muted uppercase tracking-tight">
+                            {adv.number}
+                          </span>
+                          <span className="text-[15px] font-medium text-text-primary">
+                            {adv.title}
+                          </span>
+                        </div>
+                        <p className="text-sm text-text-secondary leading-relaxed">
+                          {adv.description}
                         </p>
                       </div>
-                    </AnimatedSection>
-                  </div>
+                    </div>
+                  </AnimatedSection>
                 );
               })}
             </div>
@@ -451,330 +377,146 @@ export default function HomePage() {
       </section>
 
       {/* ================================================================
-          SOURCING CONSOLIDATION CENTER MATRIX (Precoro Style comparison)
+          SOURCING COMPARISON TABLE — Clean ruled
           ================================================================ */}
-      <section className="relative bg-navy-950 py-20 md:py-28 border-y border-steel-800/40 section-dark overflow-hidden">
-        {/* Blueprint mesh background */}
-        <div
-          className="absolute inset-0 opacity-[0.025] pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)`,
-            backgroundSize: "24px 24px",
-          }}
-        />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-copper-500/5 rounded-full blur-[100px] pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <AnimatedSection>
-            <div className="max-w-3xl mb-12">
-              <span className="text-copper-400 font-medium text-sm uppercase tracking-wider">
-                Value Assessment
-              </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4 text-white">
-                Why Consolidate with Aaron Technologies?
-              </h2>
-              <p className="text-steel-400 text-lg leading-relaxed">
-                Compare the operational overhead of managing multiple isolated international foundries against routing your pipeline through Aaron Technologies.
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection>
-            <div className="overflow-x-auto rounded-2xl border border-steel-800/80 bg-navy-900 shadow-2xl overflow-hidden">
-              <table className="min-w-full divide-y divide-steel-800">
-                <thead className="bg-navy-950">
-                  <tr>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-steel-500 font-heading">
-                      Operational Metric
-                    </th>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-[#C75B2A] font-heading">
-                      Fragmented Sourcing (Direct)
-                    </th>
-                    <th scope="col" className="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-success font-heading">
-                      Aaron Consolidated Pipeline
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-steel-850 bg-navy-900">
-                  {comparisonRows.map((row) => (
-                    <tr key={row.metric} className="hover:bg-steel-800/10 transition-colors">
-                      <td className="px-6 py-4 whitespace-nowrap text-xs sm:text-sm font-bold text-white font-heading">
-                        {row.metric}
-                      </td>
-                      <td className="px-6 py-4 text-xs sm:text-sm text-steel-400">
-                        <div className="flex items-start gap-2">
-                          <X className="w-4 h-4 mt-0.5 text-error shrink-0" aria-hidden="true" />
-                          <span>{row.fragmented}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 text-xs sm:text-sm text-white font-medium">
-                        <div className="flex items-start gap-2">
-                          <Check className="w-4 h-4 mt-0.5 text-success shrink-0" aria-hidden="true" />
-                          <span>{row.consolidated}</span>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* ================================================================
-          HOW IT WORKS - Connected Stepper Flowchart (Dynamic & Interactive)
-          ================================================================ */}
-      <section className="py-20 md:py-28 bg-steel-100 relative overflow-hidden">
-        {/* Blueprint mesh background */}
-        <div
-          className="absolute inset-0 opacity-[0.015] pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(var(--color-navy-900) 1px, transparent 1px),
-              linear-gradient(90deg, var(--color-navy-900) 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="relative max-w-7xl mx-auto px-6">
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6">
           <AnimatedSection>
             <div className="text-center mb-16">
-              <span className="text-copper-500 font-medium text-sm uppercase tracking-wider">
-                Our Process
+              <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+                Comparison
               </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4">
-                Sourcing in 4 Steps
+              <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-4">
+                Fragmented sourcing vs. <strong>consolidated</strong>
               </h2>
-              <p className="text-steel-600 max-w-2xl mx-auto text-lg">
-                We manage the entire lifecycle from initial blueprints to final delivery.
+              <p className="text-text-secondary max-w-xl mx-auto text-lg">
+                See how a single-source partnership eliminates complexity and reduces total cost of procurement.
               </p>
             </div>
           </AnimatedSection>
 
-          {/* Connected Stepper Flowchart */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
-            {/* Desktop horizontal flow line */}
-            <div className="hidden md:block absolute top-[52px] left-[12.5%] right-[12.5%] h-[1.5px] bg-gradient-to-r from-copper-500/80 via-steel-300 to-copper-500/80 z-0" />
-
-            {[
-              {
-                step: "01",
-                icon: FileText,
-                title: "Submit Requirements",
-                desc: "Send us your technical drawings, standard specifications, quantities, and target unit pricing.",
-              },
-              {
-                step: "02",
-                icon: Compass,
-                title: "Vetted Sourcing & Quote",
-                desc: "We match specs against our qualified factories and issue a landed-cost quote within 24–48 hours.",
-              },
-              {
-                step: "03",
-                icon: ShieldCheck,
-                title: "Production & Inspection",
-                desc: "Your parts are manufactured under on-site inspection. First-articles are approved before batch completion.",
-              },
-              {
-                step: "04",
-                icon: Truck,
-                title: "Delivered to Door",
-                desc: "We manage freight logistics and customs, delivering products directly to your loading dock with full documentation dossiers.",
-              },
-            ].map((item, i) => {
-              const Icon = item.icon;
-              return (
-                <AnimatedSection
-                  key={item.step}
-                  delay={i * 0.08}
-                  className="bg-white border border-steel-200/85 rounded-2xl p-6 flex flex-col items-center text-center gap-4 relative z-10 shadow-sm hover:border-copper-500/40 hover:shadow-lg transition-all duration-350 group"
-                >
-                  {/* Step Icon Badge */}
-                  <div className="w-14 h-14 rounded-2xl bg-steel-100 border border-steel-200/80 text-copper-500 flex items-center justify-center shrink-0 relative group-hover:border-copper-500 transition-colors">
-                    <motion.div
-                      animate={{ scale: [1, 1.15, 1] }}
-                      transition={{ repeat: Infinity, duration: 2.5 + i, ease: "easeInOut" }}
-                      className="absolute inset-0 bg-copper-500/5 rounded-2xl pointer-events-none"
-                    />
-                    <Icon className="w-6 h-6" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold font-mono text-copper-500 block mb-1">
-                      STEP {item.step}
-                    </span>
-                    <h3 className="font-heading text-base font-bold text-navy-900 mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="text-xs text-steel-600 leading-relaxed">
-                      {item.desc}
-                    </p>
-                  </div>
-                </AnimatedSection>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ================================================================
-          INDUSTRIES SERVED
-          ================================================================ */}
-      <section className="section-dark py-20 md:py-28">
-        <div className="max-w-7xl mx-auto px-6">
           <AnimatedSection>
-            <div className="text-center mb-14">
-              <span className="text-copper-400 font-medium text-sm uppercase tracking-wider">
-                Industries
-              </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-4 text-white">
-                Trusted Across Sectors
-              </h2>
-              <p className="text-steel-400 max-w-2xl mx-auto text-lg">
-                From MRO distributors to aerospace manufacturers — we supply
-                components to companies at every level of the industrial supply
-                chain.
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {featuredIndustries.map((ind, i) => (
-              <AnimatedSection key={ind.id} delay={i * 0.06}>
-                <Link
-                  href="/industries"
-                  className="group block p-6 rounded-2xl border border-navy-700/80 bg-navy-800/50 hover:border-copper-500/40 hover:bg-navy-800 transition-all duration-300"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-xl bg-copper-500/10 flex items-center justify-center shrink-0">
-                      <Globe className="w-5 h-5 text-copper-400" />
-                    </div>
-                    <div>
-                      <h3 className="font-heading font-semibold text-white text-base mb-2">
-                        {ind.name}
-                      </h3>
-                      <p className="text-sm text-steel-500 leading-relaxed line-clamp-2">
-                        {ind.description}
-                      </p>
-                    </div>
-                  </div>
-                </Link>
-              </AnimatedSection>
-            ))}
-          </div>
-
-          <AnimatedSection className="text-center mt-10">
-            <Link
-              href="/industries"
-              className="inline-flex items-center justify-center gap-2 px-8 py-3.5 border border-navy-600 text-steel-400 hover:text-white hover:border-steel-500 font-semibold rounded-full transition-all"
-            >
-              View All Industries
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-          </AnimatedSection>
-        </div>
-      </section>
-
-      {/* ================================================================
-          TRADE DEAL CALLOUT
-          ================================================================ */}
-      <section className="py-20 md:py-28 bg-steel-100 border-y border-steel-300">
-        <div className="max-w-7xl mx-auto px-6">
-          <AnimatedSection>
-            <div className="rounded-3xl bg-white border border-steel-200/80 shadow-xl p-10 md:p-14 flex flex-col md:flex-row items-center gap-10">
-              <div className="flex-1">
-                <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-green-50 text-green-700 text-xs font-bold mb-4 border border-green-200">
-                  <CheckCircle2 className="w-4.5 h-4.5" />
-                  2026 Trade Update
-                </span>
-                <h2 className="text-2xl md:text-3xl font-heading font-bold mb-4 text-navy-900">
-                  US-India Tariffs Reduced from 50% to 18%
-                </h2>
-                <p className="text-steel-600 leading-relaxed mb-6 max-w-lg">
-                  The February 2026 bilateral trade agreement significantly
-                  reduced tariffs on industrial components from India. Combined
-                  with removal of the 25% punitive tariff, this creates the
-                  most favorable import conditions in a decade.
-                </p>
-                <Link
-                  href="/resources"
-                  className="inline-flex items-center gap-2 text-copper-500 hover:text-copper-600 font-semibold transition-colors"
-                >
-                  Read Our Trade Deal Analysis
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
-              <div className="shrink-0 w-full md:w-auto">
-                <div className="bg-navy-900 rounded-2xl border border-steel-800/80 p-8 text-center min-w-[220px]">
-                  <div className="text-steel-500 text-sm mb-2">Duty Rate</div>
-                  <div className="flex items-center justify-center gap-3 mb-2">
-                    <span className="text-3xl font-heading font-bold text-steel-600 line-through">
-                      50%
-                    </span>
-                    <ArrowRight className="w-5 h-5 text-steel-600" />
-                    <span className="text-4xl font-heading font-bold text-copper-400">
-                      18%
-                    </span>
-                  </div>
-                  <div className="text-steel-500 text-xs mt-1">
-                    Effective Feb 2026
-                  </div>
+            <div className="rounded-xl border border-border-strong overflow-hidden">
+              {/* Table Header */}
+              <div className="grid grid-cols-[1fr_1fr_1fr] bg-bg-subtle">
+                <div className="p-4 font-mono text-[11px] uppercase text-text-tertiary tracking-tight border-r border-border">
+                  Metric
+                </div>
+                <div className="p-4 font-mono text-[11px] uppercase text-text-tertiary tracking-tight border-r border-border">
+                  Fragmented Sourcing
+                </div>
+                <div className="p-4 font-mono text-[11px] uppercase text-text-primary tracking-tight">
+                  Aaron Technologies
                 </div>
               </div>
-            </div>
-          </AnimatedSection>
-        </div>
-      </section>
 
-      {/* ================================================================
-          SOFTWARE-INTEGRATED PROCUREMENT GRID (Integrations block)
-          ================================================================ */}
-      <section className="relative py-20 md:py-28 bg-white border-t border-steel-300 overflow-hidden">
-        {/* Blueprint mesh background */}
-        <div
-          className="absolute inset-0 opacity-[0.015] pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(var(--color-navy-900) 1px, transparent 1px),
-              linear-gradient(90deg, var(--color-navy-900) 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-5 space-y-4">
-              <span className="text-copper-500 font-medium text-sm uppercase tracking-wider">
-                System Sync
-              </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-900 leading-tight">
-                Software-Integrated Procurement
-              </h2>
-              <p className="text-steel-600 text-lg leading-relaxed">
-                We sync our operations directly with your existing enterprise systems. From automated lead sync in HubSpot to material ledger logs and shipping status notifications, we bridge the digital and physical pipelines.
-              </p>
-            </div>
-
-            <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-4 gap-4">
-              {[
-                { name: "HubSpot CRM", desc: "Automatic Lead Sync" },
-                { name: "SAP ERP", desc: "Material ledger logs" },
-                { name: "NetSuite", desc: "PO reconciliation" },
-                { name: "Resend", desc: "Real-time alerts" },
-              ].map((integ) => (
+              {/* Table Rows */}
+              {comparisonRows.map((row, i) => (
                 <div
-                  key={integ.name}
-                  className="bg-white border border-steel-200/80 rounded-2xl p-6 text-center flex flex-col justify-center items-center gap-3 hover:border-copper-500/40 hover:shadow-lg transition-all duration-300 group"
+                  key={row.metric}
+                  className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] border-t border-border"
                 >
-                  <div className="h-9 w-9 rounded-xl bg-copper-500/10 text-copper-600 flex items-center justify-center transition-colors group-hover:bg-copper-500 group-hover:text-white shrink-0">
-                    <Database className="w-4.5 h-4.5" />
+                  <div className="p-4 md:border-r border-border text-sm font-medium text-text-primary">
+                    {row.metric}
                   </div>
-                  <span className="font-heading font-bold text-sm text-navy-900">
-                    {integ.name}
-                  </span>
-                  <span className="text-[10px] text-steel-500 uppercase tracking-wider font-semibold block leading-tight">
-                    {integ.desc}
-                  </span>
+                  <div className="px-4 pb-4 md:py-4 md:border-r border-border">
+                    <div className="flex items-start gap-2">
+                      <X className="w-4 h-4 text-error shrink-0 mt-0.5" aria-hidden="true" />
+                      <span className="text-sm text-text-tertiary">{row.fragmented}</span>
+                    </div>
+                  </div>
+                  <div className="px-4 pb-4 md:py-4">
+                    <div className="flex items-start gap-2">
+                      <Check className="w-4 h-4 text-success shrink-0 mt-0.5" aria-hidden="true" />
+                      <span className="text-sm text-text-secondary">{row.consolidated}</span>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* ================================================================
+          HOW IT WORKS — Horizontal ruled stepper
+          ================================================================ */}
+      <section className="border-t border-b border-border py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6">
+          <AnimatedSection className="mb-16">
+            <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+              Process
+            </span>
+            <h2 className="text-3xl md:text-[2.75rem] leading-tight">
+              How it <strong>works</strong>
+            </h2>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border border-border">
+            {processSteps.map((step, i) => (
+              <AnimatedSection key={step.number} delay={i * 0.08}>
+                <div className="bg-white p-8 h-full flex flex-col">
+                  <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight block mb-4">
+                    Step {step.number}
+                  </span>
+                  <h3 className="text-lg font-medium text-text-primary mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          INDUSTRIES SERVED — Clean grid
+          ================================================================ */}
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6">
+          <AnimatedSection>
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-16">
+              <div>
+                <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+                  Industries
+                </span>
+                <h2 className="text-3xl md:text-[2.75rem] leading-tight">
+                  Sectors we <strong>supply</strong>
+                </h2>
+              </div>
+              <Link href="/industries" className="btn-secondary text-sm shrink-0">
+                View All Industries
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {featuredIndustries.map((ind, i) => (
+              <AnimatedSection key={ind.id} delay={i * 0.05}>
+                <div className="p-6 rounded-xl hover-glass-card h-full">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-8 h-8 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center shrink-0 icon-box-hover">
+                      <Factory className="w-4 h-4" aria-hidden="true" />
+                    </div>
+                    <h3 className="text-[15px] font-medium text-text-primary">{ind.name}</h3>
+                  </div>
+                  <p className="text-sm text-text-tertiary leading-relaxed mb-4">
+                    {ind.description}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {ind.relatedCategories.slice(0, 3).map((cat) => (
+                      <span key={cat} className="font-mono text-[9px] uppercase text-text-muted bg-bg-subtle px-2 py-1 rounded tracking-tight badge transition-colors">
+                        {cat}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
           </div>
         </div>
       </section>
@@ -782,64 +524,53 @@ export default function HomePage() {
       {/* ================================================================
           LANDED COST CALCULATOR
           ================================================================ */}
-      <section id="calculator" className="py-20 md:py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-            <div className="lg:col-span-5">
-              <span className="text-copper-500 font-medium text-sm uppercase tracking-wider">
-                Cost Transparency
-              </span>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold mt-3 mb-6 text-navy-900 leading-tight">
-                Calculate Your Sourcing Savings
-              </h2>
-              <p className="text-steel-600 text-lg leading-relaxed mb-6">
-                Use our interactive Landed Cost Calculator to estimate the total cost of importing components from India.
-              </p>
-              <p className="text-steel-600 leading-relaxed mb-8">
-                We account for FOB unit price, shipping method, insurance, handling fees, and the updated <span className="font-semibold text-navy-900">18% customs duty rate</span> so you see the true cost per unit delivered directly to your facility.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/quote"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-navy-900 hover:bg-navy-800 text-white font-semibold rounded-full transition-all cursor-pointer shadow-sm hover:shadow-md"
-                >
-                  Request Detailed Quote
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <Link
-                  href="/about"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 border border-steel-300 text-steel-700 hover:text-navy-900 hover:border-steel-400 font-semibold rounded-full transition-all bg-white shadow-sm hover:shadow-md"
-                >
-                  Learn About Our Process
-                </Link>
-              </div>
-            </div>
-            <div className="lg:col-span-7">
-              <LandedCostCalculator />
-            </div>
-          </div>
+      <section id="calculator" className="border-t border-b border-border py-24 md:py-32 bg-bg-subtle">
+        <div className="max-w-[1360px] mx-auto px-6">
+          <AnimatedSection className="mb-12">
+            <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+              Tool
+            </span>
+            <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-4">
+              Landed Cost <strong>Calculator</strong>
+            </h2>
+            <p className="text-text-secondary max-w-xl text-lg">
+              Estimate your total import cost including freight, duty, insurance, and handling fees.
+            </p>
+          </AnimatedSection>
+
+          <LandedCostCalculator />
         </div>
       </section>
 
       {/* ================================================================
           FINAL CTA
           ================================================================ */}
-      <section className="py-20 md:py-28 bg-steel-100 border-t border-steel-300">
-        <div className="max-w-7xl mx-auto px-6 text-center">
-          <AnimatedSection>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-navy-900">
-              Ready to Streamline Your Supply Chain?
+      <section className="py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6">
+          <AnimatedSection className="text-center max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-6">
+              Ready to streamline your <strong>supply chain?</strong>
             </h2>
-            <p className="text-steel-600 text-lg max-w-xl mx-auto mb-8">
-              Submit an RFQ and receive a detailed, transparent landed-cost quote within 24–48 hours. No obligation.
+            <p className="text-lg text-text-secondary leading-relaxed mb-10">
+              Get a competitive quote on industrial components with transparent
+              landed-cost pricing. No obligation, fast turnaround.
             </p>
-            <Link
-              href="/quote"
-              className="inline-flex items-center gap-2 px-10 py-4 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-full transition-all text-lg cursor-pointer shadow-lg hover:shadow-xl hover:-translate-y-0.5 duration-300"
-            >
-              Request a Quote
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/quote"
+                className="btn-primary px-8 py-3.5 text-base"
+              >
+                Request a Quote
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link
+                href="/contact"
+                className="btn-secondary px-8 py-3.5 text-base"
+              >
+                Contact Us
+                <ChevronRight className="w-4 h-4" />
+              </Link>
+            </div>
           </AnimatedSection>
         </div>
       </section>

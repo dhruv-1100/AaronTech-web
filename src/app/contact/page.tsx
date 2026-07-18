@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import ContactForm from "./ContactForm";
-import { Mail, Phone, Calculator, ShieldCheck, FileText, Quote, ArrowRight } from "lucide-react";
+import { Phone, Calculator, FileText, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -9,157 +9,127 @@ export const metadata: Metadata = {
     "Get in touch with Aaron Technologies for pricing, product catalog questions, or quality assurance inquiries. Speak to our US-based support team today.",
 };
 
-const LOGOS = [
-  { name: "Apex Auto" },
-  { name: "Texas Valve" },
-  { name: "EnergyGrid" },
-  { name: "Precision Parts" },
-];
-
 export default function ContactPage() {
   return (
     <>
-      {/* Hero Header Section (PayPal-style partial bleed) */}
-      <section className="section-dark relative overflow-hidden pb-16 pt-20 lg:pb-36 lg:pt-24">
-        {/* Subtle grid pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-        {/* Ambient floating glow */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[350px] h-[350px] bg-copper-500/10 rounded-full blur-[100px] pointer-events-none" />
-
-        <div className="relative max-w-7xl mx-auto px-6">
-          <div className="max-w-2xl">
-            <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-copper-400">
-              Direct Access
-            </p>
-            <h1 className="font-heading font-bold text-4xl sm:text-5xl text-white mb-5 leading-[1.1] tracking-tight">
-              Chat with our <span className="text-gradient">sales team</span>
-            </h1>
-            <p className="text-steel-400 text-base sm:text-lg leading-relaxed max-w-xl">
-              Fill out your sourcing requirements and our team will reach out to you within 24 hours. Get help with pricing, schedule a logistics review, or explore custom component specifications.
-            </p>
-          </div>
+      {/* Hero */}
+      <section className="border-b border-border">
+        <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
+          <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+            Direct Access
+          </span>
+          <h1 className="text-4xl sm:text-5xl leading-[1.1] mb-5 max-w-2xl">
+            Chat with our <strong>sales team</strong>
+          </h1>
+          <p className="text-lg text-text-secondary leading-relaxed max-w-xl">
+            Fill out your sourcing requirements and our team will reach out to
+            you within 24 hours. Get help with pricing, logistics reviews, or
+            custom component specifications.
+          </p>
         </div>
       </section>
 
-      {/* Main Content (Grid layout with Form overlapping) */}
-      <section className="bg-steel-100 relative z-10">
-        {/* Subtle grid pattern background matching Reducto */}
-        <div
-          className="absolute inset-0 opacity-[0.015] pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(rgba(199,91,42,0.2) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(199,91,42,0.2) 1px, transparent 1px)`,
-            backgroundSize: "30px 30px",
-          }}
-        />
-
-        <div className="relative max-w-7xl mx-auto px-6 py-12 lg:py-16">
+      {/* Main Content */}
+      <section className="py-16 md:py-20">
+        <div className="max-w-[1360px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            
-            {/* Left Column: Testimonials & Info (lg:col-span-5) */}
-            <div className="lg:col-span-5 flex flex-col justify-between space-y-10 lg:space-y-0">
-              
-              {/* Other Ways to Connect (PayPal style) */}
-              <div className="space-y-6">
-                <h3 className="text-xs font-bold text-navy-900 uppercase tracking-widest">
-                  Some other ways to connect with us
-                </h3>
-                
-                <div className="space-y-4">
+
+            {/* Left Column: Sidebar Info */}
+            <div className="lg:col-span-5 flex flex-col gap-8">
+
+              {/* Quick links */}
+              <div>
+                <span className="font-mono text-[10px] uppercase text-text-tertiary tracking-tight block mb-4">
+                  Other ways to connect
+                </span>
+
+                <div className="flex flex-col gap-3">
                   <a
                     href="tel:+16402721906"
-                    className="flex items-center justify-between p-4 rounded-xl bg-white border border-steel-200 hover:border-copper-500/40 hover:shadow-md transition-all group"
+                    className="flex items-center justify-between p-4 rounded-xl border border-border-strong hover:border-primary/30 transition-all group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-navy-900/5 text-navy-900 flex items-center justify-center">
-                        <Phone className="w-4 h-4" />
+                      <div className="w-8 h-8 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center">
+                        <Phone className="w-4 h-4" aria-hidden="true" />
                       </div>
                       <div>
-                        <span className="text-sm font-bold text-navy-900 block leading-tight">Call Sourcing Office</span>
-                        <span className="text-[11px] text-steel-500 mt-0.5 block">+1 (640) 272-1906 · Mon-Fri, 8AM–6PM EST</span>
+                        <span className="text-sm font-medium text-text-primary block leading-tight">
+                          Call Sourcing Office
+                        </span>
+                        <span className="text-[11px] text-text-tertiary mt-0.5 block">
+                          +1 (640) 272-1906 · Mon-Fri, 8AM–6PM EST
+                        </span>
                       </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-steel-400 group-hover:text-copper-600 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="w-3.5 h-3.5 text-text-muted group-hover:text-text-primary transition-transform group-hover:translate-x-1" aria-hidden="true" />
                   </a>
 
                   <Link
                     href="/#calculator"
-                    className="flex items-center justify-between p-4 rounded-xl bg-white border border-steel-200 hover:border-copper-500/40 hover:shadow-md transition-all group"
+                    className="flex items-center justify-between p-4 rounded-xl border border-border-strong hover:border-primary/30 transition-all group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-navy-900/5 text-navy-900 flex items-center justify-center">
-                        <Calculator className="w-4 h-4" />
+                      <div className="w-8 h-8 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center">
+                        <Calculator className="w-4 h-4" aria-hidden="true" />
                       </div>
                       <div>
-                        <span className="text-sm font-bold text-navy-900 block leading-tight">Landed Cost Calculator</span>
-                        <span className="text-[11px] text-steel-500 mt-0.5 block">Estimate import duty &amp; ocean rates instantly</span>
+                        <span className="text-sm font-medium text-text-primary block leading-tight">
+                          Landed Cost Calculator
+                        </span>
+                        <span className="text-[11px] text-text-tertiary mt-0.5 block">
+                          Estimate import duty &amp; ocean rates instantly
+                        </span>
                       </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-steel-400 group-hover:text-copper-600 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="w-3.5 h-3.5 text-text-muted group-hover:text-text-primary transition-transform group-hover:translate-x-1" aria-hidden="true" />
                   </Link>
 
                   <Link
                     href="/privacy"
-                    className="flex items-center justify-between p-4 rounded-xl bg-white border border-steel-200 hover:border-copper-500/40 hover:shadow-md transition-all group"
+                    className="flex items-center justify-between p-4 rounded-xl border border-border-strong hover:border-primary/30 transition-all group"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-lg bg-navy-900/5 text-navy-900 flex items-center justify-center">
-                        <FileText className="w-4 h-4" />
+                      <div className="w-8 h-8 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center">
+                        <FileText className="w-4 h-4" aria-hidden="true" />
                       </div>
                       <div>
-                        <span className="text-sm font-bold text-navy-900 block leading-tight">Compliance &amp; Data Deletion</span>
-                        <span className="text-[11px] text-steel-500 mt-0.5 block">Learn about our drawing NDA and retention policy</span>
+                        <span className="text-sm font-medium text-text-primary block leading-tight">
+                          Compliance &amp; Data Deletion
+                        </span>
+                        <span className="text-[11px] text-text-tertiary mt-0.5 block">
+                          Learn about our drawing NDA and retention policy
+                        </span>
                       </div>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-steel-400 group-hover:text-copper-600 transition-transform group-hover:translate-x-1" />
+                    <ArrowRight className="w-3.5 h-3.5 text-text-muted group-hover:text-text-primary transition-transform group-hover:translate-x-1" aria-hidden="true" />
                   </Link>
                 </div>
               </div>
 
-              {/* Trusted Logos (Reducto style) */}
-              <div className="space-y-3">
-                <span className="text-[11px] font-semibold text-steel-500 uppercase tracking-wider block">
-                  Trusted by buyers in manufacturing &amp; distribution
-                </span>
-                <div className="flex flex-wrap gap-x-6 gap-y-2 opacity-65 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-300">
-                  {LOGOS.map((logo) => (
-                    <span
-                      key={logo.name}
-                      className="font-heading font-bold text-base tracking-tight text-navy-900"
-                    >
-                      {logo.name}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* Testimonial Quote Card (Reducto style) */}
-              <div className="bg-white border border-steel-200/80 rounded-2xl p-5 shadow-sm relative overflow-hidden">
-                <Quote className="w-8 h-8 text-copper-500/10 absolute top-4 right-4" />
-                <p className="text-sm text-steel-700 leading-relaxed italic relative z-10">
-                  "Aaron Tech consolidated our fastener and casting supply chain. Having a single US contract point and unified logistics support reduced our administrative overhead and shipping delays by 40%."
+              {/* Testimonial */}
+              <div className="glass-card rounded-xl p-6">
+                <p className="text-sm text-text-secondary leading-relaxed italic mb-4">
+                  &ldquo;Aaron Tech consolidated our fastener and casting supply chain.
+                  Having a single US contract point and unified logistics support
+                  reduced our administrative overhead and shipping delays by 40%.&rdquo;
                 </p>
-                <div className="mt-3 flex items-center gap-2">
-                  <div className="w-1.5 h-6 bg-copper-500 rounded-full" />
+                <div className="flex items-center gap-3">
+                  <div className="w-[2px] h-8 bg-primary-muted rounded-full" />
                   <div>
-                    <span className="text-xs font-bold text-navy-900 block">Director of Procurement</span>
-                    <span className="text-[10px] text-steel-500 uppercase font-semibold">Apex Automotive Group</span>
+                    <span className="text-sm font-medium text-text-primary block leading-tight">
+                      Director of Procurement
+                    </span>
+                    <span className="font-mono text-[10px] uppercase text-text-tertiary tracking-tight">
+                      Apex Automotive Group
+                    </span>
                   </div>
                 </div>
               </div>
-
             </div>
 
-            {/* Right Column: Form (lg:col-span-7) with PayPal-style overlap */}
-            <div className="lg:col-span-7 lg:-mt-24 relative z-20">
-              <div className="shadow-2xl rounded-2xl bg-white p-1">
+            {/* Right Column: Contact Form */}
+            <div className="lg:col-span-7">
+              <div className="glass-card rounded-xl overflow-hidden">
                 <ContactForm />
               </div>
             </div>

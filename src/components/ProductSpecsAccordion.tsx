@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Shield, Ruler, Settings, FileText, CheckCircle2, Warehouse } from "lucide-react";
+import { ChevronDown, Shield, Ruler, Settings, CheckCircle2, Warehouse } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { DetailedProduct } from "@/types";
 
@@ -26,25 +26,25 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
       title: "Material & Physical Specifications",
       icon: Ruler,
       content: (
-        <div className="space-y-4 text-sm sm:text-base leading-relaxed text-steel-700">
+        <div className="space-y-4 text-sm leading-relaxed text-text-secondary">
           <div>
-            <span className="font-heading font-bold text-navy-900 block text-xs uppercase tracking-wider mb-1">
+            <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight block mb-1">
               Materials &amp; Grades
             </span>
-            <p className="whitespace-pre-line">{product.material}</p>
+            <p className="whitespace-pre-line text-text-primary">{product.material}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
             <div>
-              <span className="font-heading font-bold text-navy-900 block text-xs uppercase tracking-wider mb-1">
+              <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight block mb-1">
                 Size Capabilities
               </span>
-              <p>{product.sizes}</p>
+              <p className="text-text-primary">{product.sizes}</p>
             </div>
             <div>
-              <span className="font-heading font-bold text-navy-900 block text-xs uppercase tracking-wider mb-1">
+              <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight block mb-1">
                 Available Finishes
               </span>
-              <p>{product.finishes.join(", ")}</p>
+              <p className="text-text-primary">{product.finishes.join(", ")}</p>
             </div>
           </div>
         </div>
@@ -55,16 +55,16 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
       title: "Regulatory Standards & Tolerances",
       icon: Settings,
       content: (
-        <div className="space-y-4 text-sm sm:text-base leading-relaxed text-steel-700">
+        <div className="space-y-4 text-sm leading-relaxed text-text-secondary">
           <div>
-            <span className="font-heading font-bold text-navy-900 block text-xs uppercase tracking-wider mb-2">
-              Applicable Engineering Standards
+            <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight block mb-2">
+              Applicable Standards
             </span>
             <div className="flex flex-wrap gap-1.5">
               {product.standards.map((std) => (
                 <span
                   key={std}
-                  className="inline-block bg-steel-200 text-steel-800 text-xs px-2.5 py-1 rounded-md font-semibold"
+                  className="font-mono text-[9px] uppercase bg-bg-subtle border border-border rounded px-2 py-1 text-text-tertiary tracking-tight"
                 >
                   {std}
                 </span>
@@ -72,10 +72,10 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
             </div>
           </div>
           <div className="pt-2">
-            <span className="font-heading font-bold text-navy-900 block text-xs uppercase tracking-wider mb-1">
+            <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight block mb-1">
               Machining Tolerances
             </span>
-            <p>{product.tolerances}</p>
+            <p className="text-text-primary">{product.tolerances}</p>
           </div>
         </div>
       ),
@@ -85,16 +85,16 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
       title: "Quality Assurance & Conformance",
       icon: Shield,
       content: (
-        <div className="space-y-4 text-sm sm:text-base leading-relaxed text-steel-700">
+        <div className="space-y-4 text-sm leading-relaxed text-text-secondary">
           <div>
-            <span className="font-heading font-bold text-navy-900 block text-xs uppercase tracking-wider mb-2">
-              Quality Certifications Included
+            <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight block mb-2">
+              Quality Certifications
             </span>
             <div className="flex flex-wrap gap-1.5">
               {product.certifications.map((cert) => (
                 <span
                   key={cert}
-                  className="inline-block bg-copper-500/10 text-copper-700 text-xs px-2.5 py-1 rounded-md font-semibold border border-copper-500/20"
+                  className="font-mono text-[9px] uppercase bg-bg-subtle border border-border rounded px-2 py-1 text-text-tertiary tracking-tight"
                 >
                   {cert}
                 </span>
@@ -102,10 +102,10 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
             </div>
           </div>
           <div className="pt-2">
-            <span className="font-heading font-bold text-navy-900 block text-xs uppercase tracking-wider mb-1">
+            <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight block mb-1">
               Traceability Documentation
             </span>
-            <p>
+            <p className="text-text-primary">
               Every shipment matches full trace log standards. Mill test reports (MTCs) per EN 10204 3.1 and compliance conformance certificates are stored digitally and shipped with the shipment container.
             </p>
           </div>
@@ -117,15 +117,15 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
       title: "Target Applications & Fields",
       icon: Warehouse,
       content: (
-        <div className="space-y-4 text-sm sm:text-base leading-relaxed text-steel-700">
+        <div className="space-y-4 text-sm leading-relaxed text-text-secondary">
           <div>
-            <span className="font-heading font-bold text-navy-900 block text-xs uppercase tracking-wider mb-2">
+            <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight block mb-2">
               Typical Integration Environments
             </span>
             <ul className="grid gap-2 grid-cols-1 sm:grid-cols-2">
               {product.applications.map((app) => (
-                <li key={app} className="flex items-center gap-2 text-sm text-steel-700">
-                  <CheckCircle2 className="w-4 h-4 text-copper-500 flex-shrink-0" />
+                <li key={app} className="flex items-center gap-2 text-sm text-text-secondary">
+                  <CheckCircle2 className="w-4 h-4 text-primary-muted flex-shrink-0" />
                   <span>{app}</span>
                 </li>
               ))}
@@ -137,7 +137,7 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
   ];
 
   return (
-    <div className="border border-steel-200/80 rounded-2xl bg-white shadow-sm overflow-hidden divide-y divide-steel-200/60">
+    <div className="border border-border rounded-xl overflow-hidden divide-y divide-border">
       {sections.map((section) => {
         const Icon = section.icon;
         const isExpanded = expandedId === section.id;
@@ -148,26 +148,26 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
               onClick={() => setExpandedId(isExpanded ? null : section.id)}
               className={cn(
                 "w-full flex items-center justify-between p-5 text-left transition-colors cursor-pointer",
-                isExpanded ? "bg-steel-50/50" : "hover:bg-steel-50/20"
+                isExpanded ? "bg-bg-subtle" : "hover:bg-bg-subtle/50"
               )}
             >
-              <div className="flex items-center gap-3.5">
+              <div className="flex items-center gap-3">
                 <div
                   className={cn(
-                    "w-9 h-9 rounded-xl flex items-center justify-center transition-colors",
-                    isExpanded ? "bg-copper-500 text-white" : "bg-navy-900/5 text-navy-900"
+                    "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
+                    isExpanded ? "bg-primary text-white" : "bg-bg-muted text-text-tertiary"
                   )}
                 >
-                  <Icon className="w-4.5 h-4.5" />
+                  <Icon className="w-4 h-4" />
                 </div>
-                <span className="font-heading font-bold text-navy-900 text-base sm:text-lg">
+                <span className="text-[15px] font-medium text-text-primary">
                   {section.title}
                 </span>
               </div>
               <ChevronDown
                 className={cn(
-                  "w-5 h-5 text-steel-500 transition-transform duration-300",
-                  isExpanded && "rotate-180 text-copper-500"
+                  "w-4 h-4 text-text-muted transition-transform duration-300",
+                  isExpanded && "rotate-180 text-primary"
                 )}
               />
             </button>
@@ -181,7 +181,7 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
                   transition={{ duration: 0.3, ease: "easeInOut" }}
                   className="overflow-hidden"
                 >
-                  <div className="p-5 border-t border-steel-100 bg-white">
+                  <div className="p-5 border-t border-border bg-white">
                     {section.content}
                   </div>
                 </motion.div>

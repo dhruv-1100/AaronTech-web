@@ -54,7 +54,6 @@ export default async function ProductCategoryPage({
 
   const Icon = resolveIcon(category.icon);
 
-  // Spec rows for the table — only include rows that have data
   const specRows: { label: string; values: string[] | string }[] = [
     { label: "Types", values: category.types },
     { label: "Standards", values: category.standards },
@@ -69,56 +68,46 @@ export default async function ProductCategoryPage({
 
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="relative bg-navy-900 overflow-hidden border-b border-navy-800">
-        {/* Grid pattern overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.02] pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(rgba(199,91,42,0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(199,91,42,0.3) 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-copper-500/5 rounded-full blur-[100px] pointer-events-none" />
-
-        <div className="relative max-w-7xl mx-auto px-6 py-16 md:py-24">
-          {/* Back link */}
+      {/* Hero */}
+      <section className="border-b border-border">
+        <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
+          {/* Breadcrumb */}
           <Link
             href="/products"
-            className="inline-flex items-center gap-1.5 text-sm text-steel-400 hover:text-steel-200 transition-colors mb-10"
+            className="inline-flex items-center gap-1.5 text-sm text-text-tertiary hover:text-text-primary transition-colors mb-8"
           >
-            <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+            <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
             All Products
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            {/* Left Column - Details */}
+            {/* Left */}
             <div className="lg:col-span-7">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-copper-500/10 text-copper-400 border border-copper-500/20">
-                  <Icon className="h-6 w-6" aria-hidden="true" />
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
                 </div>
-                <span className="inline-block rounded-full bg-navy-800 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-copper-400 border border-navy-700">
+                <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight">
                   Industrial Sourcing
                 </span>
               </div>
 
-              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-heading text-white leading-[1.1] mb-5">
+              <h1 className="text-3xl md:text-4xl lg:text-5xl leading-[1.1] mb-5">
                 {category.name}
               </h1>
 
-              <p className="text-base md:text-lg text-steel-300 leading-relaxed max-w-2xl">
+              <p className="text-lg text-text-secondary leading-relaxed max-w-2xl">
                 {category.description}
               </p>
 
-              {/* Standard Quick Badges */}
-              <div className="mt-8 flex flex-wrap gap-2 items-center">
-                <span className="text-xs font-medium text-steel-400 mr-2">Standards:</span>
+              <div className="mt-6 flex flex-wrap gap-1.5 items-center">
+                <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight mr-1">
+                  Standards:
+                </span>
                 {category.standards.map((std) => (
                   <span
                     key={std}
-                    className="inline-block rounded-full bg-navy-850 px-2.5 py-1 text-xs font-semibold text-steel-300 border border-navy-700"
+                    className="font-mono text-[9px] uppercase bg-bg-subtle border border-border rounded px-2 py-1 text-text-tertiary tracking-tight"
                   >
                     {std}
                   </span>
@@ -126,58 +115,57 @@ export default async function ProductCategoryPage({
               </div>
             </div>
 
-            {/* Right Column - Image Preview */}
+            {/* Right — Image */}
             <div className="lg:col-span-5">
-              <div className="relative group">
-                {/* Border frames for premium/industrial design */}
-                <div className="absolute -inset-2 border border-steel-750/30 rounded-3xl pointer-events-none transition-transform duration-300 group-hover:scale-[1.02]" />
-                <div className="relative overflow-hidden bg-navy-950 border border-steel-700/80 p-2 shadow-2xl rounded-2xl">
-                  <Image
-                    src={category.heroImage}
-                    alt={category.name}
-                    width={640}
-                    height={384}
-                    priority
-                    className="w-full h-72 md:h-80 lg:h-96 object-cover filter brightness-95 contrast-105 transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {/* Subtle caption or tag */}
-                  <div className="absolute bottom-4 right-4 bg-navy-900/90 backdrop-blur-sm border border-steel-700/85 px-3 py-1 text-[11px] font-medium text-steel-300 rounded-lg">
-                    High-traceability ISO Product Line
-                  </div>
-                </div>
+              <div className="relative overflow-hidden rounded-xl border border-border-strong">
+                <Image
+                  src={category.heroImage}
+                  alt={category.name}
+                  width={640}
+                  height={384}
+                  priority
+                  className="w-full h-72 md:h-80 lg:h-96 object-cover"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── Content ──────────────────────────────────────────────── */}
-      <section className="bg-steel-100">
-        <div className="max-w-7xl mx-auto px-6 py-16 md:py-24">
+      {/* Content */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-[1360px] mx-auto px-6">
           <div className="grid gap-12 lg:grid-cols-3">
-            {/* ── Main column (2/3) ──────────────────────────────── */}
+            {/* Main (2/3) */}
             <div className="lg:col-span-2 space-y-14">
               {/* Specification Table */}
               <div>
-                <h2 className="text-xl md:text-2xl font-bold text-navy-900 mb-5">
-                  Technical Specifications
+                <span className="font-mono text-[10px] uppercase text-text-tertiary tracking-tight block mb-3">
+                  Specifications
+                </span>
+                <h2 className="text-2xl mb-5">
+                  Technical <strong>Specifications</strong>
                 </h2>
 
-                <div className="overflow-x-auto rounded-2xl border border-steel-200/85 bg-white shadow-sm overflow-hidden">
-                  <table className="spec-table">
+                <div className="overflow-x-auto rounded-xl border border-border overflow-hidden">
+                  <table className="w-full text-sm">
                     <thead>
-                      <tr>
-                        <th className="w-40">Attribute</th>
-                        <th>Details</th>
+                      <tr className="border-b border-border bg-bg-subtle">
+                        <th className="text-left px-6 py-3 font-mono text-[10px] uppercase text-text-tertiary tracking-tight w-40">
+                          Attribute
+                        </th>
+                        <th className="text-left px-6 py-3 font-mono text-[10px] uppercase text-text-tertiary tracking-tight">
+                          Details
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {specRows.map((row) => (
-                        <tr key={row.label}>
-                          <td className="font-semibold text-navy-900 align-top whitespace-nowrap">
+                        <tr key={row.label} className="border-b border-border last:border-b-0">
+                          <td className="px-6 py-4 font-medium text-text-primary align-top whitespace-nowrap">
                             {row.label}
                           </td>
-                          <td>
+                          <td className="px-6 py-4">
                             {Array.isArray(row.values) ? (
                               <ul className="list-none space-y-1">
                                 {row.values.map((v) => {
@@ -188,13 +176,13 @@ export default async function ProductCategoryPage({
                                   return (
                                     <li
                                       key={v}
-                                      className="flex items-start gap-2 text-steel-700"
+                                      className="flex items-start gap-2 text-text-secondary"
                                     >
-                                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-copper-500 shrink-0" />
+                                      <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary-muted shrink-0" />
                                       {isTypes ? (
                                         <Link
                                           href={`/products/${category.slug}/${productSlug}`}
-                                          className="text-copper-600 hover:text-copper-500 font-semibold hover:underline"
+                                          className="text-text-primary hover:text-primary font-medium hover:underline"
                                         >
                                           {v}
                                         </Link>
@@ -206,7 +194,7 @@ export default async function ProductCategoryPage({
                                 })}
                               </ul>
                             ) : (
-                              <span className="text-steel-700">
+                              <span className="text-text-secondary">
                                 {row.values}
                               </span>
                             )}
@@ -221,23 +209,21 @@ export default async function ProductCategoryPage({
               {/* Applications */}
               {category.applications && category.applications.length > 0 && (
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-navy-900 mb-5">
-                    Applications
+                  <span className="font-mono text-[10px] uppercase text-text-tertiary tracking-tight block mb-3">
+                    Use Cases
+                  </span>
+                  <h2 className="text-2xl mb-5">
+                    <strong>Applications</strong>
                   </h2>
 
-                  <div className="grid gap-4 sm:grid-cols-2">
+                  <div className="grid gap-px bg-border sm:grid-cols-2 rounded-xl overflow-hidden border border-border">
                     {category.applications.map((app) => (
                       <div
                         key={app}
-                        className={cn(
-                          "flex items-center gap-3 rounded-2xl border border-steel-200/80 bg-white p-4",
-                          "transition-all duration-300 hover:border-copper-500/40 hover:shadow-md"
-                        )}
+                        className="flex items-center gap-3 bg-white p-4 hover:bg-bg-subtle transition-colors"
                       >
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-copper-500/10 text-copper-600">
-                          <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
-                        </div>
-                        <span className="text-sm font-medium text-navy-900">
+                        <CheckCircle2 className="h-4 w-4 shrink-0 text-primary-muted" aria-hidden="true" />
+                        <span className="text-sm font-medium text-text-primary">
                           {app}
                         </span>
                       </div>
@@ -247,25 +233,24 @@ export default async function ProductCategoryPage({
               )}
             </div>
 
-            {/* ── Sidebar (1/3) ───────────────────────────────────── */}
-            <aside className="space-y-8">
-              {/* Required Documents */}
-              <div className="rounded-2xl border border-steel-200/80 bg-white p-6 shadow-sm">
+            {/* Sidebar (1/3) */}
+            <aside className="space-y-6">
+              {/* Required Docs */}
+              <div className="glass-card p-6 rounded-xl">
                 <div className="flex items-center gap-2 mb-4">
-                  <FileText className="h-5 w-5 text-copper-500" aria-hidden="true" />
-                  <h3 className="font-heading text-lg font-bold text-navy-900">
+                  <FileText className="h-4 w-4 text-text-tertiary" aria-hidden="true" />
+                  <h3 className="text-[15px] font-medium text-text-primary">
                     Required Documents
                   </h3>
                 </div>
-                <p className="text-sm text-steel-600 mb-4">
-                  Every shipment of {category.name.toLowerCase()} includes the
-                  following documentation:
+                <p className="text-sm text-text-secondary mb-4">
+                  Every shipment of {category.name.toLowerCase()} includes:
                 </p>
                 <ul className="space-y-3">
                   {category.requiredDocs.map((doc) => (
                     <li key={doc} className="flex items-start gap-2.5">
-                      <CheckCircle2 className="h-4.5 w-4.5 mt-0.5 shrink-0 text-success" aria-hidden="true" />
-                      <span className="text-sm text-steel-700 leading-snug">
+                      <CheckCircle2 className="h-4 w-4 mt-0.5 shrink-0 text-success" aria-hidden="true" />
+                      <span className="text-sm text-text-secondary leading-snug">
                         {doc}
                       </span>
                     </li>
@@ -273,16 +258,16 @@ export default async function ProductCategoryPage({
                 </ul>
               </div>
 
-              {/* Standards quick list */}
-              <div className="rounded-2xl border border-steel-200/80 bg-white p-6 shadow-sm">
-                <h3 className="font-heading text-lg font-bold text-navy-900 mb-4">
+              {/* Standards */}
+              <div className="glass-card p-6 rounded-xl">
+                <h3 className="text-[15px] font-medium text-text-primary mb-4">
                   Applicable Standards
                 </h3>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {category.standards.map((std) => (
                     <span
                       key={std}
-                      className="inline-block rounded-full bg-navy-900/5 border border-navy-900/10 px-2.5 py-1 text-xs font-medium text-navy-800"
+                      className="font-mono text-[9px] uppercase bg-bg-subtle border border-border rounded px-2 py-1 text-text-tertiary tracking-tight"
                     >
                       {std}
                     </span>
@@ -290,18 +275,18 @@ export default async function ProductCategoryPage({
                 </div>
               </div>
 
-              {/* Materials quick list */}
-              <div className="rounded-2xl border border-steel-200/80 bg-white p-6 shadow-sm">
-                <h3 className="font-heading text-lg font-bold text-navy-900 mb-4">
+              {/* Materials */}
+              <div className="glass-card p-6 rounded-xl">
+                <h3 className="text-[15px] font-medium text-text-primary mb-4">
                   Available Materials
                 </h3>
                 <ul className="space-y-2">
                   {category.materials.map((mat) => (
                     <li
                       key={mat}
-                      className="flex items-center gap-2 text-sm text-steel-700"
+                      className="flex items-center gap-2 text-sm text-text-secondary"
                     >
-                      <span className="h-2 w-2 rounded-full bg-copper-500" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-primary-muted" />
                       {mat}
                     </li>
                   ))}
@@ -312,34 +297,32 @@ export default async function ProductCategoryPage({
         </div>
       </section>
 
-      {/* ── CTA ──────────────────────────────────────────────────── */}
-      <section className="bg-navy-900">
-        <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
-          <div className="flex flex-col items-center text-center">
-            <h2 className="text-2xl md:text-3xl font-bold text-steel-100 mb-3">
-              Request a Quote for {category.name}
-            </h2>
-            <p className="text-steel-400 max-w-xl mb-8 text-base leading-relaxed">
-              Tell us your specifications, quantities, and delivery timeline.
-              We&apos;ll respond within one business day with a competitive
-              landed-cost quote.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              <Link
-                href="/quote"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-full transition-all shadow-md hover:shadow-lg"
-              >
-                Get a Quote
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
-              <Link
-                href="/products"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 border border-steel-600 hover:border-steel-400 text-steel-300 hover:text-steel-100 font-semibold rounded-full transition-all hover:bg-white/5"
-              >
-                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
-                Back to All Products
-              </Link>
-            </div>
+      {/* CTA */}
+      <section className="border-t border-border py-24 md:py-32">
+        <div className="max-w-[1360px] mx-auto px-6 text-center max-w-2xl">
+          <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-6">
+            Request a quote for <strong>{category.name}</strong>
+          </h2>
+          <p className="text-lg text-text-secondary leading-relaxed mb-10">
+            Tell us your specifications, quantities, and delivery timeline.
+            We&apos;ll respond within one business day with a competitive
+            landed-cost quote.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/quote"
+              className="btn-primary px-8 py-3.5 text-base"
+            >
+              Get a Quote
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+            <Link
+              href="/products"
+              className="btn-secondary px-8 py-3.5 text-base"
+            >
+              <ArrowLeft className="h-4 w-4" aria-hidden="true" />
+              Back to All Products
+            </Link>
           </div>
         </div>
       </section>
