@@ -17,6 +17,9 @@ import {
   ArrowRight,
   Loader2,
   AlertCircle,
+  UploadCloud,
+  FileText,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { productCategories } from "@/lib/data/products";
@@ -111,6 +114,8 @@ function QuotePageContent() {
   const [errors, setErrors] = useState<RFQFormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [files, setFiles] = useState<{ name: string; size: number; type: string; base64: string }[]>([]);
+  const [isDragging, setIsDragging] = useState(false);
 
   const searchParams = useSearchParams();
   const catParam = searchParams.get("category");
@@ -142,6 +147,40 @@ function QuotePageContent() {
     }
   }
 
+  function handleFileAdd(incomingFiles: File[]) {
+    if (files.length + incomingFiles.length > 3) {
+      alert("You can upload a maximum of 3 files.");
+      return;
+    }
+
+    incomingFiles.forEach((file) => {
+      if (file.size > 5 * 1024 * 1024) {
+        alert(`File "${file.name}" exceeds the 5MB size limit.`);
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setFiles((prev) => {
+          // Avoid duplicates
+          if (prev.some((f) => f.name === file.name && f.size === file.size)) {
+            return prev;
+          }
+          return [
+            ...prev,
+            {
+              name: file.name,
+              size: file.size,
+              type: file.type,
+              base64: e.target?.result as string,
+            },
+          ];
+        });
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     const validationErrors = validateForm(formData);
@@ -154,7 +193,7 @@ function QuotePageContent() {
       const res = await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, files }),
       });
 
       const data = await res.json();
@@ -367,6 +406,83 @@ function QuotePageContent() {
                               "resize-y min-h-[100px]"
                             )}
                           />
+                        </FormField>
+
+                        {/* Engineering Drawings / Specifications Upload Dropzone */}
+                        <FormField label="Engineering Drawings / Spec Sheets (Optional)" required={false} htmlFor="file-upload">
+                          <div
+                            onDragOver={(e) => {
+                              e.preventDefault();
+                              setIsDragging(true);
+                            }}
+                            onDragLeave={() => setIsDragging(false)}
+                            onDrop={(e) => {
+                              e.preventDefault();
+                              setIsDragging(false);
+                              if (e.dataTransfer.files) {
+                                handleFileAdd(Array.from(e.dataTransfer.files));
+                              }
+                            }}
+                            className={cn(
+                              "border border-dashed rounded-xl p-6 text-center transition-all duration-200 cursor-pointer flex flex-col items-center justify-center min-h-[140px]",
+                              isDragging
+                                ? "border-accent bg-bg-subtle/80 glass-card"
+                                : "border-border-strong bg-white hover:border-text-muted"
+                            )}
+                            onClick={() => document.getElementById("file-upload")?.click()}
+                          >
+                            <input
+                              id="file-upload"
+                              type="file"
+                              multiple
+                              className="hidden"
+                              onChange={(e) => {
+                                if (e.target.files) {
+                                  handleFileAdd(Array.from(e.target.files));
+                                }
+                              }}
+                            />
+                            <UploadCloud className={cn("w-8 h-8 mb-2 transition-colors", isDragging ? "text-accent" : "text-text-muted")} aria-hidden="true" />
+                            <p className="text-sm font-medium text-text-primary">
+                              Drag & drop blueprint files here, or <span className="text-primary hover:underline">browse</span>
+                            </p>
+                            <p className="text-xs text-text-tertiary mt-1">
+                              Supports PDF, DWG, DXF, STEP, ZIP, PNG, JPG (Max 5MB each, up to 3 files)
+                            </p>
+                          </div>
+
+                          {/* Selected files display list */}
+                          {files.length > 0 && (
+                            <div className="mt-3 space-y-2">
+                              {files.map((file, idx) => (
+                                <div
+                                  key={idx}
+                                  className="flex items-center justify-between p-3 rounded-lg border border-border bg-bg-subtle/40 text-sm"
+                                >
+                                  <div className="flex items-center gap-2.5 min-w-0">
+                                    <FileText className="w-4 h-4 text-text-tertiary shrink-0" aria-hidden="true" />
+                                    <span className="font-medium text-text-primary truncate max-w-[200px] sm:max-w-xs">
+                                      {file.name}
+                                    </span>
+                                    <span className="text-xs text-text-tertiary shrink-0">
+                                      ({(file.size / (1024 * 1024)).toFixed(2)} MB)
+                                    </span>
+                                  </div>
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      setFiles((prev) => prev.filter((_, i) => i !== idx));
+                                    }}
+                                    className="text-text-tertiary hover:text-error transition-colors p-1"
+                                    aria-label={`Remove ${file.name}`}
+                                  >
+                                    <X className="w-4 h-4" aria-hidden="true" />
+                                  </button>
+                                </div>
+                              ))}
+                            </div>
+                          )}
                         </FormField>
 
                         {/* Quantity & Target Price */}

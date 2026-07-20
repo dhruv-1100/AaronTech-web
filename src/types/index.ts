@@ -79,6 +79,7 @@ export interface RFQSubmission {
   quantity: string;
   targetPrice?: string;
   message?: string;
+  files?: { name: string; size: number; type: string; base64: string }[];
 }
 
 export interface RFQFormErrors {

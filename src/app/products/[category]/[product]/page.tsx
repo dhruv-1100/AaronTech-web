@@ -298,14 +298,14 @@ export default async function ProductDetailPage({
               <h3 className="text-lg font-medium text-text-primary mb-6">
                 Other Components in {category.name}
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-px bg-border rounded-xl overflow-hidden border border-border">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                 {otherProducts.slice(0, 5).map((p) => (
                   <Link
                     key={p.slug}
                     href={`/products/${category.slug}/${p.slug}`}
-                    className="bg-white p-4 hover:bg-bg-subtle transition-colors text-center group"
+                    className="p-4 rounded-xl hover-glass-card text-center group flex flex-col justify-center min-h-[96px]"
                   >
-                    <span className="text-sm font-medium text-text-primary group-hover:text-primary block truncate">
+                    <span className="text-sm font-medium text-text-primary block truncate">
                       {p.name}
                     </span>
                     <span className="font-mono text-[9px] text-text-muted uppercase tracking-tight mt-1 block">
