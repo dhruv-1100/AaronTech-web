@@ -157,7 +157,7 @@ export default function Header() {
                 {hasDropdown && (
                   <div
                     className={cn(
-                      "absolute top-full shadow-2xl p-5 z-50 rounded-2xl transition-all duration-200 origin-top",
+                      "absolute top-full shadow-2xl p-5 z-50 rounded-2xl transition-all duration-200 origin-top hover-bridge",
                       hoveredItem === item.label
                         ? "opacity-100 scale-100 pointer-events-auto"
                         : "opacity-0 scale-95 pointer-events-none",

@@ -319,6 +319,12 @@ h1 strong, h2 strong, h3 strong, h4 strong {
       color: #ffffff !important;
     }
 
+    & .badge {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+      color: rgba(255, 255, 255, 0.85) !important;
+      border-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
     & .border-t,
     & .border-b,
     & .border-l,
@@ -417,6 +423,12 @@ h1 strong, h2 strong, h3 strong, h4 strong {
   color: #ffffff !important;
 }
 
+.hover-glass-card:hover .badge {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
 .hover-glass-card:hover .border-t,
 .hover-glass-card:hover .border-b,
 .hover-glass-card:hover .border-l,
@@ -424,7 +436,17 @@ h1 strong, h2 strong, h3 strong, h4 strong {
   border-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-
+/* Invisible hover bridge to prevent mouseleave triggers on scroll-menu gaps */
+.hover-bridge::before {
+  content: "" !important;
+  position: absolute !important;
+  top: -18px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 18px !important;
+  background: transparent !important;
+  z-index: 100 !important;
+}
 
 
 /* Clean card */
