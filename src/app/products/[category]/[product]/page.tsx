@@ -44,6 +44,16 @@ export async function generateMetadata({
   return {
     title: `${product.name} | Sourcing from India`,
     description: product.description,
+    alternates: { canonical: `/products/${categorySlug}/${productSlug}` },
+    openGraph: {
+      title: `${product.name} | Aaron Technologies`,
+      description: product.description,
+      url: `/products/${categorySlug}/${productSlug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} | Aaron Technologies`,
+    },
   };
 }
 
@@ -75,6 +85,38 @@ export default async function ProductDetailPage({
 
   return (
     <>
+      {/* Product + BreadcrumbList JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "Product",
+              name: product.name,
+              description: product.description,
+              brand: { "@type": "Brand", name: "Aaron Technologies Inc." },
+              category: category.name,
+              manufacturer: { "@type": "Organization", name: "Aaron Technologies Inc." },
+              offers: {
+                "@type": "Offer",
+                availability: "https://schema.org/InStock",
+                priceCurrency: "USD",
+                seller: { "@type": "Organization", name: "Aaron Technologies Inc." },
+              },
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Products", item: "https://www.aarontechno.com/products" },
+                { "@type": "ListItem", position: 2, name: category.name, item: `https://www.aarontechno.com/products/${categorySlug}` },
+                { "@type": "ListItem", position: 3, name: product.name, item: `https://www.aarontechno.com/products/${categorySlug}/${productSlug}` },
+              ],
+            },
+          ]),
+        }}
+      />
       {/* Hero */}
       <section className="border-b border-border">
         <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">

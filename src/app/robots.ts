@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/admin/"],
       },
     ],
-    sitemap: "https://www.aarontechnologies.com/sitemap.xml",
+    sitemap: "https://www.aarontechno.com/sitemap.xml",
   };
 }

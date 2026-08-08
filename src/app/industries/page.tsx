@@ -21,6 +21,17 @@ export const metadata: Metadata = {
   title: "Industries We Supply — MRO, OEM, Aerospace, Energy & Automotive",
   description:
     "Aaron Technologies supplies precision-engineered industrial components to MRO distributors, OEMs, automotive, aerospace, and energy sectors.",
+  alternates: { canonical: "/industries" },
+  openGraph: {
+    title: "Industries We Supply | Aaron Technologies",
+    description:
+      "Precision-engineered industrial components for MRO, OEM, aerospace, energy, and automotive sectors.",
+    url: "/industries",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Industries We Supply | Aaron Technologies",
+  },
 };
 
 const iconMap: Record<string, React.ElementType> = {

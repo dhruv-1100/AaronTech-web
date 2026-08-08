@@ -27,11 +27,13 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `/resources/${slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: 'article',
       publishedTime: post.publishedAt,
+      url: `/resources/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
@@ -60,6 +62,29 @@ export default async function BlogDetailPage({
 
   return (
     <>
+      {/* Article JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.excerpt,
+            datePublished: post.publishedAt,
+            author: { "@type": "Organization", name: "Aaron Technologies Inc." },
+            publisher: {
+              "@type": "Organization",
+              name: "Aaron Technologies Inc.",
+              logo: { "@type": "ImageObject", url: "https://www.aarontechno.com/logo.png" },
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `https://www.aarontechno.com/resources/${slug}`,
+            },
+          }),
+        }}
+      />
       {/* Hero */}
       <section className="border-b border-border">
         <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
@@ -97,7 +122,7 @@ export default async function BlogDetailPage({
         <div className="max-w-[1360px] mx-auto px-6">
           <div className="grid gap-12 lg:grid-cols-3">
             {/* Main Column */}
-            <div className="lg:col-span-2 space-y-10">
+            <article className="lg:col-span-2 space-y-10">
               {/* Introduction */}
               <p className="text-lg text-text-primary font-medium leading-relaxed border-l-2 border-primary-muted pl-5">
                 {content.introduction}
@@ -132,7 +157,7 @@ export default async function BlogDetailPage({
                   </div>
                 ))}
               </div>
-            </div>
+            </article>
 
             {/* Sidebar */}
             <aside className="space-y-6">

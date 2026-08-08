@@ -6,6 +6,17 @@ export const metadata: Metadata = {
   title: "Technical Resources & Sourcing Insights",
   description:
     "Explore our technical guides, sourcing checklists, and industry updates on importing precision-engineered industrial components from India.",
+  alternates: { canonical: "/resources" },
+  openGraph: {
+    title: "Technical Resources & Sourcing Insights",
+    description:
+      "Technical guides, sourcing checklists, and industry updates on importing industrial components from India.",
+    url: "/resources",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Resources | Aaron Technologies",
+  },
 };
 
 export default function ResourcesPage() {

@@ -16,6 +16,17 @@ export const metadata: Metadata = {
   title: "About Aaron Technologies",
   description:
     "US-based industrial component supplier with an India sourcing network. Competitive pricing, vetted quality, full traceability, and local support.",
+  alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About Aaron Technologies",
+    description:
+      "US-based industrial component supplier with an India sourcing network. Competitive pricing, vetted quality, full traceability.",
+    url: "/about",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Aaron Technologies",
+  },
 };
 
 const valueProps = [

@@ -440,12 +440,34 @@ h1 strong, h2 strong, h3 strong, h4 strong {
 .hover-bridge::before {
   content: "" !important;
   position: absolute !important;
-  top: -18px !important;
+  top: -24px !important;
   left: 0 !important;
   right: 0 !important;
-  height: 18px !important;
-  background: transparent !important;
+  height: 24px !important;
+  background-color: rgba(0, 0, 0, 0.002) !important; /* Force hit-testing in WebKit */
   z-index: 100 !important;
+  pointer-events: auto !important;
+}
+
+/* Nav item hover extension to bridge the gap to the dropdown */
+.nav-hover-item {
+  position: relative;
+}
+
+.nav-hover-item::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: -24px !important; /* extends 24px below the bottom of the nav item */
+  left: 0 !important;
+  right: 0 !important;
+  height: 24px !important;
+  background-color: rgba(0, 0, 0, 0.002) !important; /* Force hit-testing in WebKit */
+  z-index: 40 !important;
+  pointer-events: none !important;
+}
+
+.nav-hover-item:hover::after {
+  pointer-events: auto !important;
 }
 
 

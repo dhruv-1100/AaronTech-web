@@ -5,6 +5,12 @@ import { ArrowLeft, ShieldCheck } from "lucide-react";
 export const metadata: Metadata = {
   title: "Privacy Policy | Aaron Technologies",
   description: "Learn how Aaron Technologies Inc. collects, processes, and protects your business and RFQ data.",
+  alternates: { canonical: "/privacy" },
+  openGraph: {
+    title: "Privacy Policy | Aaron Technologies",
+    description: "Learn how Aaron Technologies Inc. collects, processes, and protects your business and RFQ data.",
+    url: "/privacy",
+  },
 };
 
 export default function PrivacyPage() {

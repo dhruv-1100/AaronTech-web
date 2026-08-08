@@ -46,7 +46,7 @@ export default function Header() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll(); // Initialize on mount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -113,7 +113,7 @@ export default function Header() {
             return (
               <div
                 key={item.href}
-                className="relative h-full flex items-center"
+                className="relative h-full flex items-center nav-hover-item"
                 onMouseEnter={() => setHoveredItem(item.label)}
                 onMouseLeave={() => setHoveredItem(null)}
               >

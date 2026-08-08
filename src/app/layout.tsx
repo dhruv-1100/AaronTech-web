@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { plusJakarta, jetbrainsMono } from "@/lib/fonts";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
       "Precision-engineered industrial components sourced from vetted Indian manufacturers. Competitive landed costs and full traceability.",
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Aaron Technologies — Industrial Components from India',
@@ -46,15 +46,19 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  alternates: {
-    canonical: '/',
-  },
+
   twitter: {
     card: 'summary_large_image',
     title: 'Aaron Technologies Inc. | Industrial Components from India',
     description:
       'Precision-engineered industrial components sourced from vetted Indian manufacturers.',
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#0f172a',
 };
 
 export default function RootLayout({

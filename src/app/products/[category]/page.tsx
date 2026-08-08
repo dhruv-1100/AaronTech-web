@@ -34,6 +34,16 @@ export async function generateMetadata({
   return {
     title: `${category.name} — Industrial ${category.name} Supplier`,
     description: `${category.shortDescription}. Sourced from vetted Indian manufacturers with full traceability. Request a quote today.`,
+    alternates: { canonical: `/products/${categorySlug}` },
+    openGraph: {
+      title: `${category.name} — Industrial Supplier | Aaron Technologies`,
+      description: `${category.shortDescription}. Sourced from vetted Indian manufacturers.`,
+      url: `/products/${categorySlug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${category.name} | Aaron Technologies`,
+    },
   };
 }
 
@@ -68,6 +78,20 @@ export default async function ProductCategoryPage({
 
   return (
     <>
+      {/* BreadcrumbList JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Products", item: "https://www.aarontechno.com/products" },
+              { "@type": "ListItem", position: 2, name: category.name, item: `https://www.aarontechno.com/products/${categorySlug}` },
+            ],
+          }),
+        }}
+      />
       {/* Hero */}
       <section className="border-b border-border">
         <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">

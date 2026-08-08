@@ -8,6 +8,17 @@ export const metadata: Metadata = {
   title: "Industrial Components Catalog | Fasteners, Forgings, Castings & More",
   description:
     "Browse precision-engineered industrial components — fasteners, forgings, castings, bearings, valves, and more — sourced from vetted Indian manufacturers.",
+  alternates: { canonical: "/products" },
+  openGraph: {
+    title: "Industrial Components Catalog | Fasteners, Forgings, Castings & More",
+    description:
+      "Browse precision-engineered industrial components sourced from vetted Indian manufacturers.",
+    url: "/products",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Industrial Components Catalog | Aaron Technologies",
+  },
 };
 
 export default function ProductsPage() {
@@ -58,9 +69,9 @@ export default function ProductsPage() {
 
           {/* Bottom CTA */}
           <div className="mt-20 rounded-xl border border-border-strong p-8 md:p-12 text-center">
-            <h3 className="text-2xl md:text-3xl leading-tight mb-3">
+            <h2 className="text-2xl md:text-3xl leading-tight mb-3">
               Can&apos;t find your specific <strong>drawing match?</strong>
-            </h3>
+            </h2>
             <p className="text-text-secondary max-w-xl mx-auto mb-8 text-sm sm:text-base leading-relaxed">
               We manufacture custom components according to proprietary blueprints
               and standard tolerances. Contact our US engineering desk with your spec sheets.

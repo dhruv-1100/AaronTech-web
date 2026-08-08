@@ -7,6 +7,17 @@ export const metadata: Metadata = {
   title: "Contact Us — Get Pricing & Sourcing Support",
   description:
     "Get in touch with Aaron Technologies for pricing, product catalog questions, or quality assurance inquiries. Speak to our US-based support team today.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    title: "Contact Us — Get Pricing & Sourcing Support",
+    description:
+      "Get in touch with Aaron Technologies for pricing, product catalog questions, or quality assurance inquiries.",
+    url: "/contact",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact Aaron Technologies",
+  },
 };
 
 export default function ContactPage() {

@@ -5,6 +5,12 @@ import { ArrowLeft, FileText } from "lucide-react";
 export const metadata: Metadata = {
   title: "Terms of Service | Aaron Technologies",
   description: "Review the business and sourcing terms of service for contracting with Aaron Technologies Inc.",
+  alternates: { canonical: "/terms" },
+  openGraph: {
+    title: "Terms of Service | Aaron Technologies",
+    description: "Review the business and sourcing terms of service for contracting with Aaron Technologies Inc.",
+    url: "/terms",
+  },
 };
 
 export default function TermsPage() {
