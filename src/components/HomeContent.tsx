@@ -213,103 +213,6 @@ export default function HomeContent() {
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </motion.div>
-
-            {/* Real Industrial Photography Vision Showcase Card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-14 relative rounded-2xl overflow-hidden border border-border shadow-2xl group text-left min-h-[460px] flex flex-col justify-end"
-            >
-              {/* Authentic Precision Manufacturing Facility Background Photo */}
-              <Image
-                src="https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=80"
-                alt="Aaron Technologies Certified Precision Industrial Manufacturing Facility"
-                fill
-                priority
-                className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 brightness-[0.4]"
-                sizes="(max-width: 1200px) 100vw, 1200px"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/20 pointer-events-none" />
-
-              <div className="relative z-10 p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-                {/* Left Story Pillar */}
-                <div className="lg:col-span-7 space-y-5">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-copper-500/20 border border-copper-400/30 text-copper-300 font-mono text-xs uppercase tracking-wider backdrop-blur-md">
-                    <Globe className="w-3.5 h-3.5" aria-hidden="true" />
-                    The Aaron Sourcing Vision
-                  </div>
-
-                  <h3 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-white font-medium leading-snug">
-                    Bridging US Industrial Demand with Certified Indian Manufacturing
-                  </h3>
-
-                  <p className="text-sm sm:text-base text-steel-200 leading-relaxed font-normal max-w-xl">
-                    Aaron Technologies was founded to eliminate the friction of overseas industrial procurement. We unify 30+ audited ISO 9001 foundries across India into a single, reliable US point of contact — managing quality control, customs clearance, and landed logistics under US law.
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-4 border-t border-white/15 pt-5 max-w-md">
-                    <div>
-                      <span className="font-mono text-xl sm:text-2xl text-copper-400 font-bold block">
-                        25%+
-                      </span>
-                      <span className="font-mono text-[11px] uppercase text-steel-300 tracking-tight block mt-0.5 font-medium">
-                        Avg. Landed Cost Savings
-                      </span>
-                    </div>
-                    <div>
-                      <span className="font-mono text-xl sm:text-2xl text-white font-bold block">
-                        100%
-                      </span>
-                      <span className="font-mono text-[11px] uppercase text-steel-300 tracking-tight block mt-0.5 font-medium">
-                        Material Traceability
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Right Value Pillar Glass Cards */}
-                <div className="lg:col-span-5 space-y-3.5">
-                  {[
-                    {
-                      title: "US Local Accountability",
-                      desc: "Single US contract & support team in New Jersey. One invoice, zero foreign wire friction.",
-                      icon: Headphones,
-                    },
-                    {
-                      title: "Pre-Shipment Quality Control",
-                      desc: "On-site dimensional assays, EN 10204 3.1 mill certs, and ISO 9001 compliance on every order.",
-                      icon: FileCheck,
-                    },
-                    {
-                      title: "Seamless Landed Delivery",
-                      desc: "DDP shipping options covering freight, duty, port fees, and US safety stocking programs.",
-                      icon: Truck,
-                    },
-                  ].map((item) => {
-                    const StepIcon = item.icon;
-                    return (
-                      <div
-                        key={item.title}
-                        className="p-4 rounded-xl bg-black/50 border border-white/15 backdrop-blur-md hover:bg-black/70 transition-colors flex items-start gap-3.5 text-left"
-                      >
-                        <div className="w-8 h-8 rounded-lg bg-copper-500/25 text-copper-300 flex items-center justify-center shrink-0 mt-0.5">
-                          <StepIcon className="w-4 h-4" aria-hidden="true" />
-                        </div>
-                        <div>
-                          <p className="text-sm font-medium text-white leading-snug">
-                            {item.title}
-                          </p>
-                          <p className="text-xs text-steel-300 leading-relaxed mt-1">
-                            {item.desc}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
@@ -345,6 +248,84 @@ export default function HomeContent() {
                 </motion.div>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================
+          PRODUCT SHOWCASE — High-Impact Visual Sourcing Grid
+          ================================================================ */}
+      <section className="bg-slate-950 text-white border-b border-border py-16 overflow-hidden">
+        <div className="max-w-[1360px] mx-auto px-6 mb-10 text-center">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] text-copper-500 font-bold block mb-2">
+            PRODUCT SHOWCASE
+          </span>
+          <h2 className="text-2xl sm:text-3xl font-heading text-white font-medium">
+            Precision-Engineered Industrial Components
+          </h2>
+        </div>
+
+        <div className="max-w-[1360px] mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Card 1: Industrial Fasteners */}
+            <Link href="/products/fasteners" className="group relative h-[380px] sm:h-[440px] rounded-xl overflow-hidden border border-white/15 bg-slate-900 shadow-xl">
+              <Image
+                src="/images/showcase/fasteners.jpg"
+                alt="High-Grade Industrial Fasteners — Hex Bolts, Nuts & Studs"
+                fill
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.8]"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+              
+              <div className="absolute bottom-6 left-6 right-6 z-10">
+                <div className="bg-black/85 backdrop-blur-md border border-white/15 px-5 py-3.5 rounded-lg text-center shadow-lg group-hover:border-copper-500/50 transition-colors">
+                  <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
+                    INDUSTRIAL <span className="text-copper-500">FASTENERS</span>
+                  </span>
+                </div>
+              </div>
+            </Link>
+
+            {/* Card 2: Forged Flanges & Fittings */}
+            <Link href="/products/forged-components" className="group relative h-[380px] sm:h-[440px] rounded-xl overflow-hidden border border-white/15 bg-slate-900 shadow-xl">
+              <Image
+                src="/images/showcase/forged-flanges.jpg"
+                alt="Forged Pipe Flanges, Weld-Neck Fittings & Pressure Components"
+                fill
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.8]"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+
+              <div className="absolute bottom-6 left-6 right-6 z-10">
+                <div className="bg-black/85 backdrop-blur-md border border-white/15 px-5 py-3.5 rounded-lg text-center shadow-lg group-hover:border-copper-500/50 transition-colors">
+                  <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
+                    FORGED <span className="text-copper-500">FLANGES & FITTINGS</span>
+                  </span>
+                </div>
+              </div>
+            </Link>
+
+            {/* Card 3: Precision CNC Machined Components */}
+            <Link href="/products/precision-machined" className="group relative h-[380px] sm:h-[440px] rounded-xl overflow-hidden border border-white/15 bg-slate-900 shadow-xl">
+              <Image
+                src="/images/showcase/cnc-machined.jpg"
+                alt="Precision CNC Turned Shafts, Milled Aluminum & Brass Components"
+                fill
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.8]"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+
+              <div className="absolute bottom-6 left-6 right-6 z-10">
+                <div className="bg-black/85 backdrop-blur-md border border-white/15 px-5 py-3.5 rounded-lg text-center shadow-lg group-hover:border-copper-500/50 transition-colors">
+                  <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
+                    PRECISION <span className="text-copper-500">CNC MACHINED</span>
+                  </span>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
