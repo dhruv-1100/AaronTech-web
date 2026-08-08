@@ -214,111 +214,99 @@ export default function HomeContent() {
               </Link>
             </motion.div>
 
-            {/* Interactive Vector CAD Blueprint Visualizer */}
+            {/* Real Industrial Photography Vision Showcase Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-14 relative rounded-2xl overflow-hidden border border-white/10 bg-navy-950 text-white shadow-2xl text-left"
+              className="mt-14 relative rounded-2xl overflow-hidden border border-border shadow-2xl group text-left min-h-[460px] flex flex-col justify-end"
             >
-              {/* Terminal Title Bar */}
-              <div className="bg-white/5 border-b border-white/10 px-6 py-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                  <span className="font-mono text-xs text-white/70 ml-2 uppercase tracking-wider">
-                    SPEC_TERMINAL // ASTM_A105_FLANGE_BLUEPRINT.CAD
-                  </span>
-                </div>
-                <span className="font-mono text-[10px] uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-md flex items-center gap-1.5 font-medium">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  CMM INSPECTION PASSED
-                </span>
-              </div>
+              {/* Authentic Precision Manufacturing Facility Background Photo */}
+              <Image
+                src="https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=1600&q=80"
+                alt="Aaron Technologies Certified Precision Industrial Manufacturing Facility"
+                fill
+                priority
+                className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 brightness-[0.4]"
+                sizes="(max-width: 1200px) 100vw, 1200px"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/70 to-slate-950/20 pointer-events-none" />
 
-              {/* Blueprint Content Grid */}
-              <div className="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                {/* Vector CAD Diagram (Left 7 Cols) */}
-                <div className="lg:col-span-7 relative bg-black/40 border border-white/10 rounded-xl p-6 overflow-hidden flex flex-col justify-between min-h-[300px]">
-                  {/* Grid background */}
-                  <div
-                    className="absolute inset-0 opacity-15 pointer-events-none"
-                    style={{
-                      backgroundImage: `linear-gradient(to right, #7a9ba5 1px, transparent 1px), linear-gradient(to bottom, #7a9ba5 1px, transparent 1px)`,
-                      backgroundSize: '24px 24px',
-                    }}
-                  />
-
-                  {/* Top Bar Callouts */}
-                  <div className="relative z-10 flex justify-between text-[11px] font-mono text-copper-400 uppercase tracking-tight mb-4 font-medium">
-                    <span>CAD BLUEPRINT REV: 4.2</span>
-                    <span>SCALE 1:1 · DIN/ASME</span>
+              <div className="relative z-10 p-8 sm:p-12 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+                {/* Left Story Pillar */}
+                <div className="lg:col-span-7 space-y-5">
+                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-copper-500/20 border border-copper-400/30 text-copper-300 font-mono text-xs uppercase tracking-wider backdrop-blur-md">
+                    <Globe className="w-3.5 h-3.5" aria-hidden="true" />
+                    The Aaron Sourcing Vision
                   </div>
 
-                  {/* SVG Blueprint Wireframe */}
-                  <div className="relative z-10 my-4 flex justify-center items-center">
-                    <svg viewBox="0 0 400 200" className="w-full max-w-[360px] h-auto stroke-sky-400/80 fill-none stroke-[1.5]">
-                      {/* Flange Outer Circle */}
-                      <circle cx="200" cy="100" r="80" strokeDasharray="4 2" className="stroke-sky-300/40" />
-                      <circle cx="200" cy="100" r="70" />
-                      <circle cx="200" cy="100" r="40" />
-                      <circle cx="200" cy="100" r="28" className="stroke-copper-400" />
-                      {/* Bolt Holes */}
-                      <circle cx="140" cy="100" r="7" className="fill-sky-950 stroke-sky-300" />
-                      <circle cx="260" cy="100" r="7" className="fill-sky-950 stroke-sky-300" />
-                      <circle cx="200" cy="40" r="7" className="fill-sky-950 stroke-sky-300" />
-                      <circle cx="200" cy="160" r="7" className="fill-sky-950 stroke-sky-300" />
-                      {/* Dimension Lines */}
-                      <line x1="120" y1="100" x2="280" y2="100" strokeDasharray="2 2" className="stroke-copper-400/60" />
-                      <line x1="200" y1="20" x2="200" y2="180" strokeDasharray="2 2" className="stroke-copper-400/60" />
-                      {/* Measurement Callouts */}
-                      <text x="205" y="32" fill="#C75B2A" fontSize="9" fontFamily="monospace">Ø 152.4mm ±0.02</text>
-                      <text x="205" y="175" fill="#38bdf8" fontSize="9" fontFamily="monospace">4x Ø 19.1mm HOLES</text>
-                    </svg>
-                  </div>
+                  <h3 className="font-heading text-2xl sm:text-3xl lg:text-4xl text-white font-medium leading-snug">
+                    Bridging US Industrial Demand with Certified Indian Manufacturing
+                  </h3>
 
-                  {/* Bottom Spec Footer */}
-                  <div className="relative z-10 flex flex-wrap justify-between items-center text-[10px] font-mono text-white/70 border-t border-white/10 pt-3 font-medium">
-                    <span>MATERIAL: ASTM A105 FORGED STEEL</span>
-                    <span>PRESSURE CLASS: 150# RF</span>
+                  <p className="text-sm sm:text-base text-steel-200 leading-relaxed font-normal max-w-xl">
+                    Aaron Technologies was founded to eliminate the friction of overseas industrial procurement. We unify 30+ audited ISO 9001 foundries across India into a single, reliable US point of contact — managing quality control, customs clearance, and landed logistics under US law.
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-4 border-t border-white/15 pt-5 max-w-md">
+                    <div>
+                      <span className="font-mono text-xl sm:text-2xl text-copper-400 font-bold block">
+                        25%+
+                      </span>
+                      <span className="font-mono text-[11px] uppercase text-steel-300 tracking-tight block mt-0.5 font-medium">
+                        Avg. Landed Cost Savings
+                      </span>
+                    </div>
+                    <div>
+                      <span className="font-mono text-xl sm:text-2xl text-white font-bold block">
+                        100%
+                      </span>
+                      <span className="font-mono text-[11px] uppercase text-steel-300 tracking-tight block mt-0.5 font-medium">
+                        Material Traceability
+                      </span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Technical Specifications Panel (Right 5 Cols) */}
-                <div className="lg:col-span-5 space-y-5 text-left">
-                  <div>
-                    <span className="font-mono text-xs uppercase text-copper-400 tracking-tight block mb-1 font-medium">
-                      Component Quality Metrics
-                    </span>
-                    <h3 className="text-xl font-heading text-white font-medium leading-tight">
-                      Full Material Traceability & EN 10204 3.1 Certs
-                    </h3>
-                  </div>
-
-                  <div className="space-y-3 font-mono text-xs">
-                    {[
-                      { label: "Dimensional Tolerance", val: "±0.01mm (ASME GD&T)" },
-                      { label: "Material Grade", val: "Stainless 316L / Carbon A105" },
-                      { label: "Inspection Method", val: "Ultrasonic NDT + PMI Assay" },
-                      { label: "Documentation", val: "EN 10204 3.1 Mill Certs" },
-                    ].map((item) => (
-                      <div key={item.label} className="flex items-center justify-between border-b border-white/10 pb-2">
-                        <span className="text-white/70 font-medium">{item.label}</span>
-                        <span className="text-white font-medium">{item.val}</span>
+                {/* Right Value Pillar Glass Cards */}
+                <div className="lg:col-span-5 space-y-3.5">
+                  {[
+                    {
+                      title: "US Local Accountability",
+                      desc: "Single US contract & support team in New Jersey. One invoice, zero foreign wire friction.",
+                      icon: Headphones,
+                    },
+                    {
+                      title: "Pre-Shipment Quality Control",
+                      desc: "On-site dimensional assays, EN 10204 3.1 mill certs, and ISO 9001 compliance on every order.",
+                      icon: FileCheck,
+                    },
+                    {
+                      title: "Seamless Landed Delivery",
+                      desc: "DDP shipping options covering freight, duty, port fees, and US safety stocking programs.",
+                      icon: Truck,
+                    },
+                  ].map((item) => {
+                    const StepIcon = item.icon;
+                    return (
+                      <div
+                        key={item.title}
+                        className="p-4 rounded-xl bg-black/50 border border-white/15 backdrop-blur-md hover:bg-black/70 transition-colors flex items-start gap-3.5 text-left"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-copper-500/25 text-copper-300 flex items-center justify-center shrink-0 mt-0.5">
+                          <StepIcon className="w-4 h-4" aria-hidden="true" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-white leading-snug">
+                            {item.title}
+                          </p>
+                          <p className="text-xs text-steel-300 leading-relaxed mt-1">
+                            {item.desc}
+                          </p>
+                        </div>
                       </div>
-                    ))}
-                  </div>
-
-                  <div className="pt-2 flex items-center gap-3">
-                    <Link
-                      href="/quote"
-                      className="btn-primary py-3 px-6 text-xs font-mono uppercase tracking-wider w-full justify-center"
-                    >
-                      Submit Drawing / RFQ
-                      <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-                    </Link>
-                  </div>
+                    );
+                  })}
                 </div>
               </div>
             </motion.div>
