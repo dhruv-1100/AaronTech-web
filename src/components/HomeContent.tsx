@@ -543,6 +543,63 @@ export default function HomeContent() {
       </section>
 
       {/* ================================================================
+          FREQUENTLY ASKED QUESTIONS — B2B Sourcing SEO
+          ================================================================ */}
+      <section className="py-24 md:py-32 border-t border-border">
+        <div className="max-w-[1360px] mx-auto px-6">
+          <AnimatedSection className="mb-16">
+            <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+              FAQ
+            </span>
+            <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-4">
+              Frequently Asked <strong>Questions</strong>
+            </h2>
+            <p className="text-text-secondary max-w-xl text-lg">
+              Everything you need to know about component sourcing, quality assurance, and landed delivery.
+            </p>
+          </AnimatedSection>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {[
+              {
+                q: "How does Aaron Technologies ensure quality control for imported industrial components from India?",
+                a: "All manufacturing partners in our network are ISO 9001:2015 certified. Every shipment undergoes rigorous on-site pre-shipment dimensional, chemical, and mechanical testing. Full EN 10204 3.1 Mill Test Certificates (MTC) and lot traceability documentation are provided with every order."
+              },
+              {
+                q: "What are the typical lead times and minimum order quantities (MOQs)?",
+                a: "Production lead times typically range from 4 to 8 weeks depending on component complexity and volume, plus ocean freight transit. We offer flexible MOQs tailored to production schedules and maintain US safety stocking programs for JIT delivery."
+              },
+              {
+                q: "How are shipping, customs duties, and landed costs handled?",
+                a: "Aaron Technologies provides DDP (Delivered Duty Paid) pricing options. We handle export/import documentation, customs clearances, tariffs, and freight logistics so you receive a single transparent US invoice with zero hidden port fees."
+              },
+              {
+                q: "What materials and engineering standards do your supplier facilities cover?",
+                a: "Our vetted foundry network produces components in carbon steel, alloy steel, stainless steel (304, 316, Duplex), brass, and aluminum conforming to ASTM, ASME, DIN, ISO, BS, and API standards."
+              },
+              {
+                q: "Can Aaron Technologies manufacture components according to custom engineering drawings?",
+                a: "Yes. A significant portion of our catalog consists of custom industrial components manufactured strictly according to customer-supplied 2D/3D CAD blueprints and proprietary tolerance specifications."
+              }
+            ].map((faq, i) => (
+              <AnimatedSection key={i} delay={i * 0.06}>
+                <div className="glass-card p-6 md:p-8 rounded-xl h-full flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-lg font-medium text-text-primary mb-3 leading-snug">
+                      {faq.q}
+                    </h3>
+                    <p className="text-sm text-text-secondary leading-relaxed">
+                      {faq.a}
+                    </p>
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ================================================================
           FINAL CTA
           ================================================================ */}
       <section className="py-24 md:py-32">

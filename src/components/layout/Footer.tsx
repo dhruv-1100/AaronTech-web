@@ -125,6 +125,36 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* SEO Internal Link Siloing Block */}
+      <div className="border-t border-border bg-bg-subtle/50 py-6">
+        <div className="max-w-[1360px] mx-auto px-6">
+          <h5 className="font-mono text-[10px] uppercase tracking-wider text-text-tertiary mb-3">
+            Popular Component Sourcing Lines
+          </h5>
+          <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-text-secondary">
+            {[
+              { name: "Hex Bolts & Studs", href: "/products/fasteners/hex-bolts" },
+              { name: "Socket Head Cap Screws", href: "/products/fasteners/socket-head-cap-screws" },
+              { name: "Flange Forgings", href: "/products/forged-components/flanges-weld-neck-slip-on-blind" },
+              { name: "Investment Castings", href: "/products/castings/investment-castings" },
+              { name: "CNC Machined Parts", href: "/products/precision-machined/cnc-turned-components" },
+              { name: "Ball Valves", href: "/products/industrial-valves/ball-valves" },
+              { name: "ISO 9001 Quality Standards", href: "/certifications" },
+              { name: "ASTM A193 / A320 Guide", href: "/resources/astm-a193-vs-a320-fasteners" },
+              { name: "Landed Cost Calculator", href: "/#calculator" },
+            ].map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="hover:text-text-primary underline decoration-border underline-offset-2 transition-colors"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Bottom Bar */}
       <div className="border-t border-border">
         <div className="max-w-[1360px] mx-auto px-6 py-5 flex flex-col sm:flex-row justify-between items-center gap-3">
