@@ -8,7 +8,7 @@
 @theme inline {
   /* --- Core Brand Colors --- */
   --color-primary: #1a3a42;
-  --color-primary-muted: #7a9ba5;
+  --color-primary-muted: #3d6b78;
   --color-primary-light: #d1e4ea;
   --color-primary-50: #f0f6f8;
 
@@ -19,9 +19,9 @@
 
   /* --- Neutrals --- */
   --color-text-primary: #1a3a42;
-  --color-text-secondary: #515255;
-  --color-text-tertiary: #758084;
-  --color-text-muted: #9aaeb5;
+  --color-text-secondary: #424345;
+  --color-text-tertiary: #5c686c;
+  --color-text-muted: #5e737b;
 
   --color-bg: #ffffff;
   --color-bg-subtle: #fafafa;
@@ -171,14 +171,14 @@ h1 strong, h2 strong, h3 strong, h4 strong {
   align-items: center;
   gap: 0.5rem;
   padding: 0.4375rem 0.75rem;
-  border: 1px solid rgba(199, 209, 213, 0.3);
+  border: 1px solid rgba(26, 58, 66, 0.22);
   border-radius: 999px;
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  font-weight: 400;
+  font-weight: 500;
   letter-spacing: -0.006em;
   text-transform: uppercase;
-  color: var(--color-text-tertiary);
+  color: var(--color-text-primary);
   background: var(--color-bg);
 }
 

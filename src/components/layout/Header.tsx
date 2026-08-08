@@ -125,10 +125,10 @@ export default function Header() {
                     scrolled
                       ? isActive
                         ? "text-white font-medium"
-                        : "text-white/70 hover:text-white"
+                        : "text-white/90 hover:text-white"
                       : isActive
                         ? "text-text-primary font-medium"
-                        : "text-text-tertiary hover:text-text-primary"
+                        : "text-text-secondary hover:text-text-primary"
                   )}
                 >
                   <span>{item.label}</span>
@@ -137,7 +137,7 @@ export default function Header() {
                       aria-hidden="true"
                       className={cn(
                         "w-3 h-3 transition-transform duration-300",
-                        scrolled ? "text-white/40" : "text-text-muted",
+                        scrolled ? "text-white/80" : "text-text-secondary",
                         hoveredItem === item.label && "rotate-180"
                       )}
                     />
@@ -198,8 +198,8 @@ export default function Header() {
                                   className={cn(
                                     "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors",
                                     scrolled
-                                      ? "bg-white/5 text-white/50 group-hover:bg-white/15 group-hover:text-white"
-                                      : "bg-bg-muted text-text-tertiary group-hover:bg-primary group-hover:text-white"
+                                      ? "bg-white/15 text-white group-hover:bg-white/25 group-hover:text-white"
+                                      : "bg-bg-muted text-text-primary group-hover:bg-primary group-hover:text-white"
                                   )}
                                 >
                                   <Icon className="w-4 h-4" aria-hidden="true" />
@@ -209,7 +209,7 @@ export default function Header() {
                                     className={cn(
                                       "text-sm font-medium transition-colors leading-tight",
                                       scrolled
-                                        ? "text-white/90 group-hover:text-white"
+                                        ? "text-white group-hover:text-white"
                                         : "text-text-primary group-hover:text-primary"
                                     )}
                                   >
@@ -218,7 +218,7 @@ export default function Header() {
                                   <div
                                     className={cn(
                                       "text-[11px] mt-0.5 leading-tight",
-                                      scrolled ? "text-white/50" : "text-text-tertiary"
+                                      scrolled ? "text-white/80" : "text-text-secondary"
                                     )}
                                   >
                                     {cat.shortDescription}
@@ -237,7 +237,7 @@ export default function Header() {
                           <span
                             className={cn(
                               "font-mono text-[10px] uppercase tracking-tight",
-                              scrolled ? "text-white/40" : "text-text-muted"
+                              scrolled ? "text-white/80" : "text-text-secondary"
                             )}
                           >
                             Vetted Supplier Network
@@ -278,8 +278,8 @@ export default function Header() {
                                 className={cn(
                                   "w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors",
                                   scrolled
-                                    ? "bg-white/5 text-white/50 group-hover:bg-white/15 group-hover:text-white"
-                                    : "bg-bg-muted text-text-tertiary group-hover:bg-primary group-hover:text-white"
+                                    ? "bg-white/15 text-white group-hover:bg-white/25 group-hover:text-white"
+                                    : "bg-bg-muted text-text-primary group-hover:bg-primary group-hover:text-white"
                                 )}
                               >
                                 <Icon className="w-3.5 h-3.5" aria-hidden="true" />
@@ -289,7 +289,7 @@ export default function Header() {
                                   className={cn(
                                     "text-xs font-medium transition-colors leading-tight",
                                     scrolled
-                                      ? "text-white/90 group-hover:text-white"
+                                      ? "text-white group-hover:text-white"
                                       : "text-text-primary group-hover:text-primary"
                                   )}
                                 >
@@ -298,7 +298,7 @@ export default function Header() {
                                 <div
                                   className={cn(
                                     "text-[10px] mt-0.5 leading-none",
-                                    scrolled ? "text-white/50" : "text-text-tertiary"
+                                    scrolled ? "text-white/80" : "text-text-secondary"
                                   )}
                                 >
                                   {sub.desc}
@@ -334,7 +334,7 @@ export default function Header() {
             onClick={() => setMobileOpen(!mobileOpen)}
             className={cn(
               "lg:hidden p-2 transition-colors",
-              scrolled ? "text-white/70 hover:text-white" : "text-text-tertiary hover:text-text-primary"
+              scrolled ? "text-white/90 hover:text-white" : "text-text-secondary hover:text-text-primary"
             )}
             aria-label="Toggle menu"
             aria-expanded={mobileOpen}
