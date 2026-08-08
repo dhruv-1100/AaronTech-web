@@ -44,6 +44,93 @@ const iconMap: Record<string, React.ElementType> = {
   Package, Factory, ShieldCheck, TrendingDown,
 };
 
+const heroCarouselCategories = [
+  {
+    title: "Industrial Fasteners",
+    std: "ASTM A193 / A320",
+    spec: "Grade 5/8 · M3 to M64",
+    img: "/images/showcase/fasteners.jpg",
+    href: "/products/fasteners",
+  },
+  {
+    title: "Forged Flanges & Fittings",
+    std: "ASME B16.5 CLASS 150-2500",
+    spec: "Weld-Neck & Blind Flanges",
+    img: "/images/showcase/forged-flanges.jpg",
+    href: "/products/forged-components",
+  },
+  {
+    title: "Iron & Steel Castings",
+    std: "ASTM A216 / A536",
+    spec: "Sand & Investment Castings",
+    img: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=600&q=80",
+    href: "/products/castings",
+  },
+  {
+    title: "Precision CNC Machined",
+    std: "ASME Y14.5 GD&T",
+    spec: "Tight Tolerance ±0.01mm",
+    img: "/images/showcase/cnc-machined.jpg",
+    href: "/products/precision-machined",
+  },
+  {
+    title: "Bearings & Bushings",
+    std: "ABMA / ISO 15:2017",
+    spec: "Deep Groove & Tapered Roller",
+    img: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=600&q=80",
+    href: "/products/bearings-bushings",
+  },
+  {
+    title: "Hydraulic & Pneumatic",
+    std: "SAE J514 / ISO 6162",
+    spec: "Rated 3,000–6,000 PSI",
+    img: "https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=600&q=80",
+    href: "/products/hydraulic-pneumatic",
+  },
+  {
+    title: "Industrial Valves",
+    std: "ASME B16.34 / API 6D",
+    spec: "Ball, Gate, Globe & Check",
+    img: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=600&q=80",
+    href: "/products/industrial-valves",
+  },
+  {
+    title: "Pumps & Pump Parts",
+    std: "ANSI / ASME B73.1",
+    spec: "Impellers, Seals & Casings",
+    img: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?auto=format&fit=crop&w=600&q=80",
+    href: "/products/pumps-pump-parts",
+  },
+  {
+    title: "Pipe Fittings & Flanges",
+    std: "ASME B16.9 / B16.11",
+    spec: "Buttweld & Forged Fittings",
+    img: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80",
+    href: "/products/pipe-fittings-flanges",
+  },
+  {
+    title: "Gaskets & Seals",
+    std: "ASME B16.20 / API 6A",
+    spec: "Spiral Wound & Ring Joints",
+    img: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=600&q=80",
+    href: "/products/gaskets-seals",
+  },
+  {
+    title: "Custom Fabrications",
+    std: "AWS D1.1 / ASME SEC IX",
+    spec: "Heavy Welded Assemblies",
+    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80",
+    href: "/products/custom-fabrications",
+  },
+  {
+    title: "Electrical & Power",
+    std: "NEMA / IEEE STANDARDS",
+    spec: "Busbars, Enclosures & Hardware",
+    img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80",
+    href: "/products/electrical-power",
+  },
+];
+
 // Comparison data
 const comparisonRows = [
   {
@@ -214,83 +301,68 @@ export default function HomeContent() {
               </Link>
             </motion.div>
 
-            {/* Interactive 4-Category Hero Showcase Grid */}
+            {/* 12-Category Slow Infinite Ticker Tape Marquee Carousel */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-14 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left"
+              className="mt-14 relative w-full overflow-hidden py-4"
+              style={{
+                maskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)',
+                WebkitMaskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)',
+              }}
             >
-              {[
-                {
-                  title: "Industrial Fasteners",
-                  std: "ASTM A193 / A320",
-                  spec: "Grade 5/8 · M3–M64",
-                  img: "/images/showcase/fasteners.jpg",
-                  href: "/products/fasteners",
-                },
-                {
-                  title: "Forged Flanges & Fittings",
-                  std: "ASME B16.5 CLASS 150-2500",
-                  spec: "Weld-Neck & Blind Flanges",
-                  img: "/images/showcase/forged-flanges.jpg",
-                  href: "/products/forged-components",
-                },
-                {
-                  title: "Iron & Steel Castings",
-                  std: "ASTM A216 / A536",
-                  spec: "Sand & Investment Cast",
-                  img: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=600&q=80",
-                  href: "/products/castings",
-                },
-                {
-                  title: "Precision CNC Machined",
-                  std: "ASME Y14.5 GD&T",
-                  spec: "Tight Tolerance ±0.01mm",
-                  img: "/images/showcase/cnc-machined.jpg",
-                  href: "/products/precision-machined",
-                },
-              ].map((card) => (
-                <Link
-                  key={card.title}
-                  href={card.href}
-                  className="group relative rounded-xl overflow-hidden border border-border bg-slate-950 text-white shadow-xl hover:border-copper-500/60 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
-                >
-                  {/* Card Header Image */}
-                  <div className="h-36 relative overflow-hidden bg-slate-900">
-                    <Image
-                      src={card.img}
-                      alt={card.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
-                      sizes="(max-width: 768px) 100vw, 25vw"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-                    <div className="absolute top-2.5 left-2.5">
-                      <span className="font-mono text-[9px] uppercase bg-black/80 text-copper-300 border border-white/15 px-2 py-0.5 rounded backdrop-blur-md font-medium tracking-tight">
-                        {card.std}
-                      </span>
+              <motion.div
+                className="flex gap-5 w-max"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{
+                  duration: 45,
+                  ease: "linear",
+                  repeat: Infinity,
+                }}
+              >
+                {[...heroCarouselCategories, ...heroCarouselCategories].map((card, idx) => (
+                  <Link
+                    key={`${card.title}-${idx}`}
+                    href={card.href}
+                    className="group relative w-[310px] sm:w-[340px] shrink-0 rounded-2xl overflow-hidden border border-border bg-slate-950 text-white shadow-xl hover:border-copper-500/60 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 text-left"
+                  >
+                    {/* Card Header Image */}
+                    <div className="h-36 relative overflow-hidden bg-slate-900">
+                      <Image
+                        src={card.img}
+                        alt={card.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
+                        sizes="340px"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                      <div className="absolute top-2.5 left-2.5">
+                        <span className="font-mono text-[9px] uppercase bg-black/85 text-copper-300 border border-white/15 px-2.5 py-1 rounded-md backdrop-blur-md font-medium tracking-tight">
+                          {card.std}
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Card Content */}
-                  <div className="p-4 flex-1 flex flex-col justify-between">
-                    <div>
-                      <h3 className="font-heading text-sm font-medium !text-white mb-1 leading-snug group-hover:text-copper-300 transition-colors">
-                        {card.title}
-                      </h3>
-                      <p className="font-mono text-[10px] text-steel-400 tracking-tight">
-                        {card.spec}
-                      </p>
+                    {/* Card Content */}
+                    <div className="p-4 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h3 className="font-heading text-sm font-medium !text-white mb-1 leading-snug group-hover:text-copper-300 transition-colors">
+                          {card.title}
+                        </h3>
+                        <p className="font-mono text-[10px] text-steel-400 tracking-tight">
+                          {card.spec}
+                        </p>
+                      </div>
+
+                      <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-steel-300 group-hover:text-white transition-colors">
+                        <span>Explore Specs</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-copper-400 group-hover:translate-x-1 transition-transform" />
+                      </div>
                     </div>
-                    
-                    <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-steel-300 group-hover:text-white transition-colors">
-                      <span>Explore Specs</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-copper-400 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                ))}
+              </motion.div>
             </motion.div>
           </div>
         </div>
