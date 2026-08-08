@@ -213,6 +213,85 @@ export default function HomeContent() {
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </motion.div>
+
+            {/* Interactive 4-Category Hero Showcase Grid */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mt-14 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 text-left"
+            >
+              {[
+                {
+                  title: "Industrial Fasteners",
+                  std: "ASTM A193 / A320",
+                  spec: "Grade 5/8 · M3–M64",
+                  img: "/images/showcase/fasteners.jpg",
+                  href: "/products/fasteners",
+                },
+                {
+                  title: "Forged Flanges & Fittings",
+                  std: "ASME B16.5 CLASS 150-2500",
+                  spec: "Weld-Neck & Blind Flanges",
+                  img: "/images/showcase/forged-flanges.jpg",
+                  href: "/products/forged-components",
+                },
+                {
+                  title: "Iron & Steel Castings",
+                  std: "ASTM A216 / A536",
+                  spec: "Sand & Investment Cast",
+                  img: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=600&q=80",
+                  href: "/products/castings",
+                },
+                {
+                  title: "Precision CNC Machined",
+                  std: "ASME Y14.5 GD&T",
+                  spec: "Tight Tolerance ±0.01mm",
+                  img: "/images/showcase/cnc-machined.jpg",
+                  href: "/products/precision-machined",
+                },
+              ].map((card) => (
+                <Link
+                  key={card.title}
+                  href={card.href}
+                  className="group relative rounded-xl overflow-hidden border border-border bg-slate-950 text-white shadow-xl hover:border-copper-500/60 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1"
+                >
+                  {/* Card Header Image */}
+                  <div className="h-36 relative overflow-hidden bg-slate-900">
+                    <Image
+                      src={card.img}
+                      alt={card.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
+                      sizes="(max-width: 768px) 100vw, 25vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                    <div className="absolute top-2.5 left-2.5">
+                      <span className="font-mono text-[9px] uppercase bg-black/80 text-copper-300 border border-white/15 px-2 py-0.5 rounded backdrop-blur-md font-medium tracking-tight">
+                        {card.std}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-4 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-heading text-sm font-medium !text-white mb-1 leading-snug group-hover:text-copper-300 transition-colors">
+                        {card.title}
+                      </h3>
+                      <p className="font-mono text-[10px] text-steel-400 tracking-tight">
+                        {card.spec}
+                      </p>
+                    </div>
+                    
+                    <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-steel-300 group-hover:text-white transition-colors">
+                      <span>Explore Specs</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-copper-400 group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </motion.div>
           </div>
         </div>
       </section>
