@@ -535,13 +535,13 @@ export default function HomeContent() {
             {processSteps.map((step, i) => (
               <AnimatedSection key={step.number} delay={i * 0.08}>
                 <div className="bg-slate-900/90 border border-white/15 p-8 h-full flex flex-col rounded-xl hover:border-copper-500/50 transition-colors">
-                  <span className="font-mono text-[10px] uppercase text-copper-400 tracking-tight block mb-4 font-bold">
+                  <span className="font-mono text-[10px] uppercase !text-copper-400 tracking-tight block mb-4 font-bold">
                     Step {step.number}
                   </span>
-                  <h3 className="text-lg font-medium text-white mb-3">
+                  <h3 className="text-lg font-medium !text-white mb-3 font-heading">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-steel-300 leading-relaxed">
+                  <p className="text-sm !text-steel-200 leading-relaxed">
                     {step.description}
                   </p>
                 </div>
