@@ -43,9 +43,9 @@ export default function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-tight text-text-tertiary mb-5">
+            <p className="font-mono text-xs uppercase tracking-tight text-text-tertiary mb-5 font-medium">
               Navigation
-            </h4>
+            </p>
             <ul className="space-y-3">
               {mainNav.map((item) => (
                 <li key={item.href}>
@@ -62,9 +62,9 @@ export default function Footer() {
 
           {/* Product Lines */}
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-tight text-text-tertiary mb-5">
+            <p className="font-mono text-xs uppercase tracking-tight text-text-tertiary mb-5 font-medium">
               Product Lines
-            </h4>
+            </p>
             <ul className="space-y-3">
               {[
                 { name: "Fasteners", slug: "fasteners" },
@@ -88,9 +88,9 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-mono text-xs uppercase tracking-tight text-text-tertiary mb-5">
+            <p className="font-mono text-xs uppercase tracking-tight text-text-tertiary mb-5 font-medium">
               Contact
-            </h4>
+            </p>
             <ul className="space-y-4">
               <li>
                 <a
@@ -128,9 +128,9 @@ export default function Footer() {
       {/* SEO Internal Link Siloing Block */}
       <div className="border-t border-border bg-bg-subtle/50 py-6">
         <div className="max-w-[1360px] mx-auto px-6">
-          <h5 className="font-mono text-[10px] uppercase tracking-wider text-text-tertiary mb-3">
+          <p className="font-mono text-[10px] uppercase tracking-wider text-text-tertiary mb-3 font-medium">
             Popular Component Sourcing Lines
-          </h5>
+          </p>
           <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-text-secondary">
             {[
               { name: "Hex Bolts & Studs", href: "/products/fasteners/hex-bolts" },

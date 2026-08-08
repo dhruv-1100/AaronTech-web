@@ -237,7 +237,7 @@ export default function LandedCostCalculator() {
                     >
                       {method.label}
                     </div>
-                    <div className="text-xs text-steel-500">
+                    <div className="text-xs text-steel-700 font-medium">
                       {method.estimate}
                     </div>
                   </div>
@@ -328,9 +328,9 @@ export default function LandedCostCalculator() {
             <div className="border-t border-steel-300">
               {/* Results Header */}
               <div className="bg-bg-subtle/50 px-6 py-4 sm:px-8 border-b border-border">
-                <h4 className="font-heading font-bold text-navy-900 text-base">
+                <p className="font-heading font-bold text-navy-900 text-base">
                   Cost Breakdown
-                </h4>
+                </p>
               </div>
 
               {/* Breakdown Table */}
@@ -464,7 +464,7 @@ function BreakdownRow({
             </div>
           )}
         </span>
-        <span className="block text-xs text-steel-500">{sublabel}</span>
+        <span className="block text-xs text-steel-700">{sublabel}</span>
       </div>
       <span
         className={cn(
