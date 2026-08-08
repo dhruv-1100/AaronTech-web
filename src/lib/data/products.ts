@@ -8,7 +8,7 @@ export const productCategories: ProductCategory[] = [
     shortDescription: "High-strength bolts, nuts, screws & studs to global standards",
     description:
       "Precision-manufactured fasteners sourced from ISO-certified Indian facilities. Our fastener range covers hex bolts, socket head cap screws, nuts, washers, studs, and anchors — available in carbon steel, alloy steel, stainless 304/316, and titanium for aerospace applications. Every lot ships with mill test certificates and full material traceability.",
-    heroImage: "/images/products/fasteners.jpg",
+    heroImage: "https://images.unsplash.com/photo-1608613304899-ea8098577e38?auto=format&fit=crop&w=600&q=80",
     icon: "Wrench",
     types: [
       "Hex Bolts",
@@ -57,7 +57,7 @@ export const productCategories: ProductCategory[] = [
     shortDescription: "Pipe flanges, fittings & custom forgings to ASME/ASTM specs",
     description:
       "Open-die and closed-die forgings manufactured to exacting ASME and ASTM standards. Our range includes weld-neck, slip-on, and blind flanges in Class 150 through 2500, plus elbows, tees, reducers, and fully custom forgings. Every critical component ships with NDT reports and positive material identification.",
-    heroImage: "/images/products/forged-components.jpg",
+    heroImage: "https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=600&q=80",
     icon: "Flame",
     types: [
       "Weld-Neck Flanges",
@@ -88,7 +88,7 @@ export const productCategories: ProductCategory[] = [
     shortDescription: "Iron, steel & aluminum castings for industrial machinery",
     description:
       "Sand castings, investment castings, and die castings in gray iron, ductile iron, cast steel, and aluminum alloys. Used across pump housings, valve bodies, machinery brackets, and automotive components. Every casting is backed by foundry certification, hardness testing, and full tensile test reports.",
-    heroImage: "/images/products/castings.jpg",
+    heroImage: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=600&q=80",
     icon: "FlaskConical",
     types: [
       "Gray Iron Castings",
@@ -196,7 +196,7 @@ export const productCategories: ProductCategory[] = [
     shortDescription: "CNC turned & milled parts to ASME Y14.5 GD&T tolerances",
     description:
       "Custom CNC turned and milled components manufactured to your engineering drawings. Tight tolerances per ASME Y14.5 GD&T specifications in steel, stainless steel, aluminum, and brass. Every first article ships with CMM dimensional reports for full traceability and qualification.",
-    heroImage: "/images/products/precision-machined.jpg",
+    heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=600&q=80",
     icon: "Target",
     types: [
       "CNC Turned Parts",

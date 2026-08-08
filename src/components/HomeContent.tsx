@@ -214,52 +214,111 @@ export default function HomeContent() {
               </Link>
             </motion.div>
 
-            {/* High-Impact Technical Showcase Asset Card */}
+            {/* Interactive Vector CAD Blueprint Visualizer */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-14 relative rounded-2xl overflow-hidden border border-border shadow-2xl group"
+              className="mt-14 relative rounded-2xl overflow-hidden border border-white/10 bg-navy-950 text-white shadow-2xl text-left"
             >
-              <div className="relative aspect-[16/9] w-full bg-slate-950">
-                <Image
-                  src="/images/hero/hero_industrial_parts.jpg"
-                  alt="Precision Industrial Component Sourcing — Fasteners, Forgings & CNC Machined Parts"
-                  fill
-                  priority
-                  className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 opacity-90"
-                  sizes="(max-width: 1200px) 100vw, 1200px"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent pointer-events-none" />
-
-                {/* Floating Technical Blueprint Spec Badges */}
-                <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex flex-wrap gap-2">
-                  <span className="font-mono text-[10px] sm:text-xs uppercase bg-black/75 backdrop-blur-md text-white border border-white/20 px-3 py-1.5 rounded-full tracking-wider shadow-lg flex items-center gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    ISO 9001:2015 Audited Foundries
-                  </span>
-                  <span className="font-mono text-[10px] sm:text-xs uppercase bg-black/75 backdrop-blur-md text-white/90 border border-white/15 px-3 py-1.5 rounded-full tracking-wider shadow-lg hidden sm:inline-flex">
-                    EN 10204 3.1 MTC Included
+              {/* Terminal Title Bar */}
+              <div className="bg-white/5 border-b border-white/10 px-6 py-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-rose-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                  <span className="font-mono text-xs text-white/70 ml-2 uppercase tracking-wider">
+                    SPEC_TERMINAL // ASTM_A105_FLANGE_BLUEPRINT.CAD
                   </span>
                 </div>
+                <span className="font-mono text-[10px] uppercase bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2.5 py-1 rounded-md flex items-center gap-1.5 font-medium">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  CMM INSPECTION PASSED
+                </span>
+              </div>
 
-                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
-                  <div className="text-left max-w-md">
-                    <span className="font-mono text-[10px] uppercase text-copper-400 tracking-wider block mb-1">
-                      Live Component Spec Sheet
-                    </span>
-                    <h2 className="font-heading text-lg sm:text-xl text-white font-medium leading-tight">
-                      ASTM A105 / ANSI B16.5 & Custom Fasteners
-                    </h2>
+              {/* Blueprint Content Grid */}
+              <div className="p-6 md:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                {/* Vector CAD Diagram (Left 7 Cols) */}
+                <div className="lg:col-span-7 relative bg-black/40 border border-white/10 rounded-xl p-6 overflow-hidden flex flex-col justify-between min-h-[300px]">
+                  {/* Grid background */}
+                  <div
+                    className="absolute inset-0 opacity-15 pointer-events-none"
+                    style={{
+                      backgroundImage: `linear-gradient(to right, #7a9ba5 1px, transparent 1px), linear-gradient(to bottom, #7a9ba5 1px, transparent 1px)`,
+                      backgroundSize: '24px 24px',
+                    }}
+                  />
+
+                  {/* Top Bar Callouts */}
+                  <div className="relative z-10 flex justify-between text-[11px] font-mono text-copper-400 uppercase tracking-tight mb-4 font-medium">
+                    <span>CAD BLUEPRINT REV: 4.2</span>
+                    <span>SCALE 1:1 · DIN/ASME</span>
                   </div>
 
-                  <Link
-                    href="/products"
-                    className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white bg-white/15 hover:bg-white/25 border border-white/20 backdrop-blur-md px-4 py-2.5 rounded-xl transition-all"
-                  >
-                    Explore 12 Product Lines
-                    <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-                  </Link>
+                  {/* SVG Blueprint Wireframe */}
+                  <div className="relative z-10 my-4 flex justify-center items-center">
+                    <svg viewBox="0 0 400 200" className="w-full max-w-[360px] h-auto stroke-sky-400/80 fill-none stroke-[1.5]">
+                      {/* Flange Outer Circle */}
+                      <circle cx="200" cy="100" r="80" strokeDasharray="4 2" className="stroke-sky-300/40" />
+                      <circle cx="200" cy="100" r="70" />
+                      <circle cx="200" cy="100" r="40" />
+                      <circle cx="200" cy="100" r="28" className="stroke-copper-400" />
+                      {/* Bolt Holes */}
+                      <circle cx="140" cy="100" r="7" className="fill-sky-950 stroke-sky-300" />
+                      <circle cx="260" cy="100" r="7" className="fill-sky-950 stroke-sky-300" />
+                      <circle cx="200" cy="40" r="7" className="fill-sky-950 stroke-sky-300" />
+                      <circle cx="200" cy="160" r="7" className="fill-sky-950 stroke-sky-300" />
+                      {/* Dimension Lines */}
+                      <line x1="120" y1="100" x2="280" y2="100" strokeDasharray="2 2" className="stroke-copper-400/60" />
+                      <line x1="200" y1="20" x2="200" y2="180" strokeDasharray="2 2" className="stroke-copper-400/60" />
+                      {/* Measurement Callouts */}
+                      <text x="205" y="32" fill="#C75B2A" fontSize="9" fontFamily="monospace">Ø 152.4mm ±0.02</text>
+                      <text x="205" y="175" fill="#38bdf8" fontSize="9" fontFamily="monospace">4x Ø 19.1mm HOLES</text>
+                    </svg>
+                  </div>
+
+                  {/* Bottom Spec Footer */}
+                  <div className="relative z-10 flex flex-wrap justify-between items-center text-[10px] font-mono text-white/70 border-t border-white/10 pt-3 font-medium">
+                    <span>MATERIAL: ASTM A105 FORGED STEEL</span>
+                    <span>PRESSURE CLASS: 150# RF</span>
+                  </div>
+                </div>
+
+                {/* Technical Specifications Panel (Right 5 Cols) */}
+                <div className="lg:col-span-5 space-y-5 text-left">
+                  <div>
+                    <span className="font-mono text-xs uppercase text-copper-400 tracking-tight block mb-1 font-medium">
+                      Component Quality Metrics
+                    </span>
+                    <h3 className="text-xl font-heading text-white font-medium leading-tight">
+                      Full Material Traceability & EN 10204 3.1 Certs
+                    </h3>
+                  </div>
+
+                  <div className="space-y-3 font-mono text-xs">
+                    {[
+                      { label: "Dimensional Tolerance", val: "±0.01mm (ASME GD&T)" },
+                      { label: "Material Grade", val: "Stainless 316L / Carbon A105" },
+                      { label: "Inspection Method", val: "Ultrasonic NDT + PMI Assay" },
+                      { label: "Documentation", val: "EN 10204 3.1 Mill Certs" },
+                    ].map((item) => (
+                      <div key={item.label} className="flex items-center justify-between border-b border-white/10 pb-2">
+                        <span className="text-white/70 font-medium">{item.label}</span>
+                        <span className="text-white font-medium">{item.val}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="pt-2 flex items-center gap-3">
+                    <Link
+                      href="/quote"
+                      className="btn-primary py-3 px-6 text-xs font-mono uppercase tracking-wider w-full justify-center"
+                    >
+                      Submit Drawing / RFQ
+                      <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </motion.div>
