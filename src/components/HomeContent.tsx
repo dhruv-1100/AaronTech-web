@@ -30,6 +30,7 @@ import {
   Truck,
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { productCategories } from "@/lib/data/products";
 import { trustMetrics } from "@/lib/data/site";
@@ -211,6 +212,56 @@ export default function HomeContent() {
                 Browse Products
                 <ChevronRight className="w-4 h-4" />
               </Link>
+            </motion.div>
+
+            {/* High-Impact Technical Showcase Asset Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mt-14 relative rounded-2xl overflow-hidden border border-border shadow-2xl group"
+            >
+              <div className="relative aspect-[16/9] w-full bg-slate-950">
+                <Image
+                  src="/images/hero/hero_industrial_parts.jpg"
+                  alt="Precision Industrial Component Sourcing — Fasteners, Forgings & CNC Machined Parts"
+                  fill
+                  priority
+                  className="object-cover object-center group-hover:scale-[1.02] transition-transform duration-700 opacity-90"
+                  sizes="(max-width: 1200px) 100vw, 1200px"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent pointer-events-none" />
+
+                {/* Floating Technical Blueprint Spec Badges */}
+                <div className="absolute top-4 left-4 sm:top-6 sm:left-6 flex flex-wrap gap-2">
+                  <span className="font-mono text-[10px] sm:text-xs uppercase bg-black/75 backdrop-blur-md text-white border border-white/20 px-3 py-1.5 rounded-full tracking-wider shadow-lg flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    ISO 9001:2015 Audited Foundries
+                  </span>
+                  <span className="font-mono text-[10px] sm:text-xs uppercase bg-black/75 backdrop-blur-md text-white/90 border border-white/15 px-3 py-1.5 rounded-full tracking-wider shadow-lg hidden sm:inline-flex">
+                    EN 10204 3.1 MTC Included
+                  </span>
+                </div>
+
+                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4">
+                  <div className="text-left max-w-md">
+                    <span className="font-mono text-[10px] uppercase text-copper-400 tracking-wider block mb-1">
+                      Live Component Spec Sheet
+                    </span>
+                    <h2 className="font-heading text-lg sm:text-xl text-white font-medium leading-tight">
+                      ASTM A105 / ANSI B16.5 & Custom Fasteners
+                    </h2>
+                  </div>
+
+                  <Link
+                    href="/products"
+                    className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-white bg-white/15 hover:bg-white/25 border border-white/20 backdrop-blur-md px-4 py-2.5 rounded-xl transition-all"
+                  >
+                    Explore 12 Product Lines
+                    <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+                  </Link>
+                </div>
+              </div>
             </motion.div>
           </div>
         </div>
