@@ -300,71 +300,71 @@ export default function HomeContent() {
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </motion.div>
+          </div>
 
-            {/* 12-Category Slow Infinite Ticker Tape Marquee Carousel */}
+          {/* 12-Category Ultra-Slow Edge-to-Edge Full Viewport Ticker Tape Marquee Carousel */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="mt-16 w-screen relative left-1/2 -translate-x-1/2 overflow-hidden py-4"
+            style={{
+              maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
+            }}
+          >
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-              className="mt-14 relative w-full overflow-hidden py-4"
-              style={{
-                maskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)',
-                WebkitMaskImage: 'linear-gradient(to right, transparent, black 6%, black 94%, transparent)',
+              className="flex gap-6 w-max"
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{
+                duration: 80,
+                ease: "linear",
+                repeat: Infinity,
               }}
             >
-              <motion.div
-                className="flex gap-5 w-max"
-                animate={{ x: ["0%", "-50%"] }}
-                transition={{
-                  duration: 45,
-                  ease: "linear",
-                  repeat: Infinity,
-                }}
-              >
-                {[...heroCarouselCategories, ...heroCarouselCategories].map((card, idx) => (
-                  <Link
-                    key={`${card.title}-${idx}`}
-                    href={card.href}
-                    className="group relative w-[310px] sm:w-[340px] shrink-0 rounded-2xl overflow-hidden border border-border bg-slate-950 text-white shadow-xl hover:border-copper-500/60 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 text-left"
-                  >
-                    {/* Card Header Image */}
-                    <div className="h-36 relative overflow-hidden bg-slate-900">
-                      <Image
-                        src={card.img}
-                        alt={card.title}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
-                        sizes="340px"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-                      <div className="absolute top-2.5 left-2.5">
-                        <span className="font-mono text-[9px] uppercase bg-black/85 text-copper-300 border border-white/15 px-2.5 py-1 rounded-md backdrop-blur-md font-medium tracking-tight">
-                          {card.std}
-                        </span>
-                      </div>
+              {[...heroCarouselCategories, ...heroCarouselCategories].map((card, idx) => (
+                <Link
+                  key={`${card.title}-${idx}`}
+                  href={card.href}
+                  className="group relative w-[320px] sm:w-[370px] shrink-0 rounded-2xl overflow-hidden border border-border bg-slate-950 text-white shadow-2xl hover:border-copper-500/60 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 text-left"
+                >
+                  {/* Card Header Image */}
+                  <div className="h-40 relative overflow-hidden bg-slate-900">
+                    <Image
+                      src={card.img}
+                      alt={card.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
+                      sizes="370px"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
+                    <div className="absolute top-3 left-3">
+                      <span className="font-mono text-[9px] uppercase bg-black/85 text-copper-300 border border-white/15 px-2.5 py-1 rounded-md backdrop-blur-md font-medium tracking-tight">
+                        {card.std}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Card Content */}
+                  <div className="p-5 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="font-heading text-base font-medium !text-white mb-1.5 leading-snug group-hover:text-copper-300 transition-colors">
+                        {card.title}
+                      </h3>
+                      <p className="font-mono text-xs text-steel-400 tracking-tight">
+                        {card.spec}
+                      </p>
                     </div>
 
-                    {/* Card Content */}
-                    <div className="p-4 flex-1 flex flex-col justify-between">
-                      <div>
-                        <h3 className="font-heading text-sm font-medium !text-white mb-1 leading-snug group-hover:text-copper-300 transition-colors">
-                          {card.title}
-                        </h3>
-                        <p className="font-mono text-[10px] text-steel-400 tracking-tight">
-                          {card.spec}
-                        </p>
-                      </div>
-
-                      <div className="mt-3 pt-2 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-steel-300 group-hover:text-white transition-colors">
-                        <span>Explore Specs</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-copper-400 group-hover:translate-x-1 transition-transform" />
-                      </div>
+                    <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-steel-300 group-hover:text-white transition-colors">
+                      <span>Explore Specs</span>
+                      <ArrowRight className="w-4 h-4 text-copper-400 group-hover:translate-x-1 transition-transform" />
                     </div>
-                  </Link>
-                ))}
-              </motion.div>
+                  </div>
+                </Link>
+              ))}
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
