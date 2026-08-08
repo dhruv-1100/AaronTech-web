@@ -137,7 +137,7 @@ export default function LandedCostCalculator() {
               FOB Unit Price ($)
             </label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-500 text-sm">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-steel-700 text-sm">
                 $
               </span>
               <input
@@ -237,7 +237,12 @@ export default function LandedCostCalculator() {
                     >
                       {method.label}
                     </div>
-                    <div className="text-xs text-steel-700 font-medium">
+                    <div
+                      className={cn(
+                        "text-xs font-medium",
+                        isSelected ? "text-copper-700 font-semibold" : "text-steel-800"
+                      )}
+                    >
                       {method.estimate}
                     </div>
                   </div>
@@ -269,7 +274,7 @@ export default function LandedCostCalculator() {
                 </option>
               ))}
             </select>
-            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-steel-500 pointer-events-none" aria-hidden="true" />
+            <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-steel-700 pointer-events-none" aria-hidden="true" />
           </div>
         </div>
 
@@ -396,7 +401,7 @@ export default function LandedCostCalculator() {
                   </div>
                 </motion.div>
 
-                <p className="mt-3 text-xs text-steel-500 text-center">
+                <p className="mt-3 text-xs text-steel-700 text-center font-medium">
                   This is an estimate. Actual costs may vary based on HS code
                   classification, origin port, and current freight rates.
                 </p>
