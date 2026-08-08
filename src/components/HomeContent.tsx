@@ -220,7 +220,7 @@ export default function HomeContent() {
       {/* ================================================================
           TRUST METRICS — Ruled horizontal grid
           ================================================================ */}
-      <section className="border-b border-border">
+      <section className="border-b border-border bg-slate-50/80">
         <div className="max-w-[1360px] mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {trustMetrics.map((metric, i) => {
@@ -394,7 +394,7 @@ export default function HomeContent() {
       {/* ================================================================
           WHY AARON TECHNOLOGIES — Editorial two-column
           ================================================================ */}
-      <section className="border-t border-b border-border py-24 md:py-32">
+      <section className="border-t border-b border-border py-24 md:py-32 bg-bg-subtle">
         <div className="max-w-[1360px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
             {/* Left — Heading */}
@@ -520,28 +520,28 @@ export default function HomeContent() {
       {/* ================================================================
           HOW IT WORKS — Horizontal ruled stepper
           ================================================================ */}
-      <section className="border-t border-b border-border py-24 md:py-32">
+      <section className="border-t border-b border-border py-24 md:py-32 bg-slate-950 text-white">
         <div className="max-w-[1360px] mx-auto px-6">
           <AnimatedSection className="mb-16">
-            <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
+            <span className="font-mono text-xs uppercase !text-copper-400 tracking-tight block mb-3 font-bold">
               Process
             </span>
-            <h2 className="text-3xl md:text-[2.75rem] leading-tight">
-              How it <strong>works</strong>
+            <h2 className="text-3xl md:text-[2.75rem] leading-tight !text-white font-medium">
+              How it <strong className="!text-copper-400">works</strong>
             </h2>
           </AnimatedSection>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border border-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {processSteps.map((step, i) => (
               <AnimatedSection key={step.number} delay={i * 0.08}>
-                <div className="bg-white p-8 h-full flex flex-col">
-                  <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight block mb-4">
+                <div className="bg-slate-900/90 border border-white/15 p-8 h-full flex flex-col rounded-xl hover:border-copper-500/50 transition-colors">
+                  <span className="font-mono text-[10px] uppercase text-copper-400 tracking-tight block mb-4 font-bold">
                     Step {step.number}
                   </span>
-                  <h3 className="text-lg font-medium text-text-primary mb-3">
+                  <h3 className="text-lg font-medium text-white mb-3">
                     {step.title}
                   </h3>
-                  <p className="text-sm text-text-secondary leading-relaxed">
+                  <p className="text-sm text-steel-300 leading-relaxed">
                     {step.description}
                   </p>
                 </div>
@@ -683,11 +683,11 @@ export default function HomeContent() {
           ================================================================ */}
       <section className="py-24 md:py-32">
         <div className="max-w-[1360px] mx-auto px-6">
-          <AnimatedSection className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-6">
-              Ready to streamline your <strong>supply chain?</strong>
+          <AnimatedSection className="text-center max-w-4xl mx-auto bg-gradient-to-br from-slate-950 via-slate-900 to-navy-950 text-white p-12 md:p-16 rounded-3xl border border-white/15 shadow-2xl relative overflow-hidden">
+            <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-6 !text-white font-medium">
+              Ready to streamline your <strong className="!text-copper-400">supply chain?</strong>
             </h2>
-            <p className="text-lg text-text-secondary leading-relaxed mb-10">
+            <p className="text-lg text-steel-200 leading-relaxed mb-10 max-w-xl mx-auto">
               Get a competitive quote on industrial components with transparent
               landed-cost pricing. No obligation, fast turnaround.
             </p>
@@ -701,7 +701,7 @@ export default function HomeContent() {
               </Link>
               <Link
                 href="/contact"
-                className="btn-secondary px-8 py-3.5 text-base"
+                className="btn-secondary px-8 py-3.5 text-base border-white/30 text-white hover:bg-white/10"
               >
                 Contact Us
                 <ChevronRight className="w-4 h-4" />
