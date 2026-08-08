@@ -124,11 +124,11 @@ export default function Header() {
                     "relative px-4 py-2 text-sm transition-colors flex items-center gap-1 cursor-pointer",
                     scrolled
                       ? isActive
-                        ? "text-white font-medium"
-                        : "text-white/90 hover:text-white"
+                        ? "text-white font-semibold"
+                        : "text-white font-medium hover:text-white/80"
                       : isActive
-                        ? "text-text-primary font-medium"
-                        : "text-text-secondary hover:text-text-primary"
+                        ? "text-text-primary font-semibold"
+                        : "text-text-primary font-medium hover:text-accent"
                   )}
                 >
                   <span>{item.label}</span>
@@ -137,7 +137,7 @@ export default function Header() {
                       aria-hidden="true"
                       className={cn(
                         "w-3 h-3 transition-transform duration-300",
-                        scrolled ? "text-white/80" : "text-text-secondary",
+                        scrolled ? "text-white" : "text-text-primary",
                         hoveredItem === item.label && "rotate-180"
                       )}
                     />
