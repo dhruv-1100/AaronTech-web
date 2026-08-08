@@ -257,10 +257,10 @@ export default function HomeContent() {
           ================================================================ */}
       <section className="bg-slate-950 text-white border-b border-border py-16 overflow-hidden">
         <div className="max-w-[1360px] mx-auto px-6 mb-10 text-center">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] text-copper-500 font-bold block mb-2">
+          <span className="font-mono text-xs uppercase tracking-[0.25em] !text-copper-400 font-bold block mb-2">
             PRODUCT SHOWCASE
           </span>
-          <h2 className="text-2xl sm:text-3xl font-heading text-white font-medium">
+          <h2 className="text-2xl sm:text-3xl font-heading !text-white font-medium">
             Precision-Engineered Industrial Components
           </h2>
         </div>
