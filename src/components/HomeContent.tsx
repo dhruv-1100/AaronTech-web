@@ -317,7 +317,7 @@ export default function HomeContent() {
               className="flex gap-6 w-max"
               animate={{ x: ["0%", "-50%"] }}
               transition={{
-                duration: 140,
+                duration: 65,
                 ease: "linear",
                 repeat: Infinity,
               }}
