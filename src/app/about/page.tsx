@@ -1,16 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import {
-  TrendingDown,
-  ShieldCheck,
-  FileSearch,
-  Headphones,
-  Send,
-  Search,
-  Factory,
-  PackageCheck,
-  ArrowRight,
-} from "lucide-react";
+import Reveal from "@/components/ui/Reveal";
+import { PageHero, Eyebrow, SectionHead, CtaBand } from "@/components/ui/Page";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "About Aaron Technologies",
@@ -29,249 +20,183 @@ export const metadata: Metadata = {
   },
 };
 
-const valueProps = [
+const FIGURES = [
+  { value: "30+", label: "Vetted factories" },
+  { value: "25%+", label: "Average savings" },
+  { value: "100%", label: "MTC traceability" },
+  { value: "US", label: "Contracts & support" },
+];
+
+const ADVANTAGES = [
   {
-    icon: TrendingDown,
-    title: "Competitive Sourcing Pricing",
-    stat: "25%+",
-    description:
-      "Average landed-cost savings versus domestic-only procurement. Our vetted Indian manufacturing network delivers precision-engineered parts at direct rates.",
+    tag: "25%+",
+    title: "Competitive sourcing pricing",
+    body: "Average landed-cost savings versus domestic-only procurement. Our vetted Indian network delivers precision-engineered parts at direct manufacturing rates.",
   },
   {
-    icon: ShieldCheck,
-    title: "Double-Verified Quality",
-    stat: "Vetted",
-    description:
-      "Every factory in our network is thoroughly vetted. We supplement their checks with our local Indian engineering inspectors for double quality assurance.",
+    tag: "Vetted",
+    title: "Double-verified quality",
+    body: "Every factory in the network is vetted and ISO 9001:2015 certified. We supplement their checks with our own Indian engineering inspectors for a second pass.",
   },
   {
-    icon: FileSearch,
-    title: "Document Traceability",
-    stat: "100%",
-    description:
-      "Mill test certificates (MTCs), certificates of conformance (CoCs), and inspection logs ship digitally with every single order. No exceptions.",
+    tag: "100%",
+    title: "Document traceability",
+    body: "Mill test certificates, certificates of conformance and inspection logs ship digitally with every order. No exceptions.",
   },
   {
-    icon: Headphones,
-    title: "US Contracts & Support",
-    stat: "US Entity",
-    description:
-      "We are a registered US corporation. You get USD invoicing, local contracts, domestic liability protections, and local support.",
+    tag: "US entity",
+    title: "US contracts & support",
+    body: "We are a registered US corporation: USD invoicing, local contracts, domestic liability protections and support in your time zone.",
   },
 ];
 
-const howItWorks = [
+const STAGES = [
   {
     step: "01",
-    icon: Send,
-    title: "Submit RFQ & Blueprints",
-    description:
-      "Send us your CAD drawings, standard specifications, quantities, and target unit pricing. We accept inquiries via our website, email, or direct calls.",
+    title: "Submit RFQ & blueprints",
+    body: "Send CAD drawings, standard specifications, quantities and target unit pricing. We take inquiries through the site, email or a direct call.",
   },
   {
     step: "02",
-    icon: Search,
-    title: "Sourcing & Landed Quote",
-    description:
-      "Our engineers match your blueprints to our vetted network and issue a transparent quote covering FOB, freight, insurance, and the 18% customs duty within 24–48 hours.",
+    title: "Sourcing & landed quote",
+    body: "Our engineers match your blueprints against the vetted network and issue a transparent quote covering FOB, freight, insurance and duty within 24–48 hours.",
   },
   {
     step: "03",
-    icon: Factory,
-    title: "Tooling, Production & QC",
-    description:
-      "Production begins under ISO processes. Our Indian inspectors audit first-articles and run dimensional assays at critical production stages.",
+    title: "Tooling, production & QC",
+    body: "Production runs under ISO processes. Our Indian inspectors approve first articles and run dimensional assays at critical stages.",
   },
   {
     step: "04",
-    icon: PackageCheck,
-    title: "Delivered to Loading Dock",
-    description:
-      "We manage door-to-door freight forwarding, customs clearances, and final trucking, delivering parts and quality dossiers directly to your loading dock.",
+    title: "Delivered to loading dock",
+    body: "We manage door-to-door freight forwarding, customs clearance and final trucking — parts and quality dossiers arrive together.",
   },
 ];
 
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="border-b border-border">
-        <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
-          <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-            Our Story
-          </span>
-          <h1 className="text-4xl sm:text-5xl leading-[1.1] mb-5 max-w-3xl">
-            About Aaron <strong>Technologies</strong>
-          </h1>
-          <p className="text-lg text-text-secondary leading-relaxed max-w-2xl">
-            We bridge American buyers with India&rsquo;s world-class manufacturing
-            ecosystem — delivering premium industrial components with full
-            traceability and significant cost savings.
-          </p>
+      <PageHero
+        eyebrow="Our story"
+        title="A US company with engineers on the factory floor."
+        lede="We bridge American buyers and India’s manufacturing ecosystem — delivering industrial components with full traceability and real cost savings, without the risk that usually comes with importing."
+      />
+
+      {/* Who we are */}
+      <section className="border-b border-ink bg-paper py-20 md:py-[100px]">
+        <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-[88px]">
+          <Reveal>
+            <Eyebrow>Who we are</Eyebrow>
+            <h2 className="mt-[18px] mb-[30px] text-[clamp(2rem,3.6vw,2.875rem)] text-ink">
+              Built for American procurement teams, powered by Indian
+              engineering
+            </h2>
+            <div className="flex flex-col gap-5 text-[17px] leading-[1.65] text-body">
+              <p className="m-0">
+                Aaron Technologies Inc. is a US-registered industrial supplier
+                operating an active sourcing network across India’s leading
+                industrial clusters — Rajkot, Ludhiana, Pune and Chennai.
+              </p>
+              <p className="m-0">
+                We started the firm to solve a specific problem: American
+                procurement teams want the cost advantage of importing from
+                India, but hesitate because of quality control risk, time-zone
+                disconnects and customs logistics.
+              </p>
+              <p className="m-0">
+                Our engineering team in India solves the first by inspecting
+                production on site. Our US entity solves the rest by holding the
+                contracts, the invoicing and the freight. You get
+                direct-from-foundry pricing with the security of a domestic
+                supplier.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal className="grid grid-cols-2 gap-px border border-rule-strong bg-rule-strong">
+            {FIGURES.map((figure) => (
+              <div key={figure.label} className="bg-paper px-[26px] py-[34px]">
+                <div className="text-[40px] leading-none font-bold tracking-[-0.04em] text-ink">
+                  {figure.value}
+                </div>
+                <div className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                  {figure.label}
+                </div>
+              </div>
+            ))}
+          </Reveal>
         </div>
       </section>
 
-      {/* Story & Stats */}
-      <section className="py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <div className="grid gap-16 lg:grid-cols-12 lg:items-start">
-            {/* Story text */}
-            <div className="lg:col-span-7 space-y-6">
-              <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block">
-                Who We Are
-              </span>
-              <h2 className="text-3xl leading-tight">
-                Built for American Procurement Teams,{" "}
-                <strong>Powered by Indian Engineering</strong>
-              </h2>
-              <div className="space-y-4 text-text-secondary leading-relaxed">
-                <p>
-                  Aaron Technologies Inc. is a US-registered industrial supplier
-                  operating an active sourcing network across India&rsquo;s leading
-                  industrial clusters — including Rajkot, Ludhiana, Pune, and Chennai.
-                </p>
-                <p>
-                  We established our firm to solve a common trade problem: American
-                  procurement teams want the cost advantages of importing from India,
-                  but hesitate due to quality control risks, time-zone disconnects,
-                  and customs import logistics.
-                </p>
-                <p>
-                  Our local engineering team in India solves this by inspecting
-                  production on-site. Meanwhile, our US entity handles the contracts,
-                  invoicing, and logistics. You get direct-from-foundry pricing with
-                  the security and ease of a domestic supplier.
-                </p>
-              </div>
-            </div>
-
-            {/* Stats grid */}
-            <div className="lg:col-span-5 grid grid-cols-2 gap-px bg-border rounded-xl overflow-hidden border border-border lg:ml-8">
-              {[
-                { value: "30+", label: "Vetted Factories" },
-                { value: "25%+", label: "Average Savings" },
-                { value: "100%", label: "MTC Traceability" },
-                { value: "Local", label: "US Contracts & Support" },
-              ].map((stat) => (
-                <div key={stat.label} className="bg-white p-8 flex flex-col">
-                  <div className="text-3xl md:text-4xl text-text-primary tracking-tight mb-1.5">
-                    {stat.value}
-                  </div>
-                  <div className="font-mono text-[10px] uppercase text-text-tertiary tracking-tight">
-                    {stat.label}
-                  </div>
+      {/* Advantage */}
+      <section className="bg-ink py-20 md:py-[100px]">
+        <div className="shell">
+          <Reveal>
+            <SectionHead
+              tone="ink"
+              eyebrow="Why Aaron Technologies"
+              title="The advantage, itemized"
+              lede="We remove the standing overhead of international trade so the cost advantage actually reaches your unit price."
+            />
+          </Reveal>
+          <Reveal>
+            <div className="grid gap-px border border-ink-3 bg-ink-3 md:grid-cols-2">
+              {ADVANTAGES.map((item) => (
+                <div key={item.title} className="bg-ink px-[34px] py-10">
+                  <span className="font-mono text-[11px] uppercase tracking-[0.21em] text-signal">
+                    {item.tag}
+                  </span>
+                  <h3 className="mt-4 mb-3 text-2xl text-white">{item.title}</h3>
+                  <p className="m-0 text-[15px] leading-[1.65] text-dim-2">
+                    {item.body}
+                  </p>
                 </div>
               ))}
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
 
-      {/* Value Props */}
-      <section className="border-t border-b border-border py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <div className="mb-16">
-            <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-              Why Aaron Technologies
-            </span>
-            <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-4">
-              The Aaron <strong>Advantage</strong>
-            </h2>
-            <p className="max-w-2xl text-text-secondary text-lg leading-relaxed">
-              We eliminate the traditional headaches of international trade to
-              deliver direct manufacturing pricing with zero compromise on quality.
-            </p>
-          </div>
-
-          <div className="grid gap-px bg-border sm:grid-cols-2 rounded-xl overflow-hidden border border-border">
-            {valueProps.map((prop) => {
-              const PropIcon = prop.icon;
-              return (
-                <div key={prop.title} className="bg-white p-8 flex gap-5 items-start">
-                  <div className="w-9 h-9 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center shrink-0">
-                    <PropIcon className="w-4 h-4" aria-hidden="true" />
-                  </div>
-                  <div>
-                    <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight block mb-1.5">
-                      {prop.stat}
-                    </span>
-                    <h3 className="text-[15px] font-medium text-text-primary mb-2">
-                      {prop.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-text-secondary">
-                      {prop.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+      {/* Process */}
+      <section className="border-y border-ink bg-paper-2 py-20 md:py-[100px]">
+        <div className="shell">
+          <Reveal>
+            <SectionHead
+              eyebrow="Process"
+              title="How sourcing runs"
+              lede="Four stages from blueprint to loading dock, each one producing a document your quality team can act on."
+            />
+          </Reveal>
+          <Reveal className="border-t-2 border-ink">
+            {STAGES.map((stage, i) => (
+              <div
+                key={stage.step}
+                className={cn(
+                  "grid items-baseline gap-x-10 gap-y-3 py-[34px] lg:grid-cols-[92px_minmax(0,1fr)_minmax(0,1.6fr)]",
+                  i === STAGES.length - 1
+                    ? "border-b-2 border-ink"
+                    : "border-b border-rule-strong"
+                )}
+              >
+                <span className="text-[40px] leading-none font-black tracking-[-0.04em] text-signal">
+                  {stage.step}
+                </span>
+                <h3 className="m-0 text-2xl text-ink">{stage.title}</h3>
+                <p className="m-0 text-[15px] leading-[1.65] text-body">
+                  {stage.body}
+                </p>
+              </div>
+            ))}
+          </Reveal>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <div className="mb-16">
-            <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-              Process
-            </span>
-            <h2 className="text-3xl md:text-[2.75rem] leading-tight">
-              Our Sourcing <strong>Process</strong>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-xl overflow-hidden border border-border">
-            {howItWorks.map((step) => {
-              const StepIcon = step.icon;
-              return (
-                <div key={step.step} className="bg-white p-8 flex flex-col">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight">
-                      Step {step.step}
-                    </span>
-                    <StepIcon className="w-4 h-4 text-text-tertiary" aria-hidden="true" />
-                  </div>
-                  <h3 className="text-lg font-medium text-text-primary mb-3">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-text-secondary leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="border-t border-border py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto px-6 text-center max-w-2xl">
-          <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-6">
-            Optimize your <strong>sourcing today</strong>
-          </h2>
-          <p className="text-lg text-text-secondary leading-relaxed mb-10">
-            Send us your drawing files, specs, and quantities. Our engineering
-            team will analyze and issue a landed-cost quote.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/quote"
-              className="btn-primary px-8 py-3.5 text-base"
-            >
-              Request Sourcing Quote
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-            <Link
-              href="/contact"
-              className="btn-secondary px-8 py-3.5 text-base"
-            >
-              Contact Sourcing Team
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CtaBand
+        title="Optimize your sourcing."
+        body="Send drawing files, specs and quantities. Our engineering team returns a landed-cost quote you can put in front of finance."
+        primary={{ label: "Request sourcing quote →", href: "/quote" }}
+        secondary={{ label: "Contact the team", href: "/contact" }}
+      />
     </>
   );
 }

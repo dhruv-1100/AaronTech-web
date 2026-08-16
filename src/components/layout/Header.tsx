@@ -24,11 +24,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close the drawer on navigation.
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
-
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
@@ -134,6 +129,7 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
+                  onClick={() => setMobileOpen(false)}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
                     "border-b border-rule py-4 text-lg font-medium",
@@ -145,6 +141,7 @@ export default function Header() {
               ))}
               <Link
                 href="/quote"
+                onClick={() => setMobileOpen(false)}
                 className="my-4 inline-flex items-center justify-center gap-2 bg-ink px-6 py-4 text-base font-bold text-signal"
               >
                 Request a Quote →

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowRight, Send } from "lucide-react";
+import Reveal from "@/components/ui/Reveal";
+import { PageHero, SectionHead, CtaBand } from "@/components/ui/Page";
 import { certifications } from "@/lib/data/site";
-import { resolveIcon } from "@/lib/icons";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Quality Certifications & Compliance Standards",
@@ -21,110 +21,135 @@ export const metadata: Metadata = {
   },
 };
 
+const DOSSIER = [
+  {
+    code: "MTC",
+    title: "Mill test certificate",
+    body: "EN 10204 3.1 — chemical composition, mechanical properties, heat treatment, heat number.",
+  },
+  {
+    code: "CoC",
+    title: "Certificate of conformance",
+    body: "Signed statement tying the lot to the purchase order specification and revision.",
+  },
+  {
+    code: "FAI",
+    title: "First-article inspection",
+    body: "Dimensional verification against your drawing, approved before the batch runs.",
+  },
+  {
+    code: "CMM",
+    title: "Dimensional report",
+    body: "Coordinate-measuring output on precision machined work, per feature and tolerance.",
+  },
+  {
+    code: "NDT",
+    title: "Non-destructive testing",
+    body: "Radiographic or ultrasonic examination on critical forgings, castings and valve bodies.",
+  },
+  {
+    code: "DEC",
+    title: "Compliance declarations",
+    body: "RoHS and REACH declarations, UL listings and CE marking documentation as applicable.",
+  },
+];
+
 export default function CertificationsPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="border-b border-border">
-        <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
-          <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-            Quality & Compliance
-          </span>
-          <h1 className="text-4xl md:text-5xl leading-[1.1] mb-5">
-            Certifications & <strong>Standards</strong>
-          </h1>
-          <p className="text-lg text-text-secondary leading-relaxed max-w-2xl">
-            Every component sourced through Aaron Technologies is backed by
-            internationally recognized certifications. Full compliance
-            documentation is provided with every shipment.
-          </p>
+      <PageHero
+        eyebrow="Quality & compliance"
+        title="Certifications & standards."
+        lede="Every component sourced through Aaron Technologies is backed by internationally recognized certification. Compliance documentation ships with the parts, not weeks later on request."
+        stats={[
+          { value: String(certifications.length), label: "Active certifications" },
+          { value: "100%", label: "Documentation rate" },
+          { value: "30+", label: "Audited facilities" },
+        ]}
+      />
 
-          {/* Stats */}
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-3 border-t border-border pt-8">
-            {[
-              { value: "6", label: "Active Certifications" },
-              { value: "100%", label: "Documentation Rate" },
-              { value: "30+", label: "Audited Facilities" },
-            ].map((stat, i) => (
-              <div
-                key={stat.label}
-                className={`${i < 2 ? "border-r border-border" : ""} ${i > 0 ? "pl-6" : ""} py-2`}
-              >
-                <p className="text-2xl md:text-3xl text-text-primary tracking-tight">
-                  {stat.value}
-                </p>
-                <p className="font-mono text-[10px] uppercase text-text-tertiary mt-1 tracking-tight">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Certifications Grid */}
-      <section className="py-16 md:py-20">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {certifications.map((cert) => {
-              const Icon = resolveIcon(cert.icon);
-              return (
+      {/* Standards held */}
+      <section className="border-b border-ink bg-paper py-20 md:py-[100px]">
+        <div className="shell">
+          <Reveal>
+            <SectionHead
+              eyebrow="Standards held"
+              title="What the network is certified to"
+              lede="Certification is a floor, not a finish line. We audit against these standards and keep the evidence on file for every lot we ship."
+            />
+          </Reveal>
+          <Reveal>
+            <div className="grid gap-px border border-rule-strong bg-rule-strong sm:grid-cols-2 lg:grid-cols-3">
+              {certifications.map((cert, i) => (
                 <div
                   key={cert.id}
-                  className="glass-card rounded-xl p-6 md:p-8 space-y-4 hover:border-primary/20 transition-colors"
+                  className="flex flex-col bg-paper px-8 py-[38px]"
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-surface-secondary flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-text-primary" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h2 className="text-base font-medium text-text-primary leading-tight">
-                        {cert.shortName}
-                      </h2>
-                      <p className="font-mono text-[9px] uppercase text-text-tertiary tracking-tight">
-                        {cert.issuingBody}
-                      </p>
-                    </div>
+                  <div className="mb-[22px] flex items-baseline justify-between gap-4">
+                    <span className="text-[26px] font-black tracking-[-0.035em] text-ink">
+                      {cert.shortName}
+                    </span>
+                    <span className="font-mono text-[11px] text-muted">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                   </div>
-
-                  <h3 className="text-sm font-medium text-text-primary">
-                    {cert.name}
-                  </h3>
-
-                  <p className="text-sm text-text-secondary leading-relaxed">
+                  <div
+                    className="mb-[22px] h-1.5 w-11 bg-signal"
+                    aria-hidden="true"
+                  />
+                  <span className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                    {cert.issuingBody}
+                  </span>
+                  <h3 className="m-0 mb-3 text-lg text-ink">{cert.name}</h3>
+                  <p className="m-0 text-sm leading-[1.65] text-body">
                     {cert.description}
                   </p>
                 </div>
-              );
-            })}
-          </div>
-
-          {/* CTA */}
-          <div className="mt-16 rounded-xl border border-border-strong p-8 md:p-12 text-center">
-            <h2 className="text-2xl md:text-3xl leading-tight mb-3">
-              Need specific <strong>compliance documentation?</strong>
-            </h2>
-            <p className="text-text-secondary max-w-xl mx-auto mb-8 text-sm sm:text-base leading-relaxed">
-              We provide mill test certificates (MTCs), certificates of
-              conformity (CoCs), RoHS declarations, and all applicable
-              compliance documentation with every shipment.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/quote" className="btn-primary px-8 py-3.5">
-                Request a Quote
-                <Send className="h-4 w-4" aria-hidden="true" />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors"
-              >
-                Contact Us
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+              ))}
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
+
+      {/* Document set */}
+      <section className="bg-ink py-20 md:py-[100px]">
+        <div className="shell">
+          <Reveal>
+            <SectionHead
+              tone="ink"
+              eyebrow="Document set"
+              title="Paperwork per shipment"
+              lede="The dossier your quality team receives with each container. Anything additional your process requires, name it on the RFQ and we will confirm it upfront."
+            />
+          </Reveal>
+          <Reveal className="border-t border-signal">
+            {DOSSIER.map((doc, i) => (
+              <div
+                key={doc.code}
+                className={cn(
+                  "grid items-baseline gap-x-9 gap-y-3 py-[26px] lg:grid-cols-[90px_minmax(0,1fr)_minmax(0,2fr)]",
+                  i < DOSSIER.length - 1 && "border-b border-ink-3"
+                )}
+              >
+                <span className="justify-self-start bg-signal px-2.5 py-[5px] font-mono text-xs text-ink">
+                  {doc.code}
+                </span>
+                <h3 className="m-0 text-lg text-white">{doc.title}</h3>
+                <p className="m-0 text-sm leading-[1.65] text-dim-2">
+                  {doc.body}
+                </p>
+              </div>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      <CtaBand
+        title="Need specific compliance documentation?"
+        body="Tell us what your quality system requires — MTCs, CoCs, RoHS declarations, PPAP levels — and we will confirm availability before you commit."
+        primary={{ label: "Request a quote →", href: "/quote" }}
+        secondary={{ label: "Contact us", href: "/contact" }}
+      />
     </>
   );
 }

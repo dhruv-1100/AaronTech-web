@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { blogPosts } from "@/lib/data/site";
+import { PageHero, CtaBand } from "@/components/ui/Page";
 import ResourcesClient from "./ResourcesClient";
 
 export const metadata: Metadata = {
@@ -22,28 +23,24 @@ export const metadata: Metadata = {
 export default function ResourcesPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="border-b border-border">
-        <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
-          <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-            Technical Resources
-          </span>
-          <h1 className="text-4xl sm:text-5xl leading-[1.1] mb-5 max-w-3xl">
-            Knowledge Base & <strong>Insights</strong>
-          </h1>
-          <p className="text-lg text-text-secondary leading-relaxed max-w-2xl">
-            Procurement guides, compliance explainers, and market updates to help
-            you source smarter, reduce landed costs, and navigate trade agreements.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Technical resources"
+        title="Knowledge base & insights."
+        lede="Procurement guides, compliance explainers and market updates to help you source smarter, reduce landed costs and read a trade agreement without a lawyer."
+      />
 
-      {/* Main Content */}
-      <section className="py-16 md:py-20">
-        <div className="max-w-[1360px] mx-auto px-6">
+      <section className="border-b border-ink bg-paper pt-16 pb-20 md:pt-[88px] md:pb-[100px]">
+        <div className="shell">
           <ResourcesClient posts={blogPosts} />
         </div>
       </section>
+
+      <CtaBand
+        title="Want the landed-cost worksheet?"
+        body="We keep a working spreadsheet for FOB-to-dock comparison across freight modes and duty rates. Ask and we will send it over."
+        primary={{ label: "Request a quote →", href: "/quote" }}
+        secondary={{ label: "Email us", href: "mailto:kushal@aarontechno.com" }}
+      />
     </>
   );
 }

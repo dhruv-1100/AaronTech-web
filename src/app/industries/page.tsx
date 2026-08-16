@@ -1,21 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  Warehouse,
-  Factory,
-  Cog,
-  Settings,
-  Building2,
-  Car,
-  Plane,
-  Fuel,
-  ArrowRight,
-  ShieldCheck,
-  Zap,
-  TrendingUp,
-} from "lucide-react";
+import Reveal from "@/components/ui/Reveal";
+import { PageHero, CtaBand } from "@/components/ui/Page";
 import { cn } from "@/lib/utils";
 import { industries } from "@/lib/data/industries";
+import { productCategories } from "@/lib/data/products";
 
 export const metadata: Metadata = {
   title: "Industries We Supply — MRO, OEM, Aerospace, Energy & Automotive",
@@ -34,177 +23,140 @@ export const metadata: Metadata = {
   },
 };
 
-const iconMap: Record<string, React.ElementType> = {
-  Warehouse, Factory, Cog, Settings, Building2, Car, Plane, Fuel,
-};
-
-const tierVisuals: Record<
-  1 | 2 | 3,
+/**
+ * Tier framing. Qualification effort rises sharply with tier, so the page is
+ * organised by how long it takes to become an approved vendor rather than by
+ * sector — that is the number a buyer is actually weighing.
+ */
+const TIERS = [
   {
-    title: string;
-    description: string;
-    label: string;
-    timeframe: string;
-  }
-> = {
-  1: {
-    title: "Fast Sourcing & Distribution",
-    description:
-      "Distributors, machine shops, and supply houses requiring standard specifications and rapid procurement cycles.",
+    tier: 1 as const,
     label: "Tier 01",
-    timeframe: "1-2 weeks qualification",
+    title: "Fast sourcing & distribution",
+    lede: "Distributors, machine shops and supply houses working to standard specifications with rapid procurement cycles.",
+    timeframe: "1–2 weeks qualification",
+    background: "bg-paper",
+    divider: "border-b border-rule-strong",
   },
-  2: {
-    title: "Engineering & Mid-Market OEMs",
-    description:
-      "Equipment manufacturers, custom engineering shops, and Tier 2 automotive suppliers. Requires first-article inspections and dimensional reporting.",
+  {
+    tier: 2 as const,
     label: "Tier 02",
-    timeframe: "3-6 weeks qualification",
+    title: "Engineering & mid-market OEMs",
+    lede: "Equipment manufacturers, custom engineering shops and Tier 2 automotive suppliers. Requires first-article inspection and dimensional reporting.",
+    timeframe: "3–6 weeks qualification",
+    background: "bg-paper-2",
+    divider: "border-b border-rule-strong",
   },
-  3: {
-    title: "Critical & High-Value Sectors",
-    description:
-      "Aerospace, defense, and oil & gas sectors with strict material traceability, AS9100/API certification requirements, and long qualification runs.",
+  {
+    tier: 3 as const,
     label: "Tier 03",
-    timeframe: "3-6 months qualification",
+    title: "Critical & high-value sectors",
+    lede: "Aerospace, defense and oil & gas with strict material traceability, AS9100/API certification requirements and long qualification runs.",
+    timeframe: "3–6 months qualification",
+    background: "bg-paper",
+    divider: "border-b border-ink",
   },
-};
+];
+
+const categoryName = (slug: string) =>
+  productCategories.find((c) => c.slug === slug)?.name ?? slug;
 
 export default function IndustriesPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="border-b border-border">
-        <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
-          <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-            Market Focus
-          </span>
-          <h1 className="text-4xl sm:text-5xl leading-[1.1] mb-5 max-w-3xl">
-            Industries We <strong>Serve</strong>
-          </h1>
-          <p className="text-lg text-text-secondary leading-relaxed max-w-2xl">
-            From volume MRO supply houses to mission-critical aerospace OEMs, we
-            deliver precision-engineered industrial components matching your exact
-            cost, quality, and documentation specs.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Market focus"
+        title="Industries we serve."
+        lede="From volume MRO supply houses to mission-critical aerospace OEMs, we supply components matched to your cost, quality and documentation requirements — and we are honest about how long qualification takes in each tier."
+      />
 
-      {/* Tiered Industry Grid */}
-      <section className="py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto px-6 space-y-24">
-          {([1, 2, 3] as const).map((tier) => {
-            const visual = tierVisuals[tier];
-            const tierIndustries = industries.filter((i) => i.tier === tier);
+      {TIERS.map((tier) => {
+        const members = industries.filter((i) => i.tier === tier.tier);
 
-            return (
-              <div
-                key={tier}
-                className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start"
-              >
-                {/* Left: Sticky label */}
-                <div className="lg:col-span-4 lg:sticky lg:top-24 space-y-3">
-                  <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight block">
-                    {visual.label}
-                  </span>
-                  <h2 className="text-2xl leading-tight">
-                    {visual.title}
-                  </h2>
-                  <p className="text-sm text-text-secondary leading-relaxed">
-                    {visual.description}
-                  </p>
-                  <div className="pt-1">
-                    <span className="font-mono text-[10px] uppercase text-text-muted tracking-tight block mb-0.5">
-                      Target Timeframe
-                    </span>
-                    <span className="text-sm text-text-secondary">
-                      {visual.timeframe}
-                    </span>
+        return (
+          <section
+            key={tier.tier}
+            className={cn(tier.background, tier.divider, "py-20 md:py-[100px]")}
+          >
+            <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)] lg:gap-[88px]">
+              <div className="lg:sticky lg:top-[132px]">
+                <span className="bg-signal px-2.5 py-[5px] font-mono text-[11px] uppercase tracking-[0.15em] text-ink">
+                  {tier.label}
+                </span>
+                <h2 className="mt-6 mb-[18px] text-[clamp(1.875rem,3.4vw,2.625rem)] text-ink">
+                  {tier.title}
+                </h2>
+                <p className="m-0 mb-[26px] text-[15px] leading-[1.65] text-body">
+                  {tier.lede}
+                </p>
+                <div className="border-t border-rule-strong pt-4">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                    Target timeframe
+                  </div>
+                  <div className="mt-[7px] font-mono text-[15px] text-ink">
+                    {tier.timeframe}
                   </div>
                 </div>
+              </div>
 
-                {/* Right: Industry rows */}
-                <div className="lg:col-span-8 rounded-xl border border-border overflow-hidden">
-                  {tierIndustries.map((ind, i) => {
-                    const IndustryIcon = iconMap[ind.icon] || Warehouse;
-                    return (
-                      <div
-                        key={ind.id}
-                        className={cn(
-                          "p-6 sm:p-8 flex flex-col md:flex-row gap-6 md:items-start hover:bg-bg-subtle transition-colors",
-                          i < tierIndustries.length - 1 && "border-b border-border"
-                        )}
-                      >
-                        {/* Icon & Title */}
-                        <div className="md:w-1/3 flex gap-3 items-start">
-                          <div className="w-9 h-9 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center shrink-0">
-                            <IndustryIcon className="w-4 h-4" aria-hidden="true" />
-                          </div>
-                          <h3 className="text-[15px] font-medium text-text-primary leading-snug">
-                            {ind.name}
-                          </h3>
+              <Reveal className="border-t-2 border-ink">
+                {members.map((industry, i) => (
+                  <div
+                    key={industry.slug}
+                    id={industry.slug}
+                    className={cn(
+                      "scroll-mt-32 py-[34px]",
+                      i === members.length - 1
+                        ? "border-b-2 border-ink"
+                        : "border-b border-rule-strong"
+                    )}
+                  >
+                    <div className="grid items-start gap-x-11 gap-y-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.9fr)]">
+                      <h3 className="m-0 text-[22px] text-ink">
+                        {industry.name}
+                      </h3>
+                      <div>
+                        <p className="m-0 mb-5 text-[15px] leading-[1.65] text-body">
+                          {industry.description}
+                        </p>
+
+                        <div className="mb-2.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                          Related lines
+                        </div>
+                        <div className="mb-5 flex flex-wrap gap-2">
+                          {industry.relatedCategories.map((slug) => (
+                            <Link
+                              key={slug}
+                              href={`/products/${slug}`}
+                              className="border border-rule-strong px-2.5 py-1.5 font-mono text-[11px] text-ink transition-colors hover:border-signal hover:bg-signal"
+                            >
+                              {categoryName(slug)}
+                            </Link>
+                          ))}
                         </div>
 
-                        {/* Description & Tags */}
-                        <div className="md:w-2/3 space-y-3">
-                          <p className="text-sm text-text-secondary leading-relaxed">
-                            {ind.description}
-                          </p>
-
-                          <div className="flex flex-wrap gap-1.5 items-center">
-                            <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight mr-1">
-                              Related:
-                            </span>
-                            {ind.relatedCategories.map((slug) => (
-                              <Link
-                                key={slug}
-                                href={`/products/${slug}`}
-                                className="font-mono text-[9px] uppercase text-text-tertiary bg-bg-subtle hover:bg-primary hover:text-white px-2 py-1 rounded tracking-tight transition-colors"
-                              >
-                                {slug
-                                  .split("-")
-                                  .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                                  .join(" ")}
-                              </Link>
-                            ))}
-                          </div>
-
-                          <div className="text-xs text-text-tertiary">
-                            <span className="font-medium text-text-secondary">
-                              Example Customers:{" "}
-                            </span>
-                            {ind.examples.join(", ")}
-                          </div>
+                        <div className="text-[13px] leading-[1.6] text-soft">
+                          <span className="mb-1 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                            Typical buyers
+                          </span>
+                          {industry.examples.join(", ")}
                         </div>
                       </div>
-                    );
-                  })}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </section>
+                    </div>
+                  </div>
+                ))}
+              </Reveal>
+            </div>
+          </section>
+        );
+      })}
 
-      {/* CTA */}
-      <section className="border-t border-border py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto px-6 text-center max-w-2xl">
-          <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-6">
-            Custom component <strong>requirements?</strong>
-          </h2>
-          <p className="text-lg text-text-secondary leading-relaxed mb-10">
-            We partner with buyers across dozens of sub-sectors to supply custom
-            forgings, assemblies, and specialty fasteners.
-          </p>
-          <Link
-            href="/contact"
-            className="btn-primary px-8 py-3.5 text-base"
-          >
-            Contact Sourcing Team
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </section>
+      <CtaBand
+        title="Custom component requirements?"
+        body="We supply buyers across dozens of sub-sectors with custom forgings, assemblies and specialty fasteners. Tell us the sector and the spec."
+        primary={{ label: "Contact sourcing →", href: "/contact" }}
+        secondary={{ label: "Request a quote", href: "/quote" }}
+      />
     </>
   );
 }
