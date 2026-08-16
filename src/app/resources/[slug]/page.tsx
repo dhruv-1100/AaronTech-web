@@ -108,7 +108,7 @@ export default async function BlogDetailPage({
               <span className="font-mono text-[10px] uppercase tracking-tight">
                 {post.publishedAt}
               </span>
-              <span className="w-1 h-1 rounded-full bg-border-strong" />
+              <span className="w-1 h-1 bg-border-strong" />
               <span className="font-mono text-[10px] uppercase tracking-tight">
                 {post.readTime}
               </span>
@@ -148,7 +148,7 @@ export default async function BlogDetailPage({
                       <ul className="list-none space-y-3 pl-4 py-2 border-l border-border">
                         {section.list.map((item, lIdx) => (
                           <li key={lIdx} className="flex items-start gap-3 text-text-secondary text-sm md:text-base">
-                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-primary-muted shrink-0" />
+                            <span className="mt-2 h-1.5 w-1.5 bg-primary-muted shrink-0" />
                             <span>{item}</span>
                           </li>
                         ))}
@@ -162,7 +162,7 @@ export default async function BlogDetailPage({
             {/* Sidebar */}
             <aside className="space-y-6">
               {/* Quote CTA */}
-              <div className="glass-card p-6 rounded-xl space-y-5">
+              <div className="glass-card p-6 space-y-5">
                 <div>
                   <h3 className="text-[15px] font-medium text-text-primary mb-2">
                     Need custom specifications?
@@ -181,7 +181,7 @@ export default async function BlogDetailPage({
               </div>
 
               {/* Related Posts */}
-              <div className="glass-card p-6 rounded-xl">
+              <div className="glass-card p-6">
                 <h3 className="text-[15px] font-medium text-text-primary mb-5 pb-3 border-b border-border">
                   Related Insights
                 </h3>

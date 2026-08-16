@@ -78,6 +78,7 @@ export interface RFQSubmission {
   productDetails: string;
   quantity: string;
   targetPrice?: string;
+  needBy?: string;
   message?: string;
   files?: { name: string; size: number; type: string; base64: string }[];
 }

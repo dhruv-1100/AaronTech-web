@@ -15,6 +15,7 @@ export async function POST(request: Request) {
       productDetails,
       quantity,
       targetPrice,
+      needBy,
       message,
       files,
     } = body;
@@ -55,6 +56,7 @@ export async function POST(request: Request) {
       productDetails,
       quantity,
       targetPrice: targetPrice || "Not specified",
+      needBy: needBy || "Not specified",
       message: message || "No additional message",
       files: files ? files.map((f: any) => ({ name: f.name, size: f.size, type: f.type })) : [],
       createdAt: new Date().toISOString(),
@@ -94,6 +96,7 @@ export async function POST(request: Request) {
                 <tr><td style="padding: 8px 0; font-weight: bold;">Specs & Details:</td><td>${escapeHtml(productDetails)}</td></tr>
                 <tr><td style="padding: 8px 0; font-weight: bold;">Quantity:</td><td>${escapeHtml(quantity)}</td></tr>
                 <tr><td style="padding: 8px 0; font-weight: bold;">Target Price:</td><td>${targetPrice ? escapeHtml(targetPrice) : "N/A"}</td></tr>
+                <tr><td style="padding: 8px 0; font-weight: bold;">Need By:</td><td>${needBy ? escapeHtml(needBy) : "N/A"}</td></tr>
                 <tr><td style="padding: 8px 0; font-weight: bold;">Additional Msg:</td><td>${message ? escapeHtml(message) : "N/A"}</td></tr>
                 <tr><td style="padding: 8px 0; font-weight: bold;">Attached Files:</td><td>${files && files.length > 0 ? files.map((f: any) => escapeHtml(f.name)).join(", ") : "None"}</td></tr>
               </table>
@@ -125,6 +128,7 @@ export async function POST(request: Request) {
                 <li><strong>Product Category:</strong> ${escapeHtml(productCategory)}</li>
                 <li><strong>Quantity:</strong> ${escapeHtml(quantity)}</li>
                 <li><strong>Target Price:</strong> ${targetPrice ? escapeHtml(targetPrice) : "N/A"}</li>
+                <li><strong>Need By:</strong> ${needBy ? escapeHtml(needBy) : "N/A"}</li>
                 <li><strong>Attached Drawings:</strong> ${files && files.length > 0 ? files.map((f: any) => escapeHtml(f.name)).join(", ") : "None"}</li>
               </ul>
               

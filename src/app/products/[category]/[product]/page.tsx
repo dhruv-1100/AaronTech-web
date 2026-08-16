@@ -143,7 +143,7 @@ export default async function ProductDetailPage({
                 <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight">
                   {category.name}
                 </span>
-                <span className="w-1 h-1 rounded-full bg-border-strong" />
+                <span className="w-1 h-1 bg-border-strong" />
                 <span className="font-mono text-[10px] uppercase text-text-muted tracking-tight">
                   Component Detail
                 </span>
@@ -181,7 +181,7 @@ export default async function ProductDetailPage({
 
             {/* Right — Image */}
             <div className="lg:col-span-5">
-              <div className="relative overflow-hidden rounded-xl border border-border-strong">
+              <div className="relative overflow-hidden border border-border-strong">
                 <Image
                   src={product.imageUrl}
                   alt={product.name}
@@ -221,7 +221,7 @@ export default async function ProductDetailPage({
                 <h2 className="text-2xl mb-5">
                   Quality & <strong>Features</strong>
                 </h2>
-                <div className="grid gap-px bg-border grid-cols-1 sm:grid-cols-2 rounded-xl overflow-hidden border border-border">
+                <div className="grid gap-px bg-border grid-cols-1 sm:grid-cols-2 overflow-hidden border border-border">
                   {product.keyFeatures.map((feat) => (
                     <div
                       key={feat}
@@ -244,13 +244,13 @@ export default async function ProductDetailPage({
                 <h2 className="text-2xl mb-5">
                   <strong>Applications</strong>
                 </h2>
-                <div className="grid gap-px bg-border grid-cols-1 sm:grid-cols-2 rounded-xl overflow-hidden border border-border">
+                <div className="grid gap-px bg-border grid-cols-1 sm:grid-cols-2 overflow-hidden border border-border">
                   {product.applications.map((app) => (
                     <div
                       key={app}
                       className="flex items-center gap-3 bg-white p-4 hover:bg-bg-subtle transition-colors"
                     >
-                      <span className="h-1.5 w-1.5 rounded-full bg-primary-muted shrink-0" />
+                      <span className="h-1.5 w-1.5 bg-primary-muted shrink-0" />
                       <span className="text-sm font-medium text-text-primary">
                         {app}
                       </span>
@@ -263,7 +263,7 @@ export default async function ProductDetailPage({
             {/* Sidebar (1/3) */}
             <aside className="space-y-6">
               {/* RFQ Card */}
-              <div className="glass-card p-6 rounded-xl">
+              <div className="glass-card p-6">
                 <h3 className="text-[15px] font-medium text-text-primary mb-3">
                   Sourcing Request (RFQ)
                 </h3>
@@ -273,7 +273,7 @@ export default async function ProductDetailPage({
                 </p>
 
                 <div className="space-y-4">
-                  <div className="bg-bg-subtle p-3.5 border border-border rounded-lg">
+                  <div className="bg-bg-subtle p-3.5 border border-border">
                     <span className="font-mono text-[9px] uppercase text-text-muted tracking-tight block mb-0.5">
                       Target Component
                     </span>
@@ -293,7 +293,7 @@ export default async function ProductDetailPage({
               </div>
 
               {/* QA Card */}
-              <div className="glass-card p-6 rounded-xl">
+              <div className="glass-card p-6">
                 <div className="flex items-center gap-2 mb-4">
                   <ShieldCheck className="w-4 h-4 text-success" aria-hidden="true" />
                   <h3 className="text-[15px] font-medium text-text-primary">
@@ -306,7 +306,7 @@ export default async function ProductDetailPage({
                 <ul className="space-y-2">
                   {product.certifications.map((cert) => (
                     <li key={cert} className="flex items-start gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-primary-muted mt-1.5 shrink-0" />
+                      <span className="h-1.5 w-1.5 bg-primary-muted mt-1.5 shrink-0" />
                       <span className="text-sm text-text-secondary">
                         {cert}
                       </span>
@@ -316,7 +316,7 @@ export default async function ProductDetailPage({
               </div>
 
               {/* Logistics Card */}
-              <div className="glass-card p-6 rounded-xl">
+              <div className="glass-card p-6">
                 <div className="flex items-center gap-2 mb-3">
                   <Package className="w-4 h-4 text-text-tertiary" aria-hidden="true" />
                   <h4 className="text-sm font-medium text-text-primary">
@@ -345,7 +345,7 @@ export default async function ProductDetailPage({
                   <Link
                     key={p.slug}
                     href={`/products/${category.slug}/${p.slug}`}
-                    className="p-4 rounded-xl hover-glass-card text-center group flex flex-col justify-center min-h-[96px]"
+                    className="p-4 hover-glass-card text-center group flex flex-col justify-center min-h-[96px]"
                   >
                     <span className="text-sm font-medium text-text-primary block truncate">
                       {p.name}

@@ -14,6 +14,7 @@ import {
 import { cn } from "@/lib/utils";
 import { productCategories } from "@/lib/data/products";
 import { detailedProducts } from "@/lib/data/products-detail";
+import { catalogIndex } from "@/lib/data/catalog-index";
 
 export function generateStaticParams() {
   return productCategories.map((cat) => ({ category: cat.slug }));
@@ -147,6 +148,7 @@ export default async function ProductCategoryPage({
   const index = productCategories.findIndex((c) => c.slug === categorySlug);
   const guide = SELECTION_GUIDES[categorySlug];
   const skus = Object.keys(detailedProducts[categorySlug] ?? {});
+  const heroImage = catalogIndex[categorySlug]?.image ?? category.heroImage;
 
   return (
     <>
@@ -252,7 +254,7 @@ export default async function ProductCategoryPage({
           <Reveal className="lg:sticky lg:top-[132px]">
             <div className="relative h-[340px] overflow-hidden bg-ink">
               <Image
-                src={category.heroImage}
+                src={heroImage}
                 alt={category.name}
                 fill
                 sizes="(max-width: 1024px) 100vw, 33vw"

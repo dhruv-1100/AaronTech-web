@@ -14,6 +14,12 @@ export interface CatalogIndexEntry {
   materials: string;
   /** Description override where the products index differs from the SKU blurb. */
   description?: string;
+  /**
+   * Self-hosted photography for the lines we have shot. Preferred over the
+   * remote `heroImage` so the page does not go blank when the stock CDN is
+   * unreachable; lines without a local frame still fall back to it.
+   */
+  image?: string;
 }
 
 export const catalogIndex: Record<string, CatalogIndexEntry> = {
@@ -21,11 +27,13 @@ export const catalogIndex: Record<string, CatalogIndexEntry> = {
     standardsShort: "ASTM A193 · A320 · DIN 933",
     standards: "ASTM A193 / A320 · SAE J429 · ISO 898-1",
     materials: "Carbon & alloy steel, stainless 304/316, titanium",
+    image: "/images/showcase/fasteners.jpg",
   },
   "forged-components": {
     standardsShort: "ASME B16.5 · A105 · A182",
     standards: "ASME B16.5 · ASTM A105 · ASTM A182",
     materials: "Carbon, alloy, stainless & duplex steel",
+    image: "/images/showcase/forged-flanges.jpg",
   },
   castings: {
     standardsShort: "ASTM A216 · A536 · A48",
@@ -48,6 +56,7 @@ export const catalogIndex: Record<string, CatalogIndexEntry> = {
     standards: "ASME Y14.5 (GD&T)",
     materials: "Steel, stainless, aluminum, brass, titanium",
     description: "CNC turned & milled parts built to your drawings",
+    image: "/images/showcase/cnc-machined.jpg",
   },
   "industrial-valves": {
     standardsShort: "ASME B16.34 · API 6D · 598",

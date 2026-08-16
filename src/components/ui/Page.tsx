@@ -219,7 +219,7 @@ export function CtaBand({
             {body}
           </p>
         </div>
-        <div className="flex shrink-0 flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4">
           {isExternal(primary.href) ? (
             <a href={primary.href} className="btn-primary">
               {primary.label}

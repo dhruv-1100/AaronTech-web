@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import ContactForm from "./ContactForm";
-import { Phone, Calculator, FileText, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import ContactForm from "./ContactForm";
+import { PageHero } from "@/components/ui/Page";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Contact Us — Get Pricing & Sourcing Support",
@@ -20,132 +21,89 @@ export const metadata: Metadata = {
   },
 };
 
+const CHANNELS = [
+  {
+    label: "Phone",
+    value: "+1 (640) 272-1906",
+    href: "tel:+16402721906",
+    note: "Mon–Fri, 8am–6pm ET",
+  },
+  {
+    label: "Email",
+    value: "kushal@aarontechno.com",
+    href: "mailto:kushal@aarontechno.com",
+    note: "Replies within one business day",
+  },
+  {
+    label: "Office",
+    value: "Aaron Technologies Inc.",
+    note: "New Jersey, United States",
+  },
+];
+
 export default function ContactPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="border-b border-border">
-        <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
-          <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-            Direct Access
-          </span>
-          <h1 className="text-4xl sm:text-5xl leading-[1.1] mb-5 max-w-2xl">
-            Chat with our <strong>sales team</strong>
-          </h1>
-          <p className="text-lg text-text-secondary leading-relaxed max-w-xl">
-            Fill out your sourcing requirements and our team will reach out to
-            you within 24 hours. Get help with pricing, logistics reviews, or
-            custom component specifications.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Contact"
+        title="Talk to the sourcing desk."
+        lede="One US-based team handles quoting, quality and logistics. No call centre, no routing — you get the person who will run your order."
+      />
 
-      {/* Main Content */}
-      <section className="py-16 md:py-20">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-
-            {/* Left Column: Sidebar Info */}
-            <div className="lg:col-span-5 flex flex-col gap-8">
-
-              {/* Quick links */}
-              <div>
-                <span className="font-mono text-[10px] uppercase text-text-tertiary tracking-tight block mb-4">
-                  Other ways to connect
-                </span>
-
-                <div className="flex flex-col gap-3">
-                  <a
-                    href="tel:+16402721906"
-                    className="flex items-center justify-between p-4 rounded-xl border border-border-strong hover:border-primary/30 transition-all group"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center">
-                        <Phone className="w-4 h-4" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-text-primary block leading-tight">
-                          Call Sourcing Office
-                        </span>
-                        <span className="text-[11px] text-text-tertiary mt-0.5 block">
-                          +1 (640) 272-1906 · Mon-Fri, 8AM–6PM EST
-                        </span>
-                      </div>
-                    </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-text-muted group-hover:text-text-primary transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                  </a>
-
-                  <Link
-                    href="/#calculator"
-                    className="flex items-center justify-between p-4 rounded-xl border border-border-strong hover:border-primary/30 transition-all group"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center">
-                        <Calculator className="w-4 h-4" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-text-primary block leading-tight">
-                          Landed Cost Calculator
-                        </span>
-                        <span className="text-[11px] text-text-tertiary mt-0.5 block">
-                          Estimate import duty &amp; ocean rates instantly
-                        </span>
-                      </div>
-                    </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-text-muted group-hover:text-text-primary transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                  </Link>
-
-                  <Link
-                    href="/privacy"
-                    className="flex items-center justify-between p-4 rounded-xl border border-border-strong hover:border-primary/30 transition-all group"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center">
-                        <FileText className="w-4 h-4" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <span className="text-sm font-medium text-text-primary block leading-tight">
-                          Compliance &amp; Data Deletion
-                        </span>
-                        <span className="text-[11px] text-text-tertiary mt-0.5 block">
-                          Learn about our drawing NDA and retention policy
-                        </span>
-                      </div>
-                    </div>
-                    <ArrowRight className="w-3.5 h-3.5 text-text-muted group-hover:text-text-primary transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Testimonial */}
-              <div className="glass-card rounded-xl p-6">
-                <p className="text-sm text-text-secondary leading-relaxed italic mb-4">
-                  &ldquo;Aaron Tech consolidated our fastener and casting supply chain.
-                  Having a single US contract point and unified logistics support
-                  reduced our administrative overhead and shipping delays by 40%.&rdquo;
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-[2px] h-8 bg-primary-muted rounded-full" />
-                  <div>
-                    <span className="text-sm font-medium text-text-primary block leading-tight">
-                      Director of Procurement
+      <section className="border-b border-ink bg-paper pt-16 pb-20 md:pt-[88px] md:pb-[100px]">
+        <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-20">
+          <div>
+            <div className="border-t-2 border-ink">
+              {CHANNELS.map((channel, i) => (
+                <div
+                  key={channel.label}
+                  className={cn(
+                    "py-7",
+                    i === CHANNELS.length - 1
+                      ? "border-b-2 border-ink"
+                      : "border-b border-rule"
+                  )}
+                >
+                  <span className="mb-3 block font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                    {channel.label}
+                  </span>
+                  {channel.href ? (
+                    <a
+                      href={channel.href}
+                      className="block text-2xl font-bold tracking-[-0.02em] text-ink transition-colors hover:text-muted"
+                    >
+                      {channel.value}
+                    </a>
+                  ) : (
+                    <span className="block text-2xl font-bold tracking-[-0.02em] text-ink">
+                      {channel.value}
                     </span>
-                    <span className="font-mono text-[10px] uppercase text-text-tertiary tracking-tight">
-                      Apex Automotive Group
-                    </span>
-                  </div>
+                  )}
+                  <span className="mt-2.5 block font-mono text-xs text-muted">
+                    {channel.note}
+                  </span>
                 </div>
-              </div>
+              ))}
             </div>
 
-            {/* Right Column: Contact Form */}
-            <div className="lg:col-span-7">
-              <div className="glass-card rounded-xl overflow-hidden">
-                <ContactForm />
-              </div>
+            <div className="mt-9 bg-ink p-8">
+              <h2 className="m-0 mb-3.5 text-xl text-white">
+                Have a drawing ready?
+              </h2>
+              <p className="m-0 mb-[22px] text-sm leading-[1.6] text-dim-2">
+                The RFQ form captures the specification detail we need to quote
+                properly — it is faster than a back-and-forth thread.
+              </p>
+              <Link
+                href="/quote"
+                className="inline-flex items-center gap-2 bg-signal px-6 py-3.5 text-[15px] font-bold text-ink transition-colors hover:bg-white"
+              >
+                Request a quote →
+              </Link>
             </div>
-
           </div>
+
+          <ContactForm />
         </div>
       </section>
     </>

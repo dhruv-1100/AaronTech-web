@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Send, CheckCircle2, Loader2, AlertCircle } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ContactSubmission {
@@ -10,33 +9,28 @@ interface ContactSubmission {
   email: string;
   company: string;
   phone: string;
+  topic: string;
   message: string;
 }
 
-interface FormErrors {
-  name?: string;
-  email?: string;
-  company?: string;
-  phone?: string;
-  message?: string;
-}
+type FormErrors = Partial<Record<keyof ContactSubmission, string>>;
+
+const TOPICS = [
+  "New sourcing inquiry",
+  "Existing order or shipment",
+  "Quality documentation request",
+  "Supplier partnership",
+  "Something else",
+];
 
 const INITIAL_FORM: ContactSubmission = {
   name: "",
   email: "",
   company: "",
   phone: "",
+  topic: TOPICS[0],
   message: "",
 };
-
-function inputClasses(error?: string) {
-  return cn(
-    "w-full px-4 py-2.5 rounded-lg border text-text-primary text-sm bg-white placeholder:text-text-muted transition-all duration-200 outline-none min-h-[48px]",
-    error
-      ? "border-error focus:border-error focus:ring-1 focus:ring-error"
-      : "border-border-strong focus:border-primary/50 hover:border-text-muted focus:ring-1 focus:ring-primary/50"
-  );
-}
 
 export default function ContactForm() {
   const [formData, setFormData] = useState<ContactSubmission>(INITIAL_FORM);
@@ -44,20 +38,21 @@ export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  function validateField(field: keyof ContactSubmission, value: string): string | undefined {
+  function validateField(
+    field: keyof ContactSubmission,
+    value: string
+  ): string | undefined {
     switch (field) {
       case "name":
         if (!value.trim()) return "Full name is required";
         break;
       case "email":
         if (!value.trim()) return "Email address is required";
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Please enter a valid email address";
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
+          return "Please enter a valid email address";
         break;
       case "company":
         if (!value.trim()) return "Company name is required";
-        break;
-      case "phone":
-        if (!value.trim()) return "Phone number is required";
         break;
       case "message":
         if (!value.trim()) return "Please enter your message";
@@ -86,20 +81,14 @@ export default function ContactForm() {
     e.preventDefault();
 
     const formErrors: FormErrors = {};
-    Object.keys(formData).forEach((key) => {
-      const field = key as keyof ContactSubmission;
-      const error = validateField(field, formData[field]);
-      if (error) {
-        formErrors[field] = error;
-      }
-    });
-
+    for (const key of Object.keys(formData) as (keyof ContactSubmission)[]) {
+      const error = validateField(key, formData[key]);
+      if (error) formErrors[key] = error;
+    }
     setErrors(formErrors);
 
     if (Object.keys(formErrors).length > 0) {
-      const firstErrorField = Object.keys(formErrors)[0];
-      const element = document.getElementById(firstErrorField);
-      element?.focus();
+      document.getElementById(Object.keys(formErrors)[0])?.focus();
       return;
     }
 
@@ -111,8 +100,10 @@ export default function ContactForm() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          subject: `General Sourcing Inquiry - ${formData.company}`,
-          message: `Company: ${formData.company}\nPhone: ${formData.phone}\n\nMessage:\n${formData.message}`,
+          subject: `${formData.topic} — ${formData.company}`,
+          message: `Company: ${formData.company}\nPhone: ${
+            formData.phone || "Not provided"
+          }\nTopic: ${formData.topic}\n\nMessage:\n${formData.message}`,
         }),
       });
 
@@ -130,212 +121,220 @@ export default function ContactForm() {
     }
   }
 
-  return (
-    <AnimatePresence mode="wait">
-      {isSubmitted ? (
-        <motion.div
-          key="success"
-          initial={{ opacity: 0, scale: 0.98 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.98 }}
-          transition={{ duration: 0.3 }}
-          className="p-8 sm:p-12 text-center"
-        >
-          <div className="w-14 h-14 bg-success/10 text-success rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle2 className="w-7 h-7" />
-          </div>
-          <h2 className="text-2xl sm:text-3xl text-text-primary mb-4">
-            Message <strong>Sent!</strong>
+  if (isSubmitted) {
+    return (
+      <div className="border-t-2 border-ink pt-10">
+        <div className="bg-signal p-11">
+          <h2 className="m-0 mb-3 text-[clamp(1.625rem,3vw,1.875rem)] text-ink">
+            Message sent.
           </h2>
-          <p className="text-text-secondary text-sm leading-relaxed max-w-md mx-auto mb-8">
-            Thank you for reaching out. A sourcing expert from our US office
-            will review your message and contact you within 24 hours.
+          <p className="m-0 text-base leading-[1.6] text-[#2B2F2A]">
+            We reply within one business day. If it is urgent, call +1 (640)
+            272-1906 and ask for the sourcing desk.
           </p>
-          <button
-            onClick={() => {
-              setFormData(INITIAL_FORM);
-              setIsSubmitted(false);
-            }}
-            className="btn-primary px-8 py-3 cursor-pointer"
-          >
-            Send Another Message
-          </button>
-        </motion.div>
-      ) : (
-        <motion.div
-          key="form"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -8 }}
-          transition={{ duration: 0.3 }}
+        </div>
+        <button
+          type="button"
+          onClick={() => {
+            setFormData(INITIAL_FORM);
+            setIsSubmitted(false);
+          }}
+          className="btn-secondary mt-8"
         >
-          <div className="px-6 py-5 sm:px-8 border-b border-border">
-            <h2 className="text-lg font-medium text-text-primary">
-              Send Us a Message
-            </h2>
-            <p className="text-text-tertiary text-sm mt-1">
-              Fill out the form below and we will get back to you shortly.
-            </p>
-          </div>
+          Send another message
+        </button>
+      </div>
+    );
+  }
 
-          <form onSubmit={handleSubmit} noValidate className="p-6 sm:p-8 space-y-6">
-            {/* Name & Email */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div className="space-y-1.5">
-                <label htmlFor="name" className="block text-sm font-medium text-text-primary">
-                  Full Name <span className="text-error" aria-hidden="true">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  autoComplete="name"
-                  value={formData.name}
-                  onChange={(e) => handleChange("name", e.target.value)}
-                  onBlur={() => handleBlur("name")}
-                  aria-invalid={!!errors.name}
-                  aria-describedby={errors.name ? "name-error" : undefined}
-                  required
-                  className={inputClasses(errors.name)}
-                />
-                {errors.name && (
-                  <p id="name-error" className="text-xs text-error flex items-center gap-1 mt-1" role="alert">
-                    <AlertCircle className="w-3.5 h-3.5" />
-                    {errors.name}
-                  </p>
-                )}
-              </div>
+  const hasErrors = Object.values(errors).some(Boolean);
 
-              <div className="space-y-1.5">
-                <label htmlFor="email" className="block text-sm font-medium text-text-primary">
-                  Email Address <span className="text-error" aria-hidden="true">*</span>
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  autoComplete="email"
-                  value={formData.email}
-                  onChange={(e) => handleChange("email", e.target.value)}
-                  onBlur={() => handleBlur("email")}
-                  aria-invalid={!!errors.email}
-                  aria-describedby={errors.email ? "email-error" : undefined}
-                  required
-                  className={inputClasses(errors.email)}
-                />
-                {errors.email && (
-                  <p id="email-error" className="text-xs text-error flex items-center gap-1 mt-1" role="alert">
-                    <AlertCircle className="w-3.5 h-3.5" />
-                    {errors.email}
-                  </p>
-                )}
-              </div>
-            </div>
+  return (
+    <form onSubmit={handleSubmit} noValidate className="border-t-2 border-ink">
+      <div className="grid grid-cols-1 gap-[26px] pt-10 sm:grid-cols-2">
+        <div className="sm:col-span-2">
+          <h2 className="m-0 text-[clamp(1.75rem,3.4vw,2.125rem)] text-ink">
+            Send a message
+          </h2>
+        </div>
 
-            {/* Company & Phone */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div className="space-y-1.5">
-                <label htmlFor="company" className="block text-sm font-medium text-text-primary">
-                  Company Name <span className="text-error" aria-hidden="true">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="company"
-                  name="company"
-                  autoComplete="organization"
-                  value={formData.company}
-                  onChange={(e) => handleChange("company", e.target.value)}
-                  onBlur={() => handleBlur("company")}
-                  aria-invalid={!!errors.company}
-                  aria-describedby={errors.company ? "company-error" : undefined}
-                  required
-                  className={inputClasses(errors.company)}
-                />
-                {errors.company && (
-                  <p id="company-error" className="text-xs text-error flex items-center gap-1 mt-1" role="alert">
-                    <AlertCircle className="w-3.5 h-3.5" />
-                    {errors.company}
-                  </p>
-                )}
-              </div>
+        <TextField
+          id="name"
+          label="Your name"
+          required
+          placeholder="Jane Doe"
+          autoComplete="name"
+          value={formData.name}
+          error={errors.name}
+          onChange={(v) => handleChange("name", v)}
+          onBlur={() => handleBlur("name")}
+        />
+        <TextField
+          id="company"
+          label="Company"
+          required
+          placeholder="Acme Manufacturing Inc."
+          autoComplete="organization"
+          value={formData.company}
+          error={errors.company}
+          onChange={(v) => handleChange("company", v)}
+          onBlur={() => handleBlur("company")}
+        />
+        <TextField
+          id="email"
+          type="email"
+          label="Work email"
+          required
+          placeholder="jane@acme.com"
+          autoComplete="email"
+          value={formData.email}
+          error={errors.email}
+          onChange={(v) => handleChange("email", v)}
+          onBlur={() => handleBlur("email")}
+        />
+        <TextField
+          id="phone"
+          type="tel"
+          label="Phone (optional)"
+          placeholder="+1 (555) 000-0000"
+          autoComplete="tel"
+          value={formData.phone}
+          onChange={(v) => handleChange("phone", v)}
+        />
 
-              <div className="space-y-1.5">
-                <label htmlFor="phone" className="block text-sm font-medium text-text-primary">
-                  Phone Number <span className="text-error" aria-hidden="true">*</span>
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  autoComplete="tel"
-                  value={formData.phone}
-                  onChange={(e) => handleChange("phone", e.target.value)}
-                  onBlur={() => handleBlur("phone")}
-                  aria-invalid={!!errors.phone}
-                  aria-describedby={errors.phone ? "phone-error" : undefined}
-                  required
-                  className={inputClasses(errors.phone)}
-                />
-                {errors.phone && (
-                  <p id="phone-error" className="text-xs text-error flex items-center gap-1 mt-1" role="alert">
-                    <AlertCircle className="w-3.5 h-3.5" />
-                    {errors.phone}
-                  </p>
-                )}
-              </div>
-            </div>
+        <div className="sm:col-span-2">
+          <label htmlFor="topic" className="field-label">
+            What is this about
+          </label>
+          <select
+            id="topic"
+            name="topic"
+            value={formData.topic}
+            onChange={(e) => handleChange("topic", e.target.value)}
+            className="field"
+          >
+            {TOPICS.map((topic) => (
+              <option key={topic}>{topic}</option>
+            ))}
+          </select>
+        </div>
 
-            {/* Message */}
-            <div className="space-y-1.5">
-              <label htmlFor="message" className="block text-sm font-medium text-text-primary">
-                Message <span className="text-error" aria-hidden="true">*</span>
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                rows={5}
-                value={formData.message}
-                onChange={(e) => handleChange("message", e.target.value)}
-                onBlur={() => handleBlur("message")}
-                aria-invalid={!!errors.message}
-                aria-describedby={errors.message ? "message-error" : undefined}
-                required
-                className={cn(inputClasses(errors.message), "min-h-[120px] resize-y")}
-              />
-              {errors.message && (
-                <p id="message-error" className="text-xs text-error flex items-center gap-1 mt-1" role="alert">
-                  <AlertCircle className="w-3.5 h-3.5" />
-                  {errors.message}
-                </p>
-              )}
-            </div>
-
-            {/* Submit */}
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={cn(
-                "w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full font-medium text-sm transition-all cursor-pointer",
-                isSubmitting
-                  ? "bg-primary/70 text-white cursor-wait"
-                  : "bg-primary hover:opacity-85 text-white"
-              )}
+        <div className="sm:col-span-2">
+          <label htmlFor="message" className="field-label">
+            Message{" "}
+            <span className="text-alert" aria-hidden="true">
+              *
+            </span>
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows={6}
+            placeholder="Tell us what you are sourcing, the volumes involved, and any certification requirements."
+            value={formData.message}
+            onChange={(e) => handleChange("message", e.target.value)}
+            onBlur={() => handleBlur("message")}
+            aria-invalid={!!errors.message}
+            aria-describedby={errors.message ? "message-error" : undefined}
+            className={cn("field resize-y", errors.message && "field-error")}
+          />
+          {errors.message && (
+            <p
+              id="message-error"
+              role="alert"
+              className="mt-2 font-mono text-[11px] text-alert"
             >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Sending Message...
-                </>
-              ) : (
-                <>
-                  <Send className="w-4 h-4" />
-                  Send Message
-                </>
-              )}
-            </button>
-          </form>
-        </motion.div>
+              {errors.message}
+            </p>
+          )}
+        </div>
+
+        <div className="flex flex-wrap items-center gap-x-6 gap-y-4 border-t border-rule pt-[30px] sm:col-span-2">
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={cn(
+              "inline-flex cursor-pointer items-center gap-2.5 border-0 px-[34px] py-[18px] text-base font-bold transition-colors",
+              isSubmitting
+                ? "cursor-wait bg-ink-3 text-dim"
+                : "bg-ink text-signal hover:bg-signal hover:text-ink"
+            )}
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                Sending…
+              </>
+            ) : (
+              "Send message →"
+            )}
+          </button>
+          {hasErrors && (
+            <span role="alert" className="text-xs text-alert">
+              Complete the required fields marked with an asterisk.
+            </span>
+          )}
+        </div>
+      </div>
+    </form>
+  );
+}
+
+function TextField({
+  id,
+  label,
+  value,
+  onChange,
+  onBlur,
+  error,
+  required,
+  type = "text",
+  placeholder,
+  autoComplete,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  onBlur?: () => void;
+  error?: string;
+  required?: boolean;
+  type?: string;
+  placeholder?: string;
+  autoComplete?: string;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="field-label">
+        {label}{" "}
+        {required && (
+          <span className="text-alert" aria-hidden="true">
+            *
+          </span>
+        )}
+      </label>
+      <input
+        id={id}
+        name={id}
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        aria-invalid={!!error}
+        aria-describedby={error ? `${id}-error` : undefined}
+        onChange={(e) => onChange(e.target.value)}
+        onBlur={onBlur}
+        className={cn("field", error && "field-error")}
+      />
+      {error && (
+        <p
+          id={`${id}-error`}
+          role="alert"
+          className="mt-2 font-mono text-[11px] text-alert"
+        >
+          {error}
+        </p>
       )}
-    </AnimatePresence>
+    </div>
   );
 }

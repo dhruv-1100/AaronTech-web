@@ -64,7 +64,7 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
               {product.standards.map((std) => (
                 <span
                   key={std}
-                  className="font-mono text-[9px] uppercase bg-bg-subtle border border-border rounded px-2 py-1 text-text-tertiary tracking-tight"
+                  className="font-mono text-[9px] uppercase bg-bg-subtle border border-border px-2 py-1 text-text-tertiary tracking-tight"
                 >
                   {std}
                 </span>
@@ -94,7 +94,7 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
               {product.certifications.map((cert) => (
                 <span
                   key={cert}
-                  className="font-mono text-[9px] uppercase bg-bg-subtle border border-border rounded px-2 py-1 text-text-tertiary tracking-tight"
+                  className="font-mono text-[9px] uppercase bg-bg-subtle border border-border px-2 py-1 text-text-tertiary tracking-tight"
                 >
                   {cert}
                 </span>
@@ -137,7 +137,7 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
   ];
 
   return (
-    <div className="border border-border rounded-xl overflow-hidden divide-y divide-border">
+    <div className="border border-border overflow-hidden divide-y divide-border">
       {sections.map((section) => {
         const Icon = section.icon;
         const isExpanded = expandedId === section.id;
@@ -154,7 +154,7 @@ export default function ProductSpecsAccordion({ product }: ProductSpecsAccordion
               <div className="flex items-center gap-3">
                 <div
                   className={cn(
-                    "w-8 h-8 rounded-lg flex items-center justify-center transition-colors",
+                    "w-8 h-8 flex items-center justify-center transition-colors",
                     isExpanded ? "bg-primary text-white" : "bg-bg-muted text-text-tertiary"
                   )}
                 >
