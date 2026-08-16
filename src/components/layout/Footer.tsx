@@ -1,152 +1,148 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Phone, Mail, MapPin, ArrowRight } from "lucide-react";
 import { mainNav } from "@/lib/data/site";
+
+const PRODUCT_LINES = [
+  { name: "Fasteners", slug: "fasteners" },
+  { name: "Forged components", slug: "forged-components" },
+  { name: "Castings", slug: "castings" },
+  { name: "Bearings & bushings", slug: "bearings-bushings" },
+  { name: "Industrial valves", slug: "industrial-valves" },
+  { name: "Precision machined", slug: "precision-machined" },
+];
+
+const SILO_LINKS = [
+  { name: "Hex Bolts & Studs", href: "/products/fasteners/hex-bolts" },
+  {
+    name: "Socket Head Cap Screws",
+    href: "/products/fasteners/socket-head-cap-screws",
+  },
+  {
+    name: "Flange Forgings",
+    href: "/products/forged-components/flanges-weld-neck-slip-on-blind",
+  },
+  { name: "Investment Castings", href: "/products/castings/investment-castings" },
+  {
+    name: "CNC Machined Parts",
+    href: "/products/precision-machined/cnc-turned-components",
+  },
+  { name: "Ball Valves", href: "/products/industrial-valves/ball-valves" },
+  { name: "ISO 9001 Quality Standards", href: "/certifications" },
+  {
+    name: "ASTM A193 / A320 Guide",
+    href: "/resources/astm-a193-vs-a320-fasteners",
+  },
+  { name: "Landed Cost Estimator", href: "/#calculator" },
+];
+
+function ColumnHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <h2 className="mb-5 font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-white">
+      {children}
+    </h2>
+  );
+}
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-white border-t border-border">
-      {/* Main Footer Grid */}
-      <div className="max-w-[1360px] mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          {/* Company */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-8 h-8 overflow-hidden relative rounded-lg flex items-center justify-center shrink-0">
-                <Image
-                  src="/logo.png"
-                  alt="Aaron Technologies Logo"
-                  width={32}
-                  height={32}
-                  className="w-8 h-8 object-contain scale-[1.45] absolute"
-                />
-              </div>
-              <span className="font-heading text-text-primary text-base tracking-tight font-medium leading-none">
-                Aaron Technologies
-              </span>
-            </div>
-            <p className="text-sm text-text-secondary leading-relaxed mb-6">
-              US-based industrial component supplier sourcing precision-engineered
-              products from vetted Indian manufacturers. Competitive pricing,
-              full traceability, and US-based support.
-            </p>
-            <Link
-              href="/quote"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-white text-sm font-medium rounded-full hover:opacity-85 transition-opacity"
-            >
-              Request a Quote
-              <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
-            </Link>
+    <footer className="bg-ink pt-16 md:pt-[84px]">
+      <div className="shell grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1.2fr] lg:gap-[60px]">
+        <div>
+          <div className="mb-[22px] flex items-baseline gap-[11px]">
+            <span className="text-[21px] font-black leading-none tracking-[-0.035em] text-white">
+              AARON
+            </span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-dim-2">
+              Technologies
+            </span>
           </div>
+          <p className="mb-6 max-w-[32em] text-sm leading-[1.7] text-dim-3">
+            US-based industrial component supplier sourcing precision-engineered
+            parts from vetted Indian manufacturers. Competitive landed costs,
+            full material traceability, US-based support.
+          </p>
+          <p className="border-l-[3px] border-signal pl-[13px] font-mono text-[11px] uppercase tracking-[0.1em] text-dim">
+            ASTM / ASME · EN 10204 3.1 · RoHS
+          </p>
+        </div>
 
-          {/* Navigation */}
-          <div>
-            <p className="font-mono text-xs uppercase tracking-tight text-text-tertiary mb-5 font-medium">
-              Navigation
-            </p>
-            <ul className="space-y-3">
-              {mainNav.map((item) => (
+        <div>
+          <ColumnHeading>Navigation</ColumnHeading>
+          <ul className="flex flex-col gap-3 text-sm">
+            {[...mainNav, { label: "Certifications", href: "/certifications" }]
+              .filter((item) => item.href !== "/contact")
+              .map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-text-secondary hover:text-text-primary transition-colors"
+                    className="text-dim-3 transition-colors hover:text-signal"
                   >
                     {item.label}
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
+          </ul>
+        </div>
 
-          {/* Product Lines */}
-          <div>
-            <p className="font-mono text-xs uppercase tracking-tight text-text-tertiary mb-5 font-medium">
-              Product Lines
-            </p>
-            <ul className="space-y-3">
-              {[
-                { name: "Fasteners", slug: "fasteners" },
-                { name: "Forged Components", slug: "forged-components" },
-                { name: "Castings", slug: "castings" },
-                { name: "Bearings & Bushings", slug: "bearings-bushings" },
-                { name: "Industrial Valves", slug: "industrial-valves" },
-                { name: "Precision Machined", slug: "precision-machined" },
-              ].map((cat) => (
-                <li key={cat.slug}>
-                  <Link
-                    href={`/products/${cat.slug}`}
-                    className="text-sm text-text-secondary hover:text-text-primary transition-colors"
-                  >
-                    {cat.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div>
+          <ColumnHeading>Product lines</ColumnHeading>
+          <ul className="flex flex-col gap-3 text-sm">
+            {PRODUCT_LINES.map((line) => (
+              <li key={line.slug}>
+                <Link
+                  href={`/products/${line.slug}`}
+                  className="text-dim-3 transition-colors hover:text-signal"
+                >
+                  {line.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          {/* Contact */}
-          <div>
-            <p className="font-mono text-xs uppercase tracking-tight text-text-tertiary mb-5 font-medium">
-              Contact
-            </p>
-            <ul className="space-y-4">
-              <li>
-                <a
-                  href="tel:+16402721906"
-                  className="flex items-start gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors group"
-                >
-                  <Phone className="w-4 h-4 mt-0.5 text-text-tertiary group-hover:text-text-primary" aria-hidden="true" />
-                  <span>+1 (640) 272-1906</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:kushal@aarontechno.com"
-                  className="flex items-start gap-3 text-sm text-text-secondary hover:text-text-primary transition-colors group"
-                >
-                  <Mail className="w-4 h-4 mt-0.5 text-text-tertiary group-hover:text-text-primary" aria-hidden="true" />
-                  <span>kushal@aarontechno.com</span>
-                </a>
-              </li>
-              <li>
-                <div className="flex items-start gap-3 text-sm text-text-secondary">
-                  <MapPin className="w-4 h-4 mt-0.5 text-text-tertiary" aria-hidden="true" />
-                  <span>
-                    Aaron Technologies Inc.
-                    <br />
-                    New Jersey, United States
-                  </span>
-                </div>
-              </li>
-            </ul>
+        <div>
+          <ColumnHeading>Contact</ColumnHeading>
+          <div className="flex flex-col gap-[15px] text-sm">
+            <a
+              href="tel:+16402721906"
+              className="font-mono text-[13px] text-dim transition-colors hover:text-signal"
+            >
+              +1 (640) 272-1906
+            </a>
+            <a
+              href="mailto:kushal@aarontechno.com"
+              className="font-mono text-[13px] text-dim transition-colors hover:text-signal"
+            >
+              kushal@aarontechno.com
+            </a>
+            <span className="leading-relaxed text-dim-3">
+              Aaron Technologies Inc.
+              <br />
+              New Jersey, United States
+            </span>
+            <Link
+              href="/contact"
+              className="mt-1 border-b-2 border-signal pb-1 font-mono text-[11px] uppercase tracking-[0.13em] text-white transition-colors hover:text-signal"
+            >
+              Contact the desk →
+            </Link>
           </div>
         </div>
       </div>
 
-      {/* SEO Internal Link Siloing Block */}
-      <div className="border-t border-border bg-bg-subtle/50 py-6">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <p className="font-mono text-[10px] uppercase tracking-wider text-text-tertiary mb-3 font-medium">
-            Popular Component Sourcing Lines
-          </p>
-          <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-text-secondary">
-            {[
-              { name: "Hex Bolts & Studs", href: "/products/fasteners/hex-bolts" },
-              { name: "Socket Head Cap Screws", href: "/products/fasteners/socket-head-cap-screws" },
-              { name: "Flange Forgings", href: "/products/forged-components/flanges-weld-neck-slip-on-blind" },
-              { name: "Investment Castings", href: "/products/castings/investment-castings" },
-              { name: "CNC Machined Parts", href: "/products/precision-machined/cnc-turned-components" },
-              { name: "Ball Valves", href: "/products/industrial-valves/ball-valves" },
-              { name: "ISO 9001 Quality Standards", href: "/certifications" },
-              { name: "ASTM A193 / A320 Guide", href: "/resources/astm-a193-vs-a320-fasteners" },
-              { name: "Landed Cost Calculator", href: "/#calculator" },
-            ].map((link) => (
+      {/* Internal link silo — kept from the previous build for SEO. */}
+      <div className="mt-16 border-t border-ink-3">
+        <div className="shell py-7">
+          <h2 className="mb-3.5 font-mono text-[10px] uppercase tracking-[0.18em] text-dim-4">
+            Popular component sourcing lines
+          </h2>
+          <div className="flex flex-wrap gap-x-4 gap-y-2.5 text-xs">
+            {SILO_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="hover:text-text-primary underline decoration-border underline-offset-2 transition-colors"
+                className="text-dim-3 underline decoration-ink-3 underline-offset-4 transition-colors hover:text-signal hover:decoration-signal"
               >
                 {link.name}
               </Link>
@@ -155,20 +151,17 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
-      <div className="border-t border-border">
-        <div className="max-w-[1360px] mx-auto px-6 py-5 flex flex-col sm:flex-row justify-between items-center gap-3">
-          <span className="font-mono text-[11px] uppercase text-text-tertiary tracking-tight">
-            © {currentYear} Aaron Technologies Inc. All rights reserved.
-          </span>
-          <div className="flex gap-5">
-            <Link href="/privacy" className="font-mono text-[11px] uppercase text-text-tertiary hover:text-text-primary transition-colors tracking-tight">
+      <div className="border-t border-ink-3">
+        <div className="shell flex flex-col items-center justify-between gap-4 py-[22px] font-mono text-[11px] text-dim-4 sm:flex-row">
+          <span>© {currentYear} Aaron Technologies Inc.</span>
+          <span className="flex gap-[26px]">
+            <Link href="/privacy" className="text-dim-4 hover:text-dim">
               Privacy Policy
             </Link>
-            <Link href="/terms" className="font-mono text-[11px] uppercase text-text-tertiary hover:text-text-primary transition-colors tracking-tight">
+            <Link href="/terms" className="text-dim-4 hover:text-dim">
               Terms of Service
             </Link>
-          </div>
+          </span>
         </div>
       </div>
     </footer>

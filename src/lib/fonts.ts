@@ -1,15 +1,16 @@
-import { Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
+import { Chivo, Roboto_Mono } from "next/font/google";
 
-export const plusJakarta = Plus_Jakarta_Sans({
+export const chivo = Chivo({
   subsets: ["latin"],
-  variable: "--font-plus-jakarta",
+  variable: "--font-chivo",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "700", "900"],
+  style: ["normal", "italic"],
 });
 
-export const jetbrainsMono = JetBrains_Mono({
+export const robotoMono = Roboto_Mono({
   subsets: ["latin"],
-  variable: "--font-jetbrains",
+  variable: "--font-roboto-mono",
   display: "swap",
   weight: ["400", "500"],
 });

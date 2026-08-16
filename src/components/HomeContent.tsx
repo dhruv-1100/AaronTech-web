@@ -1,866 +1,598 @@
-"use client";
-
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
-import {
-  ArrowRight,
-  ChevronRight,
-  Package,
-  Wrench,
-  Flame,
-  FlaskConical,
-  CircleDot,
-  Gauge,
-  Target,
-  ToggleRight,
-  Droplets,
-  Layers,
-  Zap,
-  Spline,
-  Circle,
-  Check,
-  X,
-  DollarSign,
-  FileCheck,
-  Headphones,
-  Globe,
-  Factory,
-  ShieldCheck,
-  TrendingDown,
-  Truck,
-} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import Reveal from "@/components/ui/Reveal";
+import StatCounter from "@/components/ui/StatCounter";
+import FaqAccordion from "@/components/ui/FaqAccordion";
+import LandedCostEstimator from "@/components/LandedCostEstimator";
+import { Eyebrow, SectionHead, CtaBand } from "@/components/ui/Page";
 import { productCategories } from "@/lib/data/products";
-import { trustMetrics } from "@/lib/data/site";
-import { industries } from "@/lib/data/industries";
-import LandedCostCalculator from "@/components/LandedCostCalculator";
+import { catalogIndex } from "@/lib/data/catalog-index";
+import { cn } from "@/lib/utils";
 
-// Icon map for dynamic rendering
-const iconMap: Record<string, React.ElementType> = {
-  Wrench, Flame, FlaskConical, CircleDot, Gauge, Target,
-  ToggleRight, Droplets, Layers, Zap, Spline, Circle,
-  Package, Factory, ShieldCheck, TrendingDown,
-};
-
-const heroCarouselCategories = [
+const HERO_TILES = [
   {
-    title: "Industrial Fasteners",
-    std: "ASTM A193 / A320",
-    spec: "Grade 5/8 · M3 to M64",
-    img: "/images/showcase/fasteners.jpg",
     href: "/products/fasteners",
+    label: "Fasteners",
+    standard: "ASTM A193 / A320",
+    src: "/images/showcase/fasteners.jpg",
+    alt: "High-strength hex bolts, nuts and studs",
   },
   {
-    title: "Forged Flanges & Fittings",
-    std: "ASME B16.5 CLASS 150-2500",
-    spec: "Weld-Neck & Blind Flanges",
-    img: "/images/showcase/forged-flanges.jpg",
     href: "/products/forged-components",
+    label: "Forgings & flanges",
+    standard: "ASME B16.5",
+    src: "/images/showcase/forged-flanges.jpg",
+    alt: "Forged pipe flanges and fittings",
   },
   {
-    title: "Iron & Steel Castings",
-    std: "ASTM A216 / A536",
-    spec: "Sand & Investment Castings",
-    img: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=600&q=80",
-    href: "/products/castings",
-  },
-  {
-    title: "Precision CNC Machined",
-    std: "ASME Y14.5 GD&T",
-    spec: "Tight Tolerance ±0.01mm",
-    img: "/images/showcase/cnc-machined.jpg",
     href: "/products/precision-machined",
-  },
-  {
-    title: "Bearings & Bushings",
-    std: "ABMA / ISO 15:2017",
-    spec: "Deep Groove & Tapered Roller",
-    img: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0?auto=format&fit=crop&w=600&q=80",
-    href: "/products/bearings-bushings",
-  },
-  {
-    title: "Hydraulic & Pneumatic",
-    std: "SAE J514 / ISO 6162",
-    spec: "Rated 3,000–6,000 PSI",
-    img: "https://images.unsplash.com/photo-1508962914676-134849a727f0?auto=format&fit=crop&w=600&q=80",
-    href: "/products/hydraulic-pneumatic",
-  },
-  {
-    title: "Industrial Valves",
-    std: "ASME B16.34 / API 6D",
-    spec: "Ball, Gate, Globe & Check",
-    img: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=600&q=80",
-    href: "/products/industrial-valves",
-  },
-  {
-    title: "Pumps & Pump Parts",
-    std: "ANSI / ASME B73.1",
-    spec: "Impellers, Seals & Casings",
-    img: "https://images.unsplash.com/photo-1581092162384-8987c1d64718?auto=format&fit=crop&w=600&q=80",
-    href: "/products/pumps-pump-parts",
-  },
-  {
-    title: "Pipe Fittings & Flanges",
-    std: "ASME B16.9 / B16.11",
-    spec: "Buttweld & Forged Fittings",
-    img: "https://images.unsplash.com/photo-1504917599217-d4dc5ebe6122?auto=format&fit=crop&w=600&q=80",
-    href: "/products/pipe-fittings-flanges",
-  },
-  {
-    title: "Gaskets & Seals",
-    std: "ASME B16.20 / API 6A",
-    spec: "Spiral Wound & Ring Joints",
-    img: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&w=600&q=80",
-    href: "/products/gaskets-seals",
-  },
-  {
-    title: "Custom Fabrications",
-    std: "AWS D1.1 / ASME SEC IX",
-    spec: "Heavy Welded Assemblies",
-    img: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80",
-    href: "/products/custom-fabrications",
-  },
-  {
-    title: "Electrical & Power",
-    std: "NEMA / IEEE STANDARDS",
-    spec: "Busbars, Enclosures & Hardware",
-    img: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=600&q=80",
-    href: "/products/electrical-power",
+    label: "Precision machined",
+    standard: "ASME Y14.5 GD&T",
+    src: "/images/showcase/cnc-machined.jpg",
+    alt: "Precision CNC turned and milled components",
   },
 ];
 
-// Comparison data
-const comparisonRows = [
+const METRICS = [
+  { value: 500, suffix: "+", label: "Product SKUs available" },
+  { value: 30, suffix: "+", label: "Audited supplier facilities" },
+  { value: 50, suffix: "+", label: "Standards quoted against" },
+  { value: 25, suffix: "%", label: "Avg. landed cost savings" },
+];
+
+const PROCESS = [
   {
-    metric: "Communications & Invoices",
-    fragmented: "Dozens of emails and separate foreign invoices.",
-    consolidated: "Single US point-of-contact & one monthly invoice.",
+    step: "01",
+    title: "Submit requirements",
+    body: "Send drawings, standards, quantities and target pricing. Custom parts and catalog SKUs go through the same intake.",
+    output: "Output — reviewed spec sheet",
   },
   {
-    metric: "Quality & Tolerance Control",
-    fragmented: "High risk; errors caught only after delivery in the US.",
-    consolidated: "On-site pre-shipment inspections with dimensional assays.",
+    step: "02",
+    title: "Source, verify, quote",
+    body: "We match your specs to the best-fit factory in the network, validate certifications and capacity, and return an itemized landed-cost quote in 24–48 hours.",
+    output: "Output — line-item landed cost",
   },
   {
-    metric: "Freight & Shipping Cost",
-    fragmented: "High LCL ocean rates and separate port handling fees.",
-    consolidated: "Consolidated container shipping & bulk freight pricing.",
+    step: "03",
+    title: "Produce & inspect",
+    body: "First articles are approved before the batch runs. Our engineers in India carry out dimensional, chemical and mechanical checks pre-shipment.",
+    output: "Output — FAI + inspection report",
   },
   {
-    metric: "Material Traceability",
-    fragmented: "Inconsistent; mill test certificates (MTC) often missing.",
-    consolidated: "100% traceability; EN 10204 3.1 certs on every shipment.",
-  },
-  {
-    metric: "Inventory Buffering",
-    fragmented: "None; supply chain halts if shipping is delayed.",
-    consolidated: "US safety stocking programs for JIT delivery.",
+    step: "04",
+    title: "Deliver duty-paid",
+    body: "We consolidate freight, clear customs and deliver to your dock. Reorders draw on US safety stock for JIT schedules.",
+    output: "Output — MTC dossier + one USD invoice",
   },
 ];
 
-// Advantages data
-const advantages = [
+const COMPARISON = [
   {
-    number: "01",
-    title: "Cost Reduction",
-    description: "25%+ landed cost savings through consolidated sourcing, bulk freight, and direct factory pricing — without compromising on quality.",
-    icon: DollarSign,
+    metric: "Communication & invoices",
+    fragmented: "Dozens of email threads and separate foreign invoices.",
+    consolidated: "One US point of contact, one monthly USD invoice.",
   },
   {
-    number: "02",
-    title: "Quality Assurance",
-    description: "Pre-shipment inspections, dimensional verification, and full material traceability on every order. EN 10204 3.1 mill certs included.",
-    icon: FileCheck,
+    metric: "Quality control",
+    fragmented: "Defects surface after the container lands in the US.",
+    consolidated: "Pre-shipment inspection with dimensional and material assays.",
   },
   {
-    number: "03",
-    title: "US-Based Support",
-    description: "A single point-of-contact in the US handles procurement, quality control, logistics, and documentation — one invoice, no language barriers.",
-    icon: Headphones,
+    metric: "Freight cost",
+    fragmented: "LCL rates per vendor plus duplicated port handling fees.",
+    consolidated: "Consolidated container shipping at bulk freight pricing.",
   },
   {
-    number: "04",
-    title: "Vetted Network",
-    description: "30+ ISO 9001-certified Indian manufacturers, audited and validated by our operations team. Consistent supply across 12 product categories.",
-    icon: Globe,
-  },
-];
-
-// Process steps
-const processSteps = [
-  {
-    number: "01",
-    title: "Submit RFQ",
-    description: "Share your specifications, drawings, and quantities. We respond within 24–48 hours with competitive pricing.",
+    metric: "Traceability",
+    fragmented: "Inconsistent; mill test certificates often missing.",
+    consolidated: "EN 10204 3.1 certs and heat codes on every shipment.",
   },
   {
-    number: "02",
-    title: "Source & Verify",
-    description: "We match your requirements to the best-fit manufacturer in our network and validate specs, certifications, and capacity.",
-  },
-  {
-    number: "03",
-    title: "Inspect & Ship",
-    description: "On-site pre-shipment inspections verify dimensions and material. We handle export, freight, and customs documentation.",
-  },
-  {
-    number: "04",
-    title: "Deliver & Support",
-    description: "Components arrive at your facility with full traceability. Ongoing support for reorders, inventory programs, and engineering changes.",
+    metric: "Supply continuity",
+    fragmented: "No buffer; a shipping delay stops your line.",
+    consolidated: "US safety stocking programs for JIT release.",
   },
 ];
 
-function AnimatedSection({
-  children,
-  className,
-  delay = 0,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  delay?: number;
-}) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
+const SEGMENTS = [
+  {
+    tier: "Tier 1",
+    slug: "distributors-mro",
+    title: "Distributors & MRO",
+    body: "Bearing, fastener, pump and valve distributors diversifying their supplier base for cost advantage.",
+  },
+  {
+    tier: "Tier 1",
+    slug: "machine-shops",
+    title: "Machine & job shops",
+    body: "Fast decision cycles and price sensitivity, with flexible MOQs for small-batch and prototype work.",
+  },
+  {
+    tier: "Tier 1",
+    slug: "contract-manufacturers",
+    title: "Contract manufacturers",
+    body: "Reliable delivery, consistent quality and competitive landed costs above all else.",
+  },
+  {
+    tier: "Tier 2",
+    slug: "oem-manufacturers",
+    title: "OEM manufacturers",
+    body: "Machinery, pump, HVAC, agricultural and packaging equipment builders qualifying approved vendors.",
+  },
+  {
+    tier: "Tier 2",
+    slug: "epc-firms",
+    title: "EPC firms",
+    body: "Valves, flanges, structural steel and piping for infrastructure and plant construction projects.",
+  },
+  {
+    tier: "Tier 3",
+    slug: "energy-oil-gas",
+    title: "Energy & oil/gas",
+    body: "API-certified valves, flanges and pipe fittings for large project-based orders.",
+  },
+];
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 12 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
+const FAQS = [
+  {
+    question: "How do you ensure quality on components made 8,000 miles away?",
+    answer:
+      "Every manufacturing partner in the network is ISO 9001:2015 certified. Our engineers in India approve first articles before a batch runs, then carry out dimensional, chemical and mechanical checks pre-shipment. EN 10204 3.1 mill test certificates and lot traceability ship with every order.",
+  },
+  {
+    question: "What are typical lead times and minimum order quantities?",
+    answer:
+      "Production runs 4 to 8 weeks depending on complexity and volume, plus ocean transit. MOQs are flexible and set per part rather than per catalog rule, and US safety stocking programs cover JIT release on repeat lines.",
+  },
+  {
+    question: "How are freight, customs duties and landed cost handled?",
+    answer:
+      "We quote DDP — delivered duty paid. Export and import documentation, HTS classification, customs clearance, tariffs and freight are all handled on our side, and you receive one transparent US invoice with no port fees arriving later.",
+  },
+  {
+    question: "Which materials and standards does the network cover?",
+    answer:
+      "Carbon steel, alloy steel, stainless (304, 316, duplex), brass and aluminum, produced to ASTM, ASME, DIN, ISO, BS and API standards. Component-specific standards are listed against each line in the catalog index above.",
+  },
+  {
+    question: "Can you manufacture to our own engineering drawings?",
+    answer:
+      "Yes — a significant share of what we ship is custom, built to customer-supplied 2D/3D CAD and proprietary tolerance specifications. Send the drawing package with your RFQ and we will confirm manufacturability before quoting.",
+  },
+];
+
+const ROW_GRID =
+  "grid-cols-[36px_minmax(0,1fr)_28px] gap-x-5 md:grid-cols-[44px_minmax(0,1.5fr)_minmax(0,2.3fr)_minmax(0,1.7fr)_30px] md:gap-7";
 
 export default function HomeContent() {
-  const featuredCategories = productCategories.slice(0, 9);
-  const featuredIndustries = industries.filter((i) => i.tier <= 2).slice(0, 6);
-
   return (
     <>
-      {/* ================================================================
-          HERO SECTION — Clean white, editorial
-          ================================================================ */}
-      <section className="border-b border-border">
-        <div className="max-w-[1360px] mx-auto px-6 pt-24 pb-20 md:pt-32 md:pb-28">
-          <div className="max-w-3xl mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="badge mb-8 mx-auto"
-            >
-              US-Based Industrial Sourcing
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-4xl sm:text-5xl md:text-[3.5rem] leading-[1.1] mb-6"
-            >
-              Industrial Components.{" "}
-              <strong>Sourced Smarter.</strong>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-lg text-text-secondary leading-relaxed mb-10 max-w-xl mx-auto"
-            >
-              Precision-engineered fasteners, forgings, castings, and machined
-              parts sourced from vetted Indian manufacturers — with full
-              material traceability and competitive landed costs.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-            >
-              <Link
-                href="/quote"
-                className="btn-primary px-8 py-3.5 text-base"
-              >
-                Request a Quote
-                <ArrowRight className="w-4 h-4" />
+      {/* ---------------------------------------------- Hero */}
+      <section className="border-b border-ink">
+        <div className="shell grid items-center gap-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] lg:gap-[72px] lg:min-h-[640px]">
+          <div className="pt-16 pb-14 md:pt-[104px] md:pb-24">
+            <div className="animate-rise mb-9 flex items-center gap-3.5">
+              <span className="rule-tab" aria-hidden="true" />
+              <Eyebrow>US-based industrial sourcing</Eyebrow>
+            </div>
+            <h1 className="animate-rise m-0 mb-8 text-ink [animation-delay:0.08s]">
+              Your BOM,
+              <br />
+              one <span className="font-light italic">partner,</span>
+              <br />
+              30+ factories.
+            </h1>
+            <p className="animate-rise m-0 mb-11 max-w-[30em] text-xl leading-[1.55] text-body [animation-delay:0.16s]">
+              We source fasteners, forgings, castings and machined parts from
+              vetted Indian manufacturers — inspected before they ship,
+              delivered duty-paid, with full material traceability.
+            </p>
+            <div className="animate-rise flex flex-wrap items-center gap-x-8 gap-y-5 [animation-delay:0.24s]">
+              <Link href="/quote" className="btn-primary">
+                Request a Quote →
               </Link>
-              <Link
-                href="/products"
-                className="btn-secondary px-8 py-3.5 text-base"
+              <a
+                href="#calculator"
+                className="border-b-2 border-signal pb-1 font-mono text-[13px] uppercase tracking-[0.06em] text-ink transition-colors hover:text-muted"
               >
-                Browse Products
-                <ChevronRight className="w-4 h-4" />
-              </Link>
-            </motion.div>
+                Estimate landed cost
+              </a>
+            </div>
           </div>
 
-          {/* 12-Category Ultra-Slow Edge-to-Edge Full Viewport Ticker Tape Marquee Carousel */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-16 w-screen relative left-1/2 -translate-x-1/2 overflow-hidden py-4"
-            style={{
-              maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)',
-            }}
-          >
-            <motion.div
-              className="flex gap-6 w-max"
-              animate={{ x: ["0%", "-50%"] }}
-              transition={{
-                duration: 65,
-                ease: "linear",
-                repeat: Infinity,
-              }}
-            >
-              {[...heroCarouselCategories, ...heroCarouselCategories].map((card, idx) => (
-                <Link
-                  key={`${card.title}-${idx}`}
-                  href={card.href}
-                  className="group relative w-[320px] sm:w-[370px] shrink-0 rounded-2xl overflow-hidden border border-border bg-slate-950 text-white shadow-2xl hover:border-copper-500/60 transition-all duration-300 flex flex-col justify-between hover:-translate-y-1 text-left"
-                >
-                  {/* Card Header Image */}
-                  <div className="h-40 relative overflow-hidden bg-slate-900">
-                    <Image
-                      src={card.img}
-                      alt={card.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500 brightness-90"
-                      sizes="370px"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-                    <div className="absolute top-3 left-3">
-                      <span className="font-mono text-[9px] uppercase bg-black/85 text-copper-300 border border-white/15 px-2.5 py-1 rounded-md backdrop-blur-md font-medium tracking-tight">
-                        {card.std}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Card Content */}
-                  <div className="p-5 flex-1 flex flex-col justify-between">
-                    <div>
-                      <h3 className="font-heading text-base font-medium !text-white mb-1.5 leading-snug group-hover:text-copper-300 transition-colors">
-                        {card.title}
-                      </h3>
-                      <p className="font-mono text-xs text-steel-400 tracking-tight">
-                        {card.spec}
-                      </p>
-                    </div>
-
-                    <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-steel-300 group-hover:text-white transition-colors">
-                      <span>Explore Specs</span>
-                      <ArrowRight className="w-4 h-4 text-copper-400 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ================================================================
-          TRUST METRICS — Ruled horizontal grid
-          ================================================================ */}
-      <section className="border-b border-border bg-slate-50/80">
-        <div className="max-w-[1360px] mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4">
-            {trustMetrics.map((metric, i) => {
-              const Icon = iconMap[metric.icon] || Package;
-              return (
-                <motion.div
-                  key={metric.label}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
-                  className={cn(
-                    "flex flex-col items-center text-center py-10 px-6",
-                    i < 3 && "md:border-r md:border-border",
-                    i < 2 && "border-r border-border md:border-r",
-                    i >= 2 && "border-t md:border-t-0 border-border"
-                  )}
-                >
-                  <div className="text-3xl md:text-4xl text-text-primary mb-1.5 tracking-tight">
-                    {metric.value}
-                    <span className="text-primary-muted">{metric.suffix}</span>
-                  </div>
-                  <div className="font-mono text-[10px] uppercase text-text-tertiary tracking-tight">
-                    {metric.label}
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ================================================================
-          PRODUCT SHOWCASE — High-Impact Visual Sourcing Grid
-          ================================================================ */}
-      <section className="bg-slate-950 text-white border-b border-border py-16 overflow-hidden">
-        <div className="max-w-[1360px] mx-auto px-6 mb-10 text-center">
-          <span className="font-mono text-xs uppercase tracking-[0.25em] !text-copper-400 font-bold block mb-2">
-            PRODUCT SHOWCASE
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-heading !text-white font-medium">
-            Precision-Engineered Industrial Components
-          </h2>
-        </div>
-
-        <div className="max-w-[1360px] mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1: Industrial Fasteners */}
-            <Link href="/products/fasteners" className="group relative h-[380px] sm:h-[440px] rounded-xl overflow-hidden border border-white/15 bg-slate-900 shadow-xl">
-              <Image
-                src="/images/showcase/fasteners.jpg"
-                alt="High-Grade Industrial Fasteners — Hex Bolts, Nuts & Studs"
-                fill
-                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.8]"
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-              
-              <div className="absolute bottom-6 left-6 right-6 z-10">
-                <div className="bg-black/85 backdrop-blur-md border border-white/15 px-5 py-3.5 rounded-lg text-center shadow-lg group-hover:border-copper-500/50 transition-colors">
-                  <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
-                    INDUSTRIAL <span className="text-copper-500">FASTENERS</span>
-                  </span>
-                </div>
-              </div>
-            </Link>
-
-            {/* Card 2: Forged Flanges & Fittings */}
-            <Link href="/products/forged-components" className="group relative h-[380px] sm:h-[440px] rounded-xl overflow-hidden border border-white/15 bg-slate-900 shadow-xl">
+          <div className="relative min-h-[380px] self-stretch lg:min-h-[640px] lg:-mr-[44px]">
+            <div className="animate-wipe absolute inset-0 overflow-hidden bg-ink">
               <Image
                 src="/images/showcase/forged-flanges.jpg"
-                alt="Forged Pipe Flanges, Weld-Neck Fittings & Pressure Components"
+                alt="Forged weld-neck pipe flanges stacked at an ISO 9001 certified facility"
                 fill
-                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.8]"
-                sizes="(max-width: 768px) 100vw, 33vw"
+                preload
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover brightness-[0.8] contrast-[1.06] grayscale-[0.3]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-
-              <div className="absolute bottom-6 left-6 right-6 z-10">
-                <div className="bg-black/85 backdrop-blur-md border border-white/15 px-5 py-3.5 rounded-lg text-center shadow-lg group-hover:border-copper-500/50 transition-colors">
-                  <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
-                    FORGED <span className="text-copper-500">FLANGES & FITTINGS</span>
-                  </span>
-                </div>
+            </div>
+            <div className="absolute bottom-11 -left-px border-l-4 border-signal bg-ink px-6 py-[18px]">
+              <div className="mb-[7px] font-mono text-[11px] uppercase tracking-[0.15em] text-signal">
+                ASME B16.5 · Class 150–2500
               </div>
-            </Link>
-
-            {/* Card 3: Precision CNC Machined Components */}
-            <Link href="/products/precision-machined" className="group relative h-[380px] sm:h-[440px] rounded-xl overflow-hidden border border-white/15 bg-slate-900 shadow-xl">
-              <Image
-                src="/images/showcase/cnc-machined.jpg"
-                alt="Precision CNC Turned Shafts, Milled Aluminum & Brass Components"
-                fill
-                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-[0.8]"
-                sizes="(max-width: 768px) 100vw, 33vw"
+              <div className="font-mono text-xs text-dim">
+                Weld-neck flanges · A105 / A182 F316
+              </div>
+            </div>
+            <div className="absolute top-10 right-[26px] hidden flex-col items-center gap-3 lg:flex">
+              <span
+                className="font-mono text-[10px] uppercase tracking-[0.24em] text-paper [writing-mode:vertical-rl]"
+                aria-hidden="true"
+              >
+                Scroll
+              </span>
+              <span
+                className="animate-scroll-hint block h-[46px] w-px bg-paper/50"
+                aria-hidden="true"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />
-
-              <div className="absolute bottom-6 left-6 right-6 z-10">
-                <div className="bg-black/85 backdrop-blur-md border border-white/15 px-5 py-3.5 rounded-lg text-center shadow-lg group-hover:border-copper-500/50 transition-colors">
-                  <span className="font-mono text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
-                    PRECISION <span className="text-copper-500">CNC MACHINED</span>
-                  </span>
-                </div>
-              </div>
-            </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ================================================================
-          PRODUCT CATALOG — Ruled grid cards
-          ================================================================ */}
-      <section className="py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <AnimatedSection>
-            <div className="mb-16">
-              <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-                Product Lines
-              </span>
-              <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-4">
-                Precision Sourced <strong>Components</strong>
-              </h2>
-              <p className="text-text-secondary max-w-xl text-lg">
-                Every component ships with material test reports and standards verification across 12 industrial categories.
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredCategories.map((cat, i) => {
-              const Icon = iconMap[cat.icon] || Package;
-              return (
-                <AnimatedSection key={cat.id} delay={i * 0.04}>
-                  <Link
-                    href={`/products/${cat.slug}`}
-                    className="flex items-start gap-4 p-6 rounded-xl hover-glass-card h-full"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center shrink-0 icon-box-hover transition-colors">
-                      <Icon className="w-5 h-5" aria-hidden="true" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="text-[15px] font-medium text-text-primary mb-1">
-                        {cat.name}
-                      </div>
-                      <div className="text-sm text-text-tertiary leading-relaxed line-clamp-2">
-                        {cat.shortDescription}
-                      </div>
-                      <div className="font-mono text-[10px] uppercase text-text-muted mt-2.5 tracking-tight">
-                        {cat.standards?.[0] || "Industry Standards"}
-                      </div>
-                    </div>
-                    <ArrowRight className="w-4 h-4 text-text-muted shrink-0 mt-1 transition-colors" aria-hidden="true" />
-                  </Link>
-                </AnimatedSection>
-              );
-            })}
-          </div>
-
-          <AnimatedSection className="mt-8 text-center">
-            <Link
-              href="/products"
-              className="btn-secondary text-sm"
+      {/* ---------------------------------------------- Metrics */}
+      <section className="bg-ink">
+        <div className="shell grid grid-cols-2 lg:grid-cols-4">
+          {METRICS.map((metric, i) => (
+            <div
+              key={metric.label}
+              className={cn(
+                "border-ink-3 py-10 md:py-[46px]",
+                i === 0 ? "pr-8 lg:pr-[34px]" : "pl-5 pr-8 md:px-[34px]",
+                i === METRICS.length - 1 && "lg:pr-0",
+                i % 2 === 0 && "border-r lg:border-r",
+                i < 2 && "border-b lg:border-b-0",
+                i !== METRICS.length - 1 && "lg:border-r"
+              )}
             >
-              View All 12 Categories
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </AnimatedSection>
+              <div className="text-[clamp(2.5rem,5vw,3.5rem)] leading-none font-bold tracking-[-0.045em] text-white tabular-nums">
+                <StatCounter value={metric.value} />
+                <span className="text-signal">{metric.suffix}</span>
+              </div>
+              <div className="mt-3.5 font-mono text-[11px] uppercase tracking-[0.13em] text-dim-2">
+                {metric.label}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* ================================================================
-          WHY AARON TECHNOLOGIES — Editorial two-column
-          ================================================================ */}
-      <section className="border-t border-b border-border py-24 md:py-32 bg-bg-subtle">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-            {/* Left — Heading */}
-            <AnimatedSection>
-              <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-                Why Consolidate With Us
-              </span>
-              <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-6">
-                One partner for your entire <strong>India sourcing</strong> supply chain
-              </h2>
-              <p className="text-text-secondary text-lg leading-relaxed mb-8">
-                Instead of managing dozens of overseas suppliers, inspectors, freight forwarders,
-                and customs brokers — work with a single US-based team that handles everything
-                from RFQ to delivery.
-              </p>
-              <Link href="/about" className="btn-secondary text-sm">
-                Learn More About Us
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </AnimatedSection>
+      {/* ---------------------------------------------- Positioning */}
+      <section className="border-b border-ink-3 bg-ink py-24 md:py-[124px]">
+        <Reveal className="shell">
+          <Eyebrow tone="ink">Positioning</Eyebrow>
+          <p className="mt-7 mb-0 max-w-[26em] text-[clamp(1.75rem,4vw,3.25rem)] leading-[1.16] font-light tracking-[-0.032em] text-white">
+            Direct-from-foundry pricing is worth 25% of your component spend.
+            Managing it from 8,000 miles away is worth a full-time team.{" "}
+            <span className="font-bold">We are that team</span> — a US
+            corporation, invoicing in USD, with engineers on the factory floor
+            in India.
+          </p>
+          <div className="mt-13 flex flex-wrap gap-x-11 gap-y-4 font-mono text-xs uppercase tracking-[0.09em] text-dim-2">
+            <span className="border-l-[3px] border-signal pl-[13px]">
+              Aaron Technologies Inc. · New Jersey
+            </span>
+            <span className="border-l-[3px] border-ink-3 pl-[13px]">
+              EN 10204 3.1 certs on every shipment
+            </span>
+            <span className="border-l-[3px] border-ink-3 pl-[13px]">
+              DDP delivered duty paid
+            </span>
+          </div>
+        </Reveal>
+      </section>
 
-            {/* Right — Advantage cards */}
-            <div className="flex flex-col">
-              {advantages.map((adv, i) => {
-                const Icon = adv.icon;
-                return (
-                  <AnimatedSection
-                    key={adv.number}
-                    delay={i * 0.08}
-                    className={cn(
-                      "py-6",
-                      i < advantages.length - 1 && "border-b border-border"
-                    )}
+      {/* ---------------------------------------------- Catalog */}
+      <section id="catalog" className="bg-paper">
+        <div className="grid border-b border-ink sm:grid-cols-3">
+          {HERO_TILES.map((tile, i) => (
+            <Reveal key={tile.href}>
+              <Link
+                href={tile.href}
+                className={cn(
+                  "zoom-tile relative block h-[280px] overflow-hidden bg-ink md:h-[340px]",
+                  i < HERO_TILES.length - 1 && "border-r border-ink"
+                )}
+              >
+                <Image
+                  src={tile.src}
+                  alt={tile.alt}
+                  fill
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                  className="object-cover"
+                />
+                <span className="absolute bottom-[26px] left-0 bg-signal px-4 py-2.5 font-mono text-xs uppercase tracking-[0.14em] text-ink">
+                  {tile.label}
+                </span>
+                <span className="absolute top-[22px] right-[22px] font-mono text-[11px] text-paper/75">
+                  {tile.standard}
+                </span>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+
+        <div className="shell py-20 md:py-[116px]">
+          <Reveal>
+            <SectionHead
+              eyebrow="Product lines / 12"
+              title="Catalog index"
+              lede="Standards listed are the governing specifications we quote and inspect against. Custom parts to your drawings are quoted the same way."
+              className="lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]"
+            />
+          </Reveal>
+
+          <Reveal>
+            <div className="border-t-2 border-ink">
+              <div
+                className={cn(
+                  "hidden border-b border-ink py-3.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted md:grid",
+                  ROW_GRID
+                )}
+              >
+                <span>#</span>
+                <span>Category</span>
+                <span>Description</span>
+                <span>Governing standards</span>
+                <span />
+              </div>
+
+              {productCategories.map((category, i) => (
+                <Link
+                  key={category.slug}
+                  href={`/products/${category.slug}`}
+                  className={cn(
+                    "catalog-row",
+                    ROW_GRID,
+                    "py-6",
+                    i === productCategories.length - 1
+                      ? "border-b-2 border-ink"
+                      : "border-b border-rule"
+                  )}
+                >
+                  <span className="font-mono text-xs text-muted">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <span className="text-[19px] font-medium tracking-[-0.015em] text-ink">
+                    {category.name}
+                  </span>
+                  <span className="col-start-2 text-sm leading-[1.55] text-body md:col-start-auto">
+                    {category.shortDescription}
+                  </span>
+                  <span className="col-start-2 font-mono text-xs leading-[1.6] text-muted md:col-start-auto">
+                    {catalogIndex[category.slug]?.standardsShort}
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    className="row-arrow col-start-3 row-start-1 justify-self-end text-sm text-ink md:col-start-auto md:row-start-auto"
                   >
-                    <div className="flex items-start gap-4">
-                      <div className="w-9 h-9 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center shrink-0">
-                        <Icon className="w-4 h-4" aria-hidden="true" />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-3 mb-1.5">
-                          <span className="font-mono text-[10px] text-text-muted uppercase tracking-tight">
-                            {adv.number}
-                          </span>
-                          <span className="text-[15px] font-medium text-text-primary">
-                            {adv.title}
-                          </span>
-                        </div>
-                        <p className="text-sm text-text-secondary leading-relaxed">
-                          {adv.description}
-                        </p>
-                      </div>
-                    </div>
-                  </AnimatedSection>
-                );
-              })}
+                    →
+                  </span>
+                </Link>
+              ))}
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------- Process */}
+      <section
+        id="process"
+        className="border-y border-ink bg-paper-2 py-20 md:py-[116px]"
+      >
+        <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)] lg:gap-[88px]">
+          <div className="lg:sticky lg:top-[132px]">
+            <Eyebrow>Process</Eyebrow>
+            <h2 className="mt-5 mb-6 text-ink">
+              RFQ to
+              <br />
+              loading dock
+            </h2>
+            <p className="mt-0 mb-9 text-base leading-[1.65] text-body">
+              Four stages, each producing documentation you can hand straight to
+              your quality team.
+            </p>
+            <Link href="/quote" className="btn-secondary !py-3.5 !px-6 !text-[15px]">
+              Start an RFQ →
+            </Link>
+          </div>
+
+          <div>
+            {PROCESS.map((stage, i) => (
+              <Reveal key={stage.step}>
+                <div
+                  className={cn(
+                    "grid items-start gap-x-9 gap-y-3 py-9 sm:grid-cols-[92px_minmax(0,1fr)]",
+                    i === 0
+                      ? "border-t-2 border-ink"
+                      : "border-t border-rule-strong",
+                    i === PROCESS.length - 1 && "border-b-2 border-ink"
+                  )}
+                >
+                  <span className="text-[44px] leading-[0.9] font-black tracking-[-0.04em] text-signal">
+                    {stage.step}
+                  </span>
+                  <div>
+                    <h3 className="m-0 mb-3 text-ink">{stage.title}</h3>
+                    <p className="m-0 mb-4 max-w-[40em] text-base leading-[1.65] text-body">
+                      {stage.body}
+                    </p>
+                    <span className="border-l-[3px] border-rule-strong pl-3 font-mono text-[11px] uppercase tracking-[0.11em] text-muted">
+                      {stage.output}
+                    </span>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ================================================================
-          SOURCING COMPARISON TABLE — Clean ruled
-          ================================================================ */}
-      <section className="py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <AnimatedSection>
-            <div className="text-center mb-16">
-              <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-                Comparison
-              </span>
-              <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-4">
-                Fragmented sourcing vs. <strong>consolidated</strong>
-              </h2>
-              <p className="text-text-secondary max-w-xl mx-auto text-lg">
-                See how a single-source partnership eliminates complexity and reduces total cost of procurement.
-              </p>
-            </div>
-          </AnimatedSection>
+      {/* ---------------------------------------------- Estimator */}
+      <section id="calculator" className="bg-ink py-20 md:py-[116px]">
+        <div className="shell">
+          <Reveal>
+            <SectionHead
+              tone="ink"
+              eyebrow="Landed cost estimator"
+              title="See the real number"
+              lede="FOB is not your cost. Pick a part and a volume to see freight, duty, insurance and brokerage resolved per unit — the same breakdown your quote arrives in."
+            />
+          </Reveal>
+          <Reveal>
+            <LandedCostEstimator />
+          </Reveal>
+        </div>
+      </section>
 
-          <AnimatedSection>
-            <div className="rounded-xl border border-border-strong overflow-hidden">
-              {/* Table Header */}
-              <div className="grid grid-cols-[1fr_1fr_1fr] bg-bg-subtle">
-                <div className="p-4 font-mono text-[11px] uppercase text-text-tertiary tracking-tight border-r border-border">
+      {/* ---------------------------------------------- Comparison */}
+      <section className="border-b border-ink bg-paper py-20 md:py-[116px]">
+        <div className="shell">
+          <Reveal>
+            <SectionHead
+              eyebrow="Comparison"
+              title="Fragmented vs. consolidated"
+              lede="What changes operationally when one US partner owns the whole chain instead of five overseas vendors."
+            />
+          </Reveal>
+          <Reveal>
+            <div className="border-t-2 border-ink">
+              <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] border-b border-ink md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.6fr)_minmax(0,1.6fr)]">
+                <div className="hidden py-4 pr-6 font-mono text-[10px] uppercase tracking-[0.16em] text-muted md:block">
                   Metric
                 </div>
-                <div className="p-4 font-mono text-[11px] uppercase text-text-tertiary tracking-tight border-r border-border">
-                  Fragmented Sourcing
+                <div className="px-4 py-4 font-mono text-[10px] uppercase tracking-[0.16em] text-muted md:px-6">
+                  Fragmented sourcing
                 </div>
-                <div className="p-4 font-mono text-[11px] uppercase text-text-primary tracking-tight">
-                  Aaron Technologies
+                <div className="bg-signal px-4 py-4 font-mono text-[10px] uppercase tracking-[0.16em] text-ink md:px-6">
+                  With Aaron Technologies
                 </div>
               </div>
-
-              {/* Table Rows */}
-              {comparisonRows.map((row, i) => (
+              {COMPARISON.map((row, i) => (
                 <div
                   key={row.metric}
-                  className="grid grid-cols-1 md:grid-cols-[1fr_1fr_1fr] border-t border-border"
+                  className={cn(
+                    "grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.6fr)_minmax(0,1.6fr)]",
+                    i === COMPARISON.length - 1
+                      ? "border-b-2 border-ink"
+                      : "border-b border-rule"
+                  )}
                 >
-                  <div className="p-4 md:border-r border-border text-sm font-medium text-text-primary">
+                  <div className="col-span-2 pt-5 pb-2 text-base font-bold text-ink md:col-span-1 md:py-[22px] md:pr-6">
                     {row.metric}
                   </div>
-                  <div className="px-4 pb-4 md:py-4 md:border-r border-border">
-                    <div className="flex items-start gap-2">
-                      <X className="w-4 h-4 text-error shrink-0 mt-0.5" aria-hidden="true" />
-                      <span className="text-sm text-text-tertiary">{row.fragmented}</span>
-                    </div>
+                  <div className="px-4 pb-5 text-sm leading-[1.6] text-soft md:px-6 md:py-[22px]">
+                    {row.fragmented}
                   </div>
-                  <div className="px-4 pb-4 md:py-4">
-                    <div className="flex items-start gap-2">
-                      <Check className="w-4 h-4 text-success shrink-0 mt-0.5" aria-hidden="true" />
-                      <span className="text-sm text-text-secondary">{row.consolidated}</span>
-                    </div>
+                  <div className="bg-signal-wash px-4 pb-5 pt-5 text-sm leading-[1.6] text-ink md:px-6 md:py-[22px]">
+                    {row.consolidated}
                   </div>
                 </div>
               ))}
             </div>
-          </AnimatedSection>
+          </Reveal>
         </div>
       </section>
 
-      {/* ================================================================
-          HOW IT WORKS — Horizontal ruled stepper
-          ================================================================ */}
-      <section className="border-t border-b border-border py-24 md:py-32 bg-slate-950 text-white">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <AnimatedSection className="mb-16">
-            <span className="font-mono text-xs uppercase !text-copper-400 tracking-tight block mb-3 font-bold">
-              Process
-            </span>
-            <h2 className="text-3xl md:text-[2.75rem] leading-tight !text-white font-medium">
-              How it <strong className="!text-copper-400">works</strong>
-            </h2>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {processSteps.map((step, i) => (
-              <AnimatedSection key={step.number} delay={i * 0.08}>
-                <div className="bg-slate-900/90 border border-white/15 p-8 h-full flex flex-col rounded-xl hover:border-copper-500/50 transition-colors">
-                  <span className="font-mono text-[10px] uppercase !text-copper-400 tracking-tight block mb-4 font-bold">
-                    Step {step.number}
-                  </span>
-                  <h3 className="text-lg font-medium !text-white mb-3 font-heading">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm !text-steel-200 leading-relaxed">
-                    {step.description}
-                  </p>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================================================================
-          INDUSTRIES SERVED — Clean grid
-          ================================================================ */}
-      <section className="py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <AnimatedSection>
-            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-16">
+      {/* ---------------------------------------------- Industries */}
+      <section id="industries" className="bg-paper py-20 md:py-[116px]">
+        <div className="shell">
+          <Reveal>
+            <div className="mb-[54px] flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
               <div>
-                <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-                  Industries
-                </span>
-                <h2 className="text-3xl md:text-[2.75rem] leading-tight">
-                  Sectors we <strong>supply</strong>
-                </h2>
+                <Eyebrow>Industries</Eyebrow>
+                <h2 className="mt-5 mb-0 text-ink">Who we supply</h2>
               </div>
-              <Link href="/industries" className="btn-secondary text-sm shrink-0">
-                View All Industries
-                <ArrowRight className="w-3.5 h-3.5" />
+              <Link
+                href="/industries"
+                className="btn-secondary !py-3.5 !px-6 !text-[15px]"
+              >
+                All industries →
               </Link>
             </div>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredIndustries.map((ind, i) => (
-              <AnimatedSection key={ind.id} delay={i * 0.05}>
-                <div className="p-6 rounded-xl hover-glass-card h-full group">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 rounded-lg bg-bg-muted text-text-tertiary flex items-center justify-center shrink-0 icon-box-hover">
-                      <Factory className="w-4 h-4" aria-hidden="true" />
-                    </div>
-                    <h3 className="text-[15px] font-medium text-text-primary">{ind.name}</h3>
+          </Reveal>
+          <Reveal>
+            <div className="grid gap-px border border-rule-strong bg-rule-strong sm:grid-cols-2 lg:grid-cols-3">
+              {SEGMENTS.map((segment, i) => (
+                <Link
+                  key={segment.slug}
+                  href={`/industries#${segment.slug}`}
+                  className="bg-paper px-[30px] pt-[34px] pb-[30px] transition-colors hover:bg-paper-2"
+                >
+                  <div className="mb-4 flex items-baseline justify-between gap-4">
+                    <span className="font-mono text-[11px] text-muted">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span
+                      className={cn(
+                        "font-mono text-[10px] uppercase tracking-[0.11em]",
+                        segment.tier === "Tier 1"
+                          ? "bg-signal px-2.5 py-1 text-ink"
+                          : "border border-rule-strong px-2.5 py-1 text-muted"
+                      )}
+                    >
+                      {segment.tier}
+                    </span>
                   </div>
-                  <p className="text-sm text-text-tertiary leading-relaxed mb-4">
-                    {ind.description}
+                  <h3 className="m-0 mb-2.5 text-[21px] text-ink">
+                    {segment.title}
+                  </h3>
+                  <p className="m-0 text-sm leading-[1.6] text-body">
+                    {segment.body}
                   </p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {ind.relatedCategories.slice(0, 3).map((cat) => (
-                      <span key={cat} className="font-mono text-[9px] uppercase text-text-muted border border-border/40 bg-bg-subtle px-2 py-1 rounded tracking-tight transition-colors group-hover:bg-white/10 group-hover:text-white/90 group-hover:border-white/15">
-                        {cat}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================================================================
-          LANDED COST CALCULATOR
-          ================================================================ */}
-      <section id="calculator" className="border-t border-b border-border py-24 md:py-32 bg-bg-subtle">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <AnimatedSection className="mb-12">
-            <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-              Tool
-            </span>
-            <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-4">
-              Landed Cost <strong>Calculator</strong>
-            </h2>
-            <p className="text-text-secondary max-w-xl text-lg">
-              Estimate your total import cost including freight, duty, insurance, and handling fees.
-            </p>
-          </AnimatedSection>
-
-          <LandedCostCalculator />
-        </div>
-      </section>
-
-      {/* ================================================================
-          FREQUENTLY ASKED QUESTIONS — B2B Sourcing SEO
-          ================================================================ */}
-      <section className="py-24 md:py-32 border-t border-border">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <AnimatedSection className="mb-16">
-            <span className="font-mono text-xs uppercase text-text-tertiary tracking-tight block mb-3">
-              FAQ
-            </span>
-            <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-4">
-              Frequently Asked <strong>Questions</strong>
-            </h2>
-            <p className="text-text-secondary max-w-xl text-lg">
-              Everything you need to know about component sourcing, quality assurance, and landed delivery.
-            </p>
-          </AnimatedSection>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {[
-              {
-                q: "How does Aaron Technologies ensure quality control for imported industrial components from India?",
-                a: "All manufacturing partners in our network are ISO 9001:2015 certified. Every shipment undergoes rigorous on-site pre-shipment dimensional, chemical, and mechanical testing. Full EN 10204 3.1 Mill Test Certificates (MTC) and lot traceability documentation are provided with every order."
-              },
-              {
-                q: "What are the typical lead times and minimum order quantities (MOQs)?",
-                a: "Production lead times typically range from 4 to 8 weeks depending on component complexity and volume, plus ocean freight transit. We offer flexible MOQs tailored to production schedules and maintain US safety stocking programs for JIT delivery."
-              },
-              {
-                q: "How are shipping, customs duties, and landed costs handled?",
-                a: "Aaron Technologies provides DDP (Delivered Duty Paid) pricing options. We handle export/import documentation, customs clearances, tariffs, and freight logistics so you receive a single transparent US invoice with zero hidden port fees."
-              },
-              {
-                q: "What materials and engineering standards do your supplier facilities cover?",
-                a: "Our vetted foundry network produces components in carbon steel, alloy steel, stainless steel (304, 316, Duplex), brass, and aluminum conforming to ASTM, ASME, DIN, ISO, BS, and API standards."
-              },
-              {
-                q: "Can Aaron Technologies manufacture components according to custom engineering drawings?",
-                a: "Yes. A significant portion of our catalog consists of custom industrial components manufactured strictly according to customer-supplied 2D/3D CAD blueprints and proprietary tolerance specifications."
-              }
-            ].map((faq, i) => (
-              <AnimatedSection key={i} delay={i * 0.06}>
-                <div className="glass-card p-6 md:p-8 rounded-xl h-full flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-lg font-medium text-text-primary mb-3 leading-snug">
-                      {faq.q}
-                    </h3>
-                    <p className="text-sm text-text-secondary leading-relaxed">
-                      {faq.a}
-                    </p>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ================================================================
-          FINAL CTA
-          ================================================================ */}
-      <section className="py-24 md:py-32">
-        <div className="max-w-[1360px] mx-auto px-6">
-          <AnimatedSection className="text-center max-w-4xl mx-auto bg-gradient-to-br from-slate-950 via-slate-900 to-navy-950 text-white p-12 md:p-16 rounded-3xl border border-white/15 shadow-2xl relative overflow-hidden">
-            <h2 className="text-3xl md:text-[2.75rem] leading-tight mb-6 !text-white font-medium">
-              Ready to streamline your <strong className="!text-copper-400">supply chain?</strong>
-            </h2>
-            <p className="text-lg text-steel-200 leading-relaxed mb-10 max-w-xl mx-auto">
-              Get a competitive quote on industrial components with transparent
-              landed-cost pricing. No obligation, fast turnaround.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/quote"
-                className="btn-primary px-8 py-3.5 text-base"
-              >
-                Request a Quote
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/contact"
-                className="btn-secondary px-8 py-3.5 text-base border-white/30 text-white hover:bg-white/10"
-              >
-                Contact Us
-                <ChevronRight className="w-4 h-4" />
-              </Link>
+                </Link>
+              ))}
             </div>
-          </AnimatedSection>
+          </Reveal>
         </div>
       </section>
+
+      {/* ---------------------------------------------- FAQ */}
+      <section
+        id="faq"
+        className="border-t border-ink bg-paper-2 py-20 md:py-[116px]"
+      >
+        <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,2fr)] lg:gap-[88px]">
+          <div className="lg:sticky lg:top-[132px]">
+            <Eyebrow>FAQ</Eyebrow>
+            <h2 className="mt-5 mb-[22px] text-ink">Questions buyers ask</h2>
+            <p className="m-0 text-base leading-[1.65] text-body">
+              Anything not covered here, ask us directly —{" "}
+              <a
+                href="mailto:kushal@aarontechno.com"
+                className="border-b-2 border-signal"
+              >
+                kushal@aarontechno.com
+              </a>
+              .
+            </p>
+          </div>
+          <Reveal>
+            <FaqAccordion items={FAQS} />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------------------------------------------- CTA */}
+      <CtaBand
+        eyebrow="Next step"
+        title={
+          <>
+            Send us a drawing.
+            <br />
+            Get a real number.
+          </>
+        }
+        body="Itemized landed-cost quotes in 24–48 hours. No obligation, no retainer."
+        primary={{ label: "Request a Quote →", href: "/quote" }}
+        secondary={{ label: "Email us", href: "mailto:kushal@aarontechno.com" }}
+      />
     </>
   );
 }

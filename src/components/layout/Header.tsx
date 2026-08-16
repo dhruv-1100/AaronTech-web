@@ -2,401 +2,157 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
-import {
-  Menu,
-  X,
-  ChevronDown,
-  Wrench,
-  Flame,
-  FlaskConical,
-  CircleDot,
-  Gauge,
-  Target,
-  ToggleRight,
-  Droplets,
-  Layers,
-  Zap,
-  Spline,
-  Circle,
-  Package,
-  BookOpen,
-  Calculator,
-  Info,
-  ArrowRight,
-} from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { mainNav } from "@/lib/data/site";
-import { productCategories } from "@/lib/data/products";
-
-// Icon map for products
-const iconMap: Record<string, React.ElementType> = {
-  Wrench, Flame, FlaskConical, CircleDot, Gauge, Target,
-  ToggleRight, Droplets, Layers, Zap, Spline, Circle, Package,
-};
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
   const pathname = usePathname();
 
+  // Reading-progress rule sitting on the header's bottom edge.
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+    const onScroll = () => {
+      const scrollable =
+        document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0);
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Initialize on mount
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close the drawer on navigation.
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href);
+
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 w-full transition-[padding] duration-300",
-        scrolled
-          ? "py-4 px-4 sm:px-6 pointer-events-none bg-transparent"
-          : "py-0 border-b border-border bg-white"
-      )}
-    >
-      {/* Navigation Bar container */}
-      <div
-        className={cn(
-          "max-w-[1360px] mx-auto px-6 flex items-center justify-between transition-all duration-300 relative",
-          scrolled
-            ? "h-14 pointer-events-auto"
-            : "h-16 bg-transparent"
-        )}
-      >
-        {/* Sibling Glass Background (placed as sibling to prevent nesting backdrop-filter bugs) */}
-        {scrolled && (
-          <div
-            className="absolute inset-0 -z-10 rounded-full border border-white/15 shadow-2xl"
-            style={{
-              backgroundColor: "rgba(0, 0, 0, 0.55)",
-              backdropFilter: "blur(60px) saturate(180%)",
-              WebkitBackdropFilter: "blur(60px) saturate(180%)"
-            }}
-          />
-        )}
-
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-7 h-7 overflow-hidden relative rounded-lg flex items-center justify-center shrink-0">
-            <Image
-              src="/logo.png"
-              alt="Aaron Technologies Logo"
-              width={28}
-              height={28}
-              className="w-7 h-7 object-contain scale-[1.45] absolute"
-            />
+    <>
+      {/* Utility bar */}
+      <div className="bg-ink">
+        <div className="shell flex items-center justify-between gap-6 py-2.5 font-mono text-xs">
+          <div className="flex items-center gap-4 sm:gap-6">
+            <a
+              href="tel:+16402721906"
+              className="text-dim hover:text-signal transition-colors"
+            >
+              +1 (640) 272-1906
+            </a>
+            <a
+              href="mailto:kushal@aarontechno.com"
+              className="hidden text-dim hover:text-signal transition-colors sm:inline"
+            >
+              kushal@aarontechno.com
+            </a>
           </div>
-          <span
-            className={cn(
-              "font-heading text-[17px] tracking-tight leading-none font-medium transition-colors",
-              scrolled
-                ? "text-white group-hover:text-white/80"
-                : "text-text-primary group-hover:text-primary"
-            )}
+          <div className="flex items-center gap-2.5">
+            <span className="block h-1.5 w-1.5 bg-signal" aria-hidden="true" />
+            <span className="text-[11px] uppercase tracking-[0.13em] text-dim-2">
+              Quoting in 24–48 hrs
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <header className="sticky top-0 z-60 border-b border-ink bg-paper/92 backdrop-blur-[10px]">
+        <div className="shell flex h-[78px] items-center gap-10">
+          <Link
+            href="/"
+            className="mr-auto flex items-baseline gap-[11px]"
+            aria-label="Aaron Technologies — home"
           >
-            Aaron Technologies
-          </span>
-        </Link>
+            <span className="text-[23px] font-black leading-none tracking-[-0.035em] text-ink">
+              AARON
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted">
+              Technologies
+            </span>
+          </Link>
 
-        {/* Desktop Nav */}
-        <nav className="hidden lg:flex items-center gap-0.5 h-full">
-          {mainNav.map((item) => {
-            const hasDropdown = ["Products", "Resources"].includes(item.label);
-            const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
-
-            return (
-              <div
+          <nav className="hidden items-center gap-0.5 lg:flex">
+            {mainNav.map((item) => (
+              <Link
                 key={item.href}
-                className="relative h-full flex items-center nav-hover-item"
-                onMouseEnter={() => setHoveredItem(item.label)}
-                onMouseLeave={() => setHoveredItem(null)}
-              >
-                <Link
-                  href={item.href}
-                  {...(hasDropdown ? { "aria-haspopup": "true" as const, "aria-expanded": hoveredItem === item.label } : {})}
-                  className={cn(
-                    "relative px-4 py-2 text-sm transition-colors flex items-center gap-1 cursor-pointer",
-                    scrolled
-                      ? isActive
-                        ? "text-white font-semibold"
-                        : "text-white font-medium hover:text-white/80"
-                      : isActive
-                        ? "text-text-primary font-semibold"
-                        : "text-text-primary font-medium hover:text-accent"
-                  )}
-                >
-                  <span>{item.label}</span>
-                  {hasDropdown && (
-                    <ChevronDown
-                      aria-hidden="true"
-                      className={cn(
-                        "w-3 h-3 transition-transform duration-300",
-                        scrolled ? "text-white" : "text-text-primary",
-                        hoveredItem === item.label && "rotate-180"
-                      )}
-                    />
-                  )}
-                  {/* Active underline indicator */}
-                  {isActive && (
-                    <span
-                      className={cn(
-                        "absolute bottom-0 left-4 right-4 h-[1.5px]",
-                        scrolled ? "bg-white" : "bg-text-primary"
-                      )}
-                    />
-                  )}
-                </Link>
-
-                {/* Dropdowns (Floating Glass Panels - CSS Transitions to bypass GPU transform isolation bugs) */}
-                {hasDropdown && (
-                  <div
-                    className={cn(
-                      "absolute top-full shadow-2xl p-5 z-50 rounded-2xl transition-all duration-200 origin-top hover-bridge",
-                      hoveredItem === item.label
-                        ? "opacity-100 scale-100 pointer-events-auto"
-                        : "opacity-0 scale-95 pointer-events-none",
-                      scrolled ? "text-white mt-3" : "text-text-primary mt-0",
-                      item.label === "Products" && "w-[580px] left-1/2 -translate-x-1/2",
-                      item.label === "Resources" && "w-[260px] left-1/2 -translate-x-1/2"
-                    )}
-                    style={scrolled ? {
-                      backgroundColor: "rgba(0, 0, 0, 0.65)",
-                      backdropFilter: "blur(35px) saturate(180%)",
-                      WebkitBackdropFilter: "blur(35px) saturate(180%)",
-                      border: "1px solid rgba(255, 255, 255, 0.12)",
-                      boxShadow: "0 16px 40px rgba(0, 0, 0, 0.4)"
-                    } : {
-                      backgroundColor: "rgba(255, 255, 255, 0.75)",
-                      backdropFilter: "blur(35px) saturate(180%)",
-                      WebkitBackdropFilter: "blur(35px) saturate(180%)",
-                      border: "1px solid rgba(0, 0, 0, 0.08)",
-                      boxShadow: "0 16px 40px rgba(0, 0, 0, 0.08)"
-                    }}
-                  >
-                    {/* Products Dropdown */}
-                    {item.label === "Products" && (
-                      <>
-                        <div className="grid grid-cols-2 gap-x-4 gap-y-1">
-                          {productCategories.slice(0, 6).map((cat) => {
-                            const Icon = iconMap[cat.icon] || Package;
-                            return (
-                              <Link
-                                key={cat.id}
-                                href={`/products/${cat.slug}`}
-                                className={cn(
-                                  "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors group",
-                                  scrolled ? "hover:bg-white/10" : "hover:bg-bg-subtle"
-                                )}
-                              >
-                                <div
-                                  className={cn(
-                                    "w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors",
-                                    scrolled
-                                      ? "bg-white/15 text-white group-hover:bg-white/25 group-hover:text-white"
-                                      : "bg-bg-muted text-text-primary group-hover:bg-primary group-hover:text-white"
-                                  )}
-                                >
-                                  <Icon className="w-4 h-4" aria-hidden="true" />
-                                </div>
-                                <div>
-                                  <div
-                                    className={cn(
-                                      "text-sm font-medium transition-colors leading-tight",
-                                      scrolled
-                                        ? "text-white group-hover:text-white"
-                                        : "text-text-primary group-hover:text-primary"
-                                    )}
-                                  >
-                                    {cat.name}
-                                  </div>
-                                  <div
-                                    className={cn(
-                                      "text-[11px] mt-0.5 leading-tight",
-                                      scrolled ? "text-white/80" : "text-text-secondary"
-                                    )}
-                                  >
-                                    {cat.shortDescription}
-                                  </div>
-                                </div>
-                              </Link>
-                            );
-                          })}
-                        </div>
-                        <div
-                          className={cn(
-                            "border-t pt-3 mt-3 flex justify-between items-center",
-                            scrolled ? "border-white/10" : "border-border"
-                          )}
-                        >
-                          <span
-                            className={cn(
-                              "font-mono text-[10px] uppercase tracking-tight",
-                              scrolled ? "text-white/80" : "text-text-secondary"
-                            )}
-                          >
-                            Vetted Supplier Network
-                          </span>
-                          <Link
-                            href="/products"
-                            className={cn(
-                              "text-xs font-medium flex items-center gap-1 group/more transition-colors",
-                              scrolled ? "text-white hover:text-white/80" : "text-text-primary hover:text-accent"
-                            )}
-                          >
-                            <span>View All Categories</span>
-                            <ArrowRight className="w-3 h-3 transition-transform group-hover/more:translate-x-0.5" aria-hidden="true" />
-                          </Link>
-                        </div>
-                      </>
-                    )}
-
-                    {/* Resources Dropdown */}
-                    {item.label === "Resources" && (
-                      <div className="flex flex-col gap-0.5">
-                        {[
-                          { label: "Sourcing Guides & News", href: "/resources", desc: "Technical publications", icon: BookOpen },
-                          { label: "Landed Cost Calculator", href: "/#calculator", desc: "Estimate import costs", icon: Calculator },
-                          { label: "About Our Company", href: "/about", desc: "Our operational network", icon: Info },
-                        ].map((sub) => {
-                          const Icon = sub.icon;
-                          return (
-                            <Link
-                              key={sub.label}
-                              href={sub.href}
-                              className={cn(
-                                "flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors group",
-                                scrolled ? "hover:bg-white/10" : "hover:bg-bg-subtle"
-                              )}
-                            >
-                              <div
-                                className={cn(
-                                  "w-7 h-7 rounded-lg flex items-center justify-center shrink-0 transition-colors",
-                                  scrolled
-                                    ? "bg-white/15 text-white group-hover:bg-white/25 group-hover:text-white"
-                                    : "bg-bg-muted text-text-primary group-hover:bg-primary group-hover:text-white"
-                                )}
-                              >
-                                <Icon className="w-3.5 h-3.5" aria-hidden="true" />
-                              </div>
-                              <div>
-                                <div
-                                  className={cn(
-                                    "text-xs font-medium transition-colors leading-tight",
-                                    scrolled
-                                      ? "text-white group-hover:text-white"
-                                      : "text-text-primary group-hover:text-primary"
-                                  )}
-                                >
-                                  {sub.label}
-                                </div>
-                                <div
-                                  className={cn(
-                                    "text-[10px] mt-0.5 leading-none",
-                                    scrolled ? "text-white/80" : "text-text-secondary"
-                                  )}
-                                >
-                                  {sub.desc}
-                                </div>
-                              </div>
-                            </Link>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </div>
+                href={item.href}
+                aria-current={isActive(item.href) ? "page" : undefined}
+                className={cn(
+                  "px-3.5 py-2.5 text-sm font-medium whitespace-nowrap transition-colors hover:bg-paper-3 hover:text-ink",
+                  isActive(item.href)
+                    ? "text-ink shadow-[inset_0_-3px_0_0_var(--color-signal)]"
+                    : "text-body"
                 )}
-              </div>
-            );
-          })}
-        </nav>
+              >
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
-        {/* CTA + Mobile Toggle */}
-        <div className="flex items-center gap-3">
           <Link
             href="/quote"
-            className={cn(
-              "hidden sm:inline-flex items-center gap-2 text-sm font-medium rounded-full transition-all shadow-md",
-              scrolled
-                ? "px-6 py-2 bg-white text-text-primary hover:bg-white/95"
-                : "px-6 py-2.5 bg-primary text-white hover:opacity-85"
-            )}
+            className="hidden shrink-0 items-center gap-2 bg-ink px-[22px] py-3 text-sm font-bold text-signal transition-colors hover:bg-signal hover:text-ink sm:inline-flex"
           >
             Request a Quote
           </Link>
 
           <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className={cn(
-              "lg:hidden p-2 transition-colors",
-              scrolled ? "text-white/90 hover:text-white" : "text-text-secondary hover:text-text-primary"
-            )}
-            aria-label="Toggle menu"
+            type="button"
+            onClick={() => setMobileOpen((open) => !open)}
             aria-expanded={mobileOpen}
+            aria-controls="mobile-nav"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            className="-mr-2 p-2 text-ink lg:hidden"
           >
-            {mobileOpen ? <X className="w-5 h-5" aria-hidden="true" /> : <Menu className="w-5 h-5" aria-hidden="true" />}
+            {mobileOpen ? (
+              <X className="h-6 w-6" aria-hidden="true" />
+            ) : (
+              <Menu className="h-6 w-6" aria-hidden="true" />
+            )}
           </button>
         </div>
-      </div>
 
-      {/* Mobile Menu (CSS Transitions) */}
-      <div
-        className={cn(
-          "lg:hidden overflow-hidden shadow-2xl pointer-events-auto transition-all duration-200 origin-top",
-          mobileOpen ? "opacity-100 scale-100 h-auto" : "opacity-0 scale-95 h-0 pointer-events-none",
-          scrolled ? "mt-2 rounded-2xl" : ""
-        )}
-        style={scrolled ? {
-          backgroundColor: "rgba(0, 0, 0, 0.95)",
-          backdropFilter: "blur(35px) saturate(180%)",
-          WebkitBackdropFilter: "blur(35px) saturate(180%)",
-          border: "1px solid rgba(255, 255, 255, 0.1)"
-        } : {
-          backgroundColor: "rgba(255, 255, 255, 0.95)",
-          backdropFilter: "blur(35px) saturate(180%)",
-          WebkitBackdropFilter: "blur(35px) saturate(180%)",
-          borderTop: "1px solid rgba(0, 0, 0, 0.08)"
-        }}
-      >
-        <nav className="max-w-[1360px] mx-auto px-6 py-4 flex flex-col gap-0.5">
-          {mainNav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              onClick={() => setMobileOpen(false)}
-              className={cn(
-                "px-4 py-3 rounded-lg text-sm transition-colors",
-                pathname === item.href || pathname.startsWith(item.href + "/")
-                  ? scrolled
-                    ? "text-white font-medium bg-white/15"
-                    : "text-text-primary font-medium bg-bg-subtle"
-                  : scrolled
-                    ? "text-white/70 hover:text-white hover:bg-white/10"
-                    : "text-text-tertiary hover:text-text-primary hover:bg-bg-subtle"
-              )}
-            >
-              {item.label}
-            </Link>
-          ))}
-          <Link
-            href="/quote"
-            onClick={() => setMobileOpen(false)}
-            className={cn(
-              "mt-3 flex items-center justify-center gap-2 font-medium text-sm rounded-full transition-colors",
-              scrolled
-                ? "px-5 py-3 bg-white text-text-primary hover:bg-white/95"
-                : "px-5 py-3 bg-primary text-white hover:opacity-85"
-            )}
+        <div className="h-0.5">
+          <div
+            className="h-0.5 bg-signal"
+            style={{ width: `${progress}%` }}
+            aria-hidden="true"
+          />
+        </div>
+
+        {mobileOpen && (
+          <nav
+            id="mobile-nav"
+            className="border-t border-ink bg-paper lg:hidden"
           >
-            Request a Quote
-          </Link>
-        </nav>
-      </div>
-    </header>
+            <div className="shell flex flex-col py-2">
+              {mainNav.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={cn(
+                    "border-b border-rule py-4 text-lg font-medium",
+                    isActive(item.href) ? "text-ink" : "text-body"
+                  )}
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <Link
+                href="/quote"
+                className="my-4 inline-flex items-center justify-center gap-2 bg-ink px-6 py-4 text-base font-bold text-signal"
+              >
+                Request a Quote →
+              </Link>
+            </div>
+          </nav>
+        )}
+      </header>
+    </>
   );
 }

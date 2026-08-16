@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { plusJakarta, jetbrainsMono } from "@/lib/fonts";
+import { chivo, robotoMono } from "@/lib/fonts";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#0f172a',
+  themeColor: '#131619',
 };
 
 export default function RootLayout({
@@ -69,12 +69,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakarta.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${chivo.variable} ${robotoMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-white">
+      <body className="min-h-full flex flex-col bg-paper">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-lg focus:text-sm"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-ink focus:text-signal focus:text-sm focus:font-bold"
         >
           Skip to content
         </a>
