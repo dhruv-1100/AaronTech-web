@@ -6,22 +6,24 @@ import { slugify } from "@/lib/utils";
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.aarontechno.com";
 
+  const now = new Date();
+
   const staticPages: MetadataRoute.Sitemap = [
-    { url: baseUrl, lastModified: new Date('2026-07-09'), changeFrequency: "weekly", priority: 1.0 },
-    { url: `${baseUrl}/products`, lastModified: new Date('2026-07-09'), changeFrequency: "weekly", priority: 0.9 },
-    { url: `${baseUrl}/industries`, lastModified: new Date('2026-07-09'), changeFrequency: "monthly", priority: 0.8 },
-    { url: `${baseUrl}/certifications`, lastModified: new Date('2026-07-09'), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/about`, lastModified: new Date('2026-07-09'), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/quote`, lastModified: new Date('2026-07-09'), changeFrequency: "monthly", priority: 0.9 },
-    { url: `${baseUrl}/resources`, lastModified: new Date('2026-07-09'), changeFrequency: "weekly", priority: 0.8 },
-    { url: `${baseUrl}/contact`, lastModified: new Date('2026-07-09'), changeFrequency: "monthly", priority: 0.7 },
-    { url: `${baseUrl}/privacy`, lastModified: new Date('2026-07-09'), changeFrequency: "yearly", priority: 0.3 },
-    { url: `${baseUrl}/terms`, lastModified: new Date('2026-07-09'), changeFrequency: "yearly", priority: 0.3 },
+    { url: baseUrl, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
+    { url: `${baseUrl}/products`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/industries`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/certifications`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/quote`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${baseUrl}/resources`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${baseUrl}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${baseUrl}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${baseUrl}/terms`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
   const categoryPages: MetadataRoute.Sitemap = productCategories.map((cat) => ({
     url: `${baseUrl}/products/${cat.slug}`,
-    lastModified: new Date('2026-07-09'),
+    lastModified: now,
     changeFrequency: "weekly" as const,
     priority: 0.8,
   }));
@@ -32,7 +34,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       const productSlug = slugify(type);
       productDetailPages.push({
         url: `${baseUrl}/products/${cat.slug}/${productSlug}`,
-        lastModified: new Date('2026-07-09'),
+        lastModified: now,
         changeFrequency: "weekly" as const,
         priority: 0.7,
       });
@@ -41,7 +43,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/resources/${post.slug}`,
-    lastModified: new Date('2026-07-09'),
+    lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));

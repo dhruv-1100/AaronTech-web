@@ -15,6 +15,9 @@ import {
   Factory,
   ShieldCheck,
   TrendingDown,
+  Leaf,
+  FileCheck,
+  Fuel,
 } from "lucide-react";
 import React from "react";
 
@@ -35,6 +38,9 @@ export const iconMap: Record<string, React.ComponentType<any>> = {
   Factory,
   ShieldCheck,
   TrendingDown,
+  Leaf,
+  FileCheck,
+  Fuel,
 };
 
 export function resolveIcon(name: string): React.ComponentType<any> {

@@ -1,225 +1,164 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import {
-  ShieldCheck,
-  Leaf,
-  FlaskConical,
-  FileCheck,
-  Fuel,
-  Zap,
-  ArrowRight,
-  TestTube2,
-  Search,
-  FileText,
-  Truck,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import Reveal from "@/components/ui/Reveal";
+import ShowMore from "@/components/ui/ShowMore";
+import { PageHero, SectionHead, CtaBand } from "@/components/ui/Page";
 import { certifications } from "@/lib/data/site";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Certifications & Quality Assurance",
+  title: "Quality Certifications & Compliance Standards",
   description:
-    "ISO 9001, ASTM/ASME, API, RoHS, REACH and UL certifications. Learn about Aaron Technologies' quality assurance process and material traceability.",
+    "Aaron Technologies suppliers maintain ISO 9001, RoHS, REACH, ASTM/ASME, API, and UL certifications. Full compliance documentation provided with every shipment.",
+  alternates: { canonical: "/certifications" },
+  openGraph: {
+    title: "Quality Certifications & Compliance | Aaron Technologies",
+    description:
+      "ISO 9001, RoHS, REACH, ASTM/ASME, API, and UL certified supplier network. Full compliance documentation on every shipment.",
+    url: "/certifications",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Certifications | Aaron Technologies",
+  },
 };
 
-const iconMap: Record<string, React.ElementType> = {
-  ShieldCheck,
-  Leaf,
-  FlaskConical,
-  FileCheck,
-  Fuel,
-  Zap,
-};
-
-const qualitySteps = [
+const DOSSIER = [
   {
-    icon: TestTube2,
-    title: "Material Testing",
-    description:
-      "Raw material composition and mechanical properties verified against ASTM / ASME specifications. Mill test certificates reviewed before production begins.",
+    code: "MTC",
+    title: "Mill test certificate",
+    body: "EN 10204 3.1 — chemical composition, mechanical properties, heat treatment, heat number.",
   },
   {
-    icon: Search,
-    title: "In-Process Inspection",
-    description:
-      "Dimensional checks, hardness testing, and visual inspection at every critical production stage. CMM and non-destructive testing where specified.",
+    code: "CoC",
+    title: "Certificate of conformance",
+    body: "Signed statement tying the lot to the purchase order specification and revision.",
   },
   {
-    icon: FileText,
-    title: "Documentation",
-    description:
-      "Complete quality dossier compiled including MTCs, inspection reports, COC, RoHS/REACH declarations, and packing lists per customer requirements.",
+    code: "FAI",
+    title: "First-article inspection",
+    body: "Dimensional verification against your drawing, approved before the batch runs.",
   },
   {
-    icon: Truck,
-    title: "Shipment & Delivery",
-    description:
-      "Final pre-shipment audit, protective packaging, and door-to-door logistics with real-time tracking. Documentation shared digitally upon dispatch.",
+    code: "CMM",
+    title: "Dimensional report",
+    body: "Coordinate-measuring output on precision machined work, per feature and tolerance.",
+  },
+  {
+    code: "NDT",
+    title: "Non-destructive testing",
+    body: "Radiographic or ultrasonic examination on critical forgings, castings and valve bodies.",
+  },
+  {
+    code: "DEC",
+    title: "Compliance declarations",
+    body: "RoHS and REACH declarations, UL listings and CE marking documentation as applicable.",
   },
 ];
 
 export default function CertificationsPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="section-dark relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="relative max-w-7xl mx-auto px-6 py-16 sm:py-24">
-          <div className="max-w-3xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-copper-400">
-              Quality First
-            </p>
-            <h1 className="max-w-4xl text-4xl sm:text-5xl font-heading font-bold leading-tight text-white mb-4">
-              Certifications {"&"} <span className="text-gradient">Quality</span>
-            </h1>
-            <p className="text-steel-400 text-lg leading-relaxed max-w-2xl">
-              Every component we supply is backed by internationally recognized standards, documented material traceability, and a rigorous multi-stage quality control process.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Quality & compliance"
+        title="Certifications & standards."
+        lede="Every component sourced through Aaron Technologies is backed by internationally recognized certification. Compliance documentation ships with the parts, not weeks later on request."
+        stats={[
+          {
+            value: String(certifications.length),
+            label: "Active certifications",
+          },
+          { value: "100%", label: "Documentation rate" },
+          { value: "30+", label: "Audited facilities" },
+        ]}
+      />
 
-      {/* Certifications - Clean row list (No cards!) */}
-      <section className="bg-steel-100">
-        <div className="max-w-7xl mx-auto px-6 py-12 sm:py-20">
-          <div className="max-w-3xl mb-12">
-            <h2 className="text-3xl font-heading font-bold text-navy-900 mb-3">
-              Standards {"&"} Accreditations
-            </h2>
-            <p className="text-steel-600 leading-relaxed">
-              We partner exclusively with manufacturing facilities that maintain active accreditations and comply with global industrial specifications.
-            </p>
-          </div>
-
-          {/* Unified Ledger Container */}
-          <div className="bg-white border border-steel-200/85 rounded-2xl divide-y divide-steel-250/60 shadow-sm overflow-hidden">
-            {certifications.map((cert) => {
-              const Icon = iconMap[cert.icon] ?? ShieldCheck;
-              return (
+      {/* Standards held */}
+      <section className="border-b border-ink bg-paper py-14 md:py-[100px]">
+        <div className="shell">
+          <Reveal>
+            <SectionHead
+              eyebrow="Standards held"
+              title="What the network is certified to"
+              lede="Certification is a floor, not a finish line. We audit against these standards and keep the evidence on file for every lot we ship."
+            />
+          </Reveal>
+          <Reveal>
+            <ShowMore
+              visible={3}
+              total={certifications.length}
+              label="certifications"
+              className="grid gap-px border border-rule-strong bg-rule-strong sm:grid-cols-2 lg:grid-cols-3"
+            >
+              {certifications.map((cert, i) => (
                 <div
                   key={cert.id}
-                  className="p-6 sm:p-8 flex flex-col md:flex-row gap-6 md:items-start transition-colors hover:bg-steel-50/50"
+                  className="flex flex-col bg-paper px-8 py-[38px]"
                 >
-                  {/* Left block: Icon, Short Name, Issuing Body */}
-                  <div className="md:w-1/3 flex gap-4 items-start">
-                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-navy-900/5 text-navy-700">
-                      <Icon className="h-5 w-5" />
-                    </div>
-                    <div className="space-y-1">
-                      <h3 className="font-heading text-base font-bold text-navy-900 leading-snug">
-                        {cert.name}
-                      </h3>
-                      <span className="inline-block rounded-full bg-navy-900/5 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-navy-900 border border-navy-900/10">
-                        {cert.shortName}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Right block: Description & Issuing Body Metadata */}
-                  <div className="md:w-2/3 space-y-4">
-                    <p className="text-sm leading-relaxed text-steel-600">
-                      {cert.description}
-                    </p>
-                    <div className="text-xs text-steel-500 flex items-center gap-1.5 pt-1 border-t border-steel-100">
-                      <span className="font-semibold text-steel-700">Issuing Body:</span>
-                      <span>{cert.issuingBody}</span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Quality Process — Timeline */}
-      <section className="bg-white border-t border-steel-300">
-        <div className="max-w-7xl mx-auto px-6 py-12 sm:py-20">
-          <div className="text-center mb-16">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-copper-500">
-              Our Process
-            </p>
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-navy-900 mb-4">
-              Quality Assurance at Every Step
-            </h2>
-            <p className="mx-auto max-w-2xl text-steel-600 leading-relaxed">
-              Every Aaron Technologies shipment passes through a rigorous four-stage quality verification pipeline to guarantee compliance before dispatch.
-            </p>
-          </div>
-
-          {/* Stepper Grid (No cards, just flat connected steps) */}
-          <div className="relative">
-            {/* Connector line — desktop only */}
-            <div
-              className="absolute left-0 right-0 top-[40px] hidden h-0.5 bg-steel-300 lg:block"
-              aria-hidden="true"
-            />
-
-            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-              {qualitySteps.map((step, idx) => (
-                <div key={step.title} className="relative flex flex-col items-center text-center">
-                  {/* Step circle */}
-                  <div
-                    className={cn(
-                      "relative z-10 mb-5 flex h-20 w-20 items-center justify-center rounded-full border-4 bg-white",
-                      idx === qualitySteps.length - 1
-                        ? "border-copper-500"
-                        : "border-steel-300"
-                    )}
-                  >
-                    <step.icon
-                      className={cn(
-                        "h-8 w-8",
-                        idx === qualitySteps.length - 1
-                          ? "text-copper-500"
-                          : "text-navy-900"
-                      )}
-                    />
-                    {/* Step number */}
-                    <span className="absolute -top-2 -right-2 flex h-7 w-7 items-center justify-center rounded-full bg-navy-900 text-[11px] font-bold text-white">
-                      {idx + 1}
+                  <div className="mb-[22px] flex items-baseline justify-between gap-4">
+                    <span className="text-[26px] font-black tracking-[-0.035em] text-ink">
+                      {cert.shortName}
+                    </span>
+                    <span className="font-mono text-[11px] text-muted">
+                      {String(i + 1).padStart(2, "0")}
                     </span>
                   </div>
-
-                  {/* Content */}
-                  <h3 className="mb-2 font-heading text-base font-bold text-navy-900">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-steel-600 px-2">
-                    {step.description}
+                  <div
+                    className="mb-[22px] h-1.5 w-11 bg-signal"
+                    aria-hidden="true"
+                  />
+                  <span className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-muted">
+                    {cert.issuingBody}
+                  </span>
+                  <h3 className="m-0 mb-3 text-lg text-ink">{cert.name}</h3>
+                  <p className="m-0 text-sm leading-[1.65] text-body">
+                    {cert.description}
                   </p>
                 </div>
               ))}
-            </div>
-          </div>
+            </ShowMore>
+          </Reveal>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-dark">
-        <div className="max-w-7xl mx-auto px-6 py-20 text-center">
-          <h2 className="text-3xl font-heading font-bold mb-4">
-            Need Quality Documentation?
-          </h2>
-          <p className="mx-auto mb-8 max-w-xl text-steel-400 leading-relaxed">
-            We compile full quality dossiers for every order — including mill test certificates, dimensional records, and chemical assays.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-copper-500 px-8 py-3.5 font-semibold text-white transition-colors hover:bg-copper-600 cursor-pointer shadow-md hover:shadow-lg"
-          >
-            Request Sample Dossier
-            <ArrowRight className="h-4 w-4" />
-          </Link>
+      {/* Document set */}
+      <section className="bg-ink py-14 md:py-[100px]">
+        <div className="shell">
+          <Reveal>
+            <SectionHead
+              tone="ink"
+              eyebrow="Document set"
+              title="Paperwork per shipment"
+              lede="The dossier your quality team receives with each container. Anything additional your process requires, name it on the RFQ and we will confirm it upfront."
+            />
+          </Reveal>
+          <Reveal className="border-t border-signal">
+            {DOSSIER.map((doc, i) => (
+              <div
+                key={doc.code}
+                className={cn(
+                  "grid items-baseline gap-x-9 gap-y-3 py-[26px] lg:grid-cols-[90px_minmax(0,1fr)_minmax(0,2fr)]",
+                  i < DOSSIER.length - 1 && "border-b border-ink-3",
+                )}
+              >
+                <span className="justify-self-start bg-signal px-2.5 py-[5px] font-mono text-xs text-ink">
+                  {doc.code}
+                </span>
+                <h3 className="m-0 text-lg text-white">{doc.title}</h3>
+                <p className="m-0 text-sm leading-[1.65] text-dim-2">
+                  {doc.body}
+                </p>
+              </div>
+            ))}
+          </Reveal>
         </div>
       </section>
+
+      <CtaBand
+        title="Need specific compliance documentation?"
+        body="Tell us what your quality system requires — MTCs, CoCs, RoHS declarations, PPAP levels — and we will confirm availability before you commit."
+        primary={{ label: "Request a quote →", href: "/quote" }}
+        secondary={{ label: "Contact us", href: "/contact" }}
+      />
     </>
   );
 }

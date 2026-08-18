@@ -1,15 +1,16 @@
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Chivo, Roboto_Mono } from "next/font/google";
 
-export const spaceGrotesk = Space_Grotesk({
+export const chivo = Chivo({
   subsets: ["latin"],
-  variable: "--font-space-grotesk",
+  variable: "--font-chivo",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "700", "900"],
+  style: ["normal", "italic"],
 });
 
-export const inter = Inter({
+export const robotoMono = Roboto_Mono({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-roboto-mono",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500"],
 });

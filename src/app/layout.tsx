@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
-import { spaceGrotesk, inter } from "@/lib/fonts";
+import type { Metadata, Viewport } from "next";
+import { chivo, robotoMono } from "@/lib/fonts";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import "./globals.css";
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | Aaron Technologies Inc.",
   },
   description:
-    "US-based industrial component supplier sourcing precision-engineered fasteners, forgings, castings, bearings, valves, and machined parts from ISO-certified Indian manufacturers. Competitive landed costs, full material traceability, and US-based support.",
+    "US-based industrial component supplier sourcing precision-engineered fasteners, forgings, castings, bearings, valves, and machined parts from vetted Indian manufacturers. Competitive landed costs, full material traceability, and US-based support.",
   keywords: [
     "industrial components",
     "India import",
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     "industrial valves",
     "precision machined parts",
     "B2B supplier",
-    "ISO certified",
+    "vetted manufacturers",
     "RFQ",
     "engineering components",
   ],
@@ -32,10 +32,10 @@ export const metadata: Metadata = {
     siteName: "Aaron Technologies Inc.",
     title: "Aaron Technologies Inc. | Industrial Components from India",
     description:
-      "Precision-engineered industrial components sourced from ISO-certified Indian manufacturers. Competitive landed costs and full traceability.",
+      "Precision-engineered industrial components sourced from vetted Indian manufacturers. Competitive landed costs and full traceability.",
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-image.jpg',
         width: 1200,
         height: 630,
         alt: 'Aaron Technologies — Industrial Components from India',
@@ -46,15 +46,19 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  alternates: {
-    canonical: '/',
-  },
+
   twitter: {
     card: 'summary_large_image',
     title: 'Aaron Technologies Inc. | Industrial Components from India',
     description:
-      'Precision-engineered industrial components sourced from ISO-certified Indian manufacturers.',
+      'Precision-engineered industrial components sourced from vetted Indian manufacturers.',
   },
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: '#131619',
 };
 
 export default function RootLayout({
@@ -65,12 +69,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${spaceGrotesk.variable} ${inter.variable} h-full antialiased`}
+      className={`${chivo.variable} ${robotoMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-paper">
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-copper-500 focus:text-white focus:rounded-lg focus:text-sm"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-ink focus:text-signal focus:text-sm focus:font-bold"
         >
           Skip to content
         </a>
@@ -81,22 +85,44 @@ export default function RootLayout({
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: 'Aaron Technologies Inc.',
+              alternateName: 'Aaron Technologies',
               url: 'https://www.aarontechno.com',
               logo: 'https://www.aarontechno.com/logo.png',
+              description: 'US-based B2B industrial component supplier sourcing precision-engineered fasteners, forgings, castings, bearings, and machined parts from vetted ISO 9001-certified Indian manufacturers.',
               contactPoint: {
                 '@type': 'ContactPoint',
                 telephone: '+1-640-272-1906',
                 email: 'kushal@aarontechno.com',
                 contactType: 'sales',
-                areaServed: 'US',
-                availableLanguage: 'English',
+                areaServed: ['US', 'CA', 'MX'],
+                availableLanguage: ['English'],
               },
               address: {
                 '@type': 'PostalAddress',
                 addressRegion: 'NJ',
                 addressCountry: 'US',
               },
-              sameAs: [],
+              knowsAbout: [
+                'Industrial Fasteners',
+                'Forged Steel Components',
+                'Investment Castings',
+                'Precision CNC Machining',
+                'Industrial Valves',
+                'ASTM / ASME Material Standards',
+                'ISO 9001 Quality Management',
+                'Supply Chain Consolidation',
+              ],
+              hasOfferCatalog: {
+                '@type': 'OfferCatalog',
+                name: 'Industrial Sourcing Catalog',
+                itemListElement: [
+                  { '@type': 'OfferCatalog', name: 'Industrial Fasteners' },
+                  { '@type': 'OfferCatalog', name: 'Forged Components' },
+                  { '@type': 'OfferCatalog', name: 'Castings' },
+                  { '@type': 'OfferCatalog', name: 'Precision Machined Parts' },
+                  { '@type': 'OfferCatalog', name: 'Industrial Valves' },
+                ],
+              },
             }),
           }}
         />

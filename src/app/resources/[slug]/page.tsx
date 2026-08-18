@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Calendar, Clock, FileText, Send, ShieldAlert } from "lucide-react";
+import { ArrowLeft, ArrowRight, Send } from "lucide-react";
 import { blogPosts } from "@/lib/data/site";
 import { blogArticleContents } from "@/lib/data/articles";
 
@@ -27,11 +27,13 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.excerpt,
+    alternates: { canonical: `/resources/${slug}` },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: 'article',
       publishedTime: post.publishedAt,
+      url: `/resources/${slug}`,
     },
     twitter: {
       card: 'summary_large_image',
@@ -56,46 +58,58 @@ export default async function BlogDetailPage({
     notFound();
   }
 
-  // Filter out the current post to show 2 other related posts at the bottom
   const relatedPosts = blogPosts.filter((p) => p.slug !== slug).slice(0, 2);
 
   return (
     <>
-      {/* ── Dark Hero Header ─────────────────────────────────────── */}
-      <section className="relative bg-navy-950 overflow-hidden section-dark border-b border-navy-850">
-        <div
-          className="absolute inset-0 opacity-[0.02] pointer-events-none"
-          style={{
-            backgroundImage: `linear-gradient(rgba(199,91,42,0.3) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(199,91,42,0.3) 1px, transparent 1px)`,
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="relative max-w-5xl mx-auto px-6 py-16 md:py-24">
-          {/* Back link */}
+      {/* Article JSON-LD */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.excerpt,
+            datePublished: post.publishedAt,
+            author: { "@type": "Organization", name: "Aaron Technologies Inc." },
+            publisher: {
+              "@type": "Organization",
+              name: "Aaron Technologies Inc.",
+              logo: { "@type": "ImageObject", url: "https://www.aarontechno.com/logo.png" },
+            },
+            mainEntityOfPage: {
+              "@type": "WebPage",
+              "@id": `https://www.aarontechno.com/resources/${slug}`,
+            },
+          }),
+        }}
+      />
+      {/* Hero */}
+      <section className="border-b border-border">
+        <div className="max-w-[1360px] mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
           <Link
             href="/resources"
-            className="inline-flex items-center gap-1.5 text-sm text-steel-400 hover:text-steel-200 transition-colors mb-8"
+            className="inline-flex items-center gap-1.5 text-sm text-text-tertiary hover:text-text-primary transition-colors mb-8"
           >
-            <ArrowLeft className="h-4 w-4" />
+            <ArrowLeft className="h-3.5 w-3.5" />
             Back to Resources
           </Link>
 
-          <div>
-            <span className="inline-block px-2.5 py-1 bg-copper-500/10 border border-copper-500/30 text-copper-300 text-xs font-semibold uppercase tracking-wider mb-5">
+          <div className="max-w-3xl">
+            <span className="font-mono text-[10px] uppercase text-primary-muted tracking-tight block mb-4">
               {post.category}
             </span>
-            <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] font-bold font-heading text-white leading-tight mb-6">
+            <h1 className="text-3xl md:text-4xl lg:text-[2.75rem] leading-tight mb-6">
               {post.title}
             </h1>
 
-            <div className="flex items-center gap-6 text-sm text-steel-400">
-              <span className="flex items-center gap-1.5">
-                <Calendar className="w-4 h-4 text-steel-500" />
+            <div className="flex items-center gap-4 text-sm text-text-tertiary">
+              <span className="font-mono text-[10px] uppercase tracking-tight">
                 {post.publishedAt}
               </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="w-4 h-4 text-steel-500" />
+              <span className="w-1 h-1 bg-border-strong" />
+              <span className="font-mono text-[10px] uppercase tracking-tight">
                 {post.readTime}
               </span>
             </div>
@@ -103,14 +117,14 @@ export default async function BlogDetailPage({
         </div>
       </section>
 
-      {/* ── Article Content Grid ─────────────────────────────────── */}
-      <section className="bg-steel-100">
-        <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
+      {/* Article Content */}
+      <section className="py-16 md:py-20">
+        <div className="max-w-[1360px] mx-auto px-6">
           <div className="grid gap-12 lg:grid-cols-3">
-            {/* Main Column (2/3) */}
-            <div className="lg:col-span-2 space-y-10 bg-white border border-steel-300 p-6 sm:p-10 md:p-12">
+            {/* Main Column */}
+            <article className="lg:col-span-2 space-y-10">
               {/* Introduction */}
-              <p className="text-lg text-navy-900 font-medium leading-relaxed border-l-4 border-copper-500 pl-5 mb-8">
+              <p className="text-lg text-text-primary font-medium leading-relaxed border-l-2 border-primary-muted pl-5">
                 {content.introduction}
               </p>
 
@@ -119,22 +133,22 @@ export default async function BlogDetailPage({
                 {content.sections.map((section, idx) => (
                   <div key={idx} className="space-y-4">
                     {section.heading && (
-                      <h2 className="text-2xl font-bold font-heading text-navy-900 pt-4">
+                      <h2 className="text-2xl text-text-primary pt-4">
                         {section.heading}
                       </h2>
                     )}
                     
                     {section.paragraphs.map((p, pIdx) => (
-                      <p key={pIdx} className="text-steel-700 leading-relaxed text-base">
+                      <p key={pIdx} className="text-text-secondary leading-relaxed text-base">
                         {p}
                       </p>
                     ))}
 
                     {section.list && (
-                      <ul className="list-none space-y-3 pl-4 py-2 border-l border-steel-200">
+                      <ul className="list-none space-y-3 pl-4 py-2 border-l border-border">
                         {section.list.map((item, lIdx) => (
-                          <li key={lIdx} className="flex items-start gap-3 text-steel-700 text-sm md:text-base">
-                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-copper-500 shrink-0" />
+                          <li key={lIdx} className="flex items-start gap-3 text-text-secondary text-sm md:text-base">
+                            <span className="mt-2 h-1.5 w-1.5 bg-primary-muted shrink-0" />
                             <span>{item}</span>
                           </li>
                         ))}
@@ -143,45 +157,32 @@ export default async function BlogDetailPage({
                   </div>
                 ))}
               </div>
-            </div>
+            </article>
 
-            {/* Sidebar Column (1/3) */}
-            <aside className="space-y-8">
-              {/* Quote CTA Card */}
-              <div className="bg-navy-900 text-white rounded-2xl p-6 sm:p-8 relative overflow-hidden section-dark border border-navy-800">
-                <div
-                  className="absolute inset-0 opacity-[0.02] pointer-events-none"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
-                    backgroundSize: "20px 20px",
-                  }}
-                />
-                <div className="relative z-10 space-y-6">
-                  <div className="flex h-12 w-12 items-center justify-center bg-copper-500/10 border border-copper-500/20 text-copper-400 rounded-xl">
-                    <FileText className="h-6 w-6" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-bold text-white text-lg mb-2">
-                      Need custom specifications?
-                    </h3>
-                    <p className="text-xs text-steel-400 leading-relaxed">
-                      Whether you require low-temperature ASTM A320 fasteners, heavy forgings, or fully trace-documented casting batches, we handle the entire logistics pipeline.
-                    </p>
-                  </div>
-                  <Link
-                    href="/quote"
-                    className="group inline-flex items-center justify-center gap-2 w-full px-5 py-3 bg-copper-500 hover:bg-copper-600 text-white font-semibold text-sm rounded-full transition-all cursor-pointer shadow-md hover:shadow-lg"
-                  >
-                    Request a Quote
-                    <Send className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
+            {/* Sidebar */}
+            <aside className="space-y-6">
+              {/* Quote CTA */}
+              <div className="glass-card p-6 space-y-5">
+                <div>
+                  <h3 className="text-[15px] font-medium text-text-primary mb-2">
+                    Need custom specifications?
+                  </h3>
+                  <p className="text-sm text-text-secondary leading-relaxed">
+                    Whether you require low-temperature ASTM A320 fasteners, heavy forgings, or fully trace-documented casting batches, we handle the entire pipeline.
+                  </p>
                 </div>
+                <Link
+                  href="/quote"
+                  className="btn-primary w-full justify-center py-3"
+                >
+                  Request a Quote
+                  <Send className="w-4 h-4" />
+                </Link>
               </div>
 
-              {/* Related Posts Card */}
-              <div className="bg-white border border-steel-200/80 rounded-2xl p-6 shadow-sm">
-                <h3 className="font-heading font-bold text-navy-900 text-base mb-5 pb-3 border-b border-steel-200">
+              {/* Related Posts */}
+              <div className="glass-card p-6">
+                <h3 className="text-[15px] font-medium text-text-primary mb-5 pb-3 border-b border-border">
                   Related Insights
                 </h3>
                 <div className="space-y-6">
@@ -189,15 +190,15 @@ export default async function BlogDetailPage({
                     <Link
                       key={rPost.slug}
                       href={`/resources/${rPost.slug}`}
-                      className="group block space-y-2"
+                      className="group block space-y-1.5"
                     >
-                      <span className="text-[10px] font-bold text-copper-500 uppercase tracking-wider">
+                      <span className="font-mono text-[9px] uppercase text-primary-muted tracking-tight">
                         {rPost.category}
                       </span>
-                      <h4 className="font-heading font-bold text-navy-900 text-sm leading-snug group-hover:text-copper-600 transition-colors">
+                      <h4 className="text-sm font-medium text-text-primary leading-snug group-hover:text-primary transition-colors">
                         {rPost.title}
                       </h4>
-                      <span className="inline-flex items-center gap-1 text-xs text-steel-500 group-hover:text-navy-900 transition-colors">
+                      <span className="inline-flex items-center gap-1 text-xs text-text-tertiary group-hover:text-text-primary transition-colors">
                         Read post
                         <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                       </span>

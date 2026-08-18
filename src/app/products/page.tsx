@@ -1,199 +1,164 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
-import {
-  ArrowRight,
-  Search,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
+import Reveal from "@/components/ui/Reveal";
+import { PageHero, SectionHead, CtaBand } from "@/components/ui/Page";
 import { productCategories } from "@/lib/data/products";
-import type { ProductCategory } from "@/types";
-import { resolveIcon } from "@/lib/icons";
+import { catalogIndex } from "@/lib/data/catalog-index";
+import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "Industrial Components Catalog | Fasteners, Forgings, Castings & More",
   description:
-    "Browse 12 categories of precision-engineered industrial components — fasteners, forgings, castings, bearings, valves, and more — sourced from ISO-certified Indian manufacturers.",
+    "Browse precision-engineered industrial components — fasteners, forgings, castings, bearings, valves, and more — sourced from vetted Indian manufacturers.",
+  alternates: { canonical: "/products" },
+  openGraph: {
+    title: "Industrial Components Catalog | Fasteners, Forgings, Castings & More",
+    description:
+      "Browse precision-engineered industrial components sourced from vetted Indian manufacturers.",
+    url: "/products",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Industrial Components Catalog | Aaron Technologies",
+  },
 };
 
-// ---------------------------------------------------------------------------
-// Icon Resolver — maps the icon name stored in data to the Lucide component
-// ---------------------------------------------------------------------------
+const DOCUMENTS = [
+  {
+    title: "Mill test certificates",
+    body: "EN 10204 3.1 certs with chemical composition, mechanical properties and heat treatment per the governing standard.",
+  },
+  {
+    title: "First-article & CMM reports",
+    body: "Dimensional verification against your drawing before the batch runs, with CMM output on precision work.",
+  },
+  {
+    title: "Certificates of conformance",
+    body: "Signed CoCs tying the lot to the specification, plus heat and lot codes for traceability.",
+  },
+  {
+    title: "NDT & PMI reports",
+    body: "Radiographic or ultrasonic testing and positive material identification on critical forgings and valves.",
+  },
+  {
+    title: "Pressure & load test reports",
+    body: "API 598 valve testing, hydraulic pressure tests and spring load/deflection verification.",
+  },
+  {
+    title: "Compliance declarations",
+    body: "RoHS and REACH declarations, UL listings and CE marking documentation where the market requires them.",
+  },
+];
 
-// ---------------------------------------------------------------------------
-// ProductCard (server sub-component — no hooks)
-// ---------------------------------------------------------------------------
-function ProductCard({ category }: { category: ProductCategory }) {
-  const Icon = resolveIcon(category.icon);
+const ROW_GRID =
+  "grid-cols-[36px_minmax(0,1fr)_28px] gap-x-5 lg:grid-cols-[44px_minmax(0,1.25fr)_minmax(0,1.5fr)_minmax(0,1.4fr)_minmax(0,1.2fr)_30px] lg:gap-[26px]";
 
-  return (
-    <Link
-      href={`/products/${category.slug}`}
-      className={cn(
-        "group relative flex flex-col rounded-2xl border border-steel-200/85 bg-white overflow-hidden shadow-sm",
-        "transition-all duration-300",
-        "hover:border-copper-500/40 hover:shadow-lg"
-      )}
-    >
-      {/* Top Header Image Container */}
-      <div className="relative h-44 w-full bg-steel-100 border-b border-steel-200/80">
-        {/* Overflow hidden wrapper for the image zoom effect */}
-        <div className="absolute inset-0 overflow-hidden rounded-t-2xl">
-          <Image
-            src={category.heroImage}
-            alt={category.name}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
-        </div>
-        {/* Overlay Icon Badge */}
-        <div className="absolute bottom-0 left-6 translate-y-1/2 flex h-12 w-12 items-center justify-center bg-white text-navy-900 border border-steel-200/80 shadow-md transition-all rounded-xl group-hover:border-copper-500 group-hover:text-copper-600 z-10">
-          <Icon className="h-6 w-6" aria-hidden="true" />
-        </div>
-      </div>
-
-      {/* Content Container */}
-      <div className="p-6 pt-8 flex-1 flex flex-col">
-        {/* Name */}
-        <h3 className="font-heading text-lg font-bold text-navy-900 mb-1.5">
-          {category.name}
-        </h3>
-
-        {/* Short description */}
-        <p className="text-sm leading-relaxed text-steel-600 mb-4 flex-1">
-          {category.shortDescription}
-        </p>
-
-        {/* Standard badges */}
-        <div className="flex flex-wrap gap-1.5 mb-5">
-          {category.standards.slice(0, 3).map((std) => (
-            <span
-              key={std}
-              className="inline-block rounded-full bg-steel-100 px-2.5 py-1 text-[10px] font-bold text-steel-600 leading-none border border-steel-200/40"
-            >
-              {std}
-            </span>
-          ))}
-          {category.standards.length > 3 && (
-            <span className="inline-block rounded-full bg-steel-100 px-2.5 py-1 text-[10px] font-bold text-steel-500 leading-none border border-steel-200/40">
-              +{category.standards.length - 3} more
-            </span>
-          )}
-        </div>
-
-        {/* View Details link */}
-        <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-copper-600 transition-colors group-hover:text-copper-500">
-          View Details
-          <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-        </span>
-      </div>
-    </Link>
-  );
-}
-
-// ---------------------------------------------------------------------------
-// Page
-// ---------------------------------------------------------------------------
 export default function ProductsPage() {
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="section-dark">
-        <div className="max-w-7xl mx-auto px-6 py-20 md:py-28">
-          <div className="max-w-3xl">
-            <p className="text-copper-400 font-heading text-sm font-semibold uppercase tracking-widest mb-3">
-              Product Catalog
-            </p>
-            <h1 className="text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-[1.1] mb-5">
-              Our Product Lines
-            </h1>
-            <p className="text-lg md:text-xl text-steel-400 leading-relaxed max-w-2xl">
-              A comprehensive catalog of precision-engineered industrial
-              components — sourced from ISO-certified manufacturers in India and
-              delivered with full material traceability, test reports, and
-              US-based support.
-            </p>
-          </div>
+      <PageHero
+        eyebrow="Product catalog / 12 lines"
+        title="Precision sourcing lines."
+        lede="Twelve component families, each quoted and inspected against the governing specification. Custom parts built to your drawings run through the same intake."
+        stats={[
+          { value: "12", label: "Product categories" },
+          { value: "50+", label: "Standards covered" },
+          { value: "100%", label: "Lot traceability" },
+          { value: "30+", label: "Vetted facilities" },
+        ]}
+      />
 
-          {/* Quick stats row */}
-          <div className="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-navy-700 pt-8">
-            {[
-              { value: "12", label: "Product Categories" },
-              { value: "50+", label: "Standards Covered" },
-              { value: "100%", label: "Lot Traceability" },
-              { value: "ISO 9001", label: "Certified Suppliers" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <p className="text-2xl md:text-3xl font-heading font-bold text-copper-400">
-                  {stat.value}
-                </p>
-                <p className="text-sm text-steel-500 mt-1">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Product Grid ─────────────────────────────────────────── */}
-      <section className="bg-steel-100">
-        <div className="max-w-7xl mx-auto px-6 py-16 md:py-24">
-          {/* Section header with decorative search hint */}
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-navy-900">
-                Browse Categories
-              </h2>
-              <p className="text-steel-600 mt-1.5 text-base">
-                Select a category to view specifications, standards, and
-                available materials.
-              </p>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-steel-500">
-              <Search className="h-4 w-4" aria-hidden="true" />
-              <span>
-                {productCategories.length} categories available
-              </span>
-            </div>
-          </div>
-
-          {/* Grid */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {productCategories.map((category) => (
-              <ProductCard key={category.id} category={category} />
-            ))}
-          </div>
-
-          {/* Bottom CTA */}
-          <div className="mt-16 rounded-2xl bg-navy-900 border border-navy-800/80 p-8 md:p-12 text-center shadow-xl relative overflow-hidden section-dark">
-            <div
-              className="absolute inset-0 opacity-[0.02] pointer-events-none"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px)",
-                backgroundSize: "30px 30px",
-              }}
+      {/* Catalog index */}
+      <section className="border-b border-ink bg-paper py-14 md:py-[104px]">
+        <div className="shell">
+          <Reveal>
+            <SectionHead
+              eyebrow="Index"
+              title="Every line we quote"
+              lede="Standards listed are what we quote and inspect against. Open a line for size ranges, materials, finishes and required documentation."
             />
-            <div className="relative z-10">
-              <h3 className="text-2xl md:text-3xl font-bold text-steel-100 mb-3">
-                Can&apos;t find what you need?
-              </h3>
-              <p className="text-steel-400 max-w-xl mx-auto mb-8 text-base leading-relaxed">
-                We source a wide range of industrial components beyond what&apos;s
-                listed here. Tell us what you&apos;re looking for and we&apos;ll
-                provide a competitive quote.
-              </p>
-              <Link
-                href="/quote"
-                className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-copper-500 hover:bg-copper-600 text-white font-semibold rounded-full transition-all shadow-md hover:shadow-lg"
-              >
-                Request a Custom Quote
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+          </Reveal>
+
+          <Reveal>
+            <div className="border-t-2 border-ink">
+              {productCategories.map((category, i) => {
+                const entry = catalogIndex[category.slug];
+                return (
+                  <Link
+                    key={category.slug}
+                    href={`/products/${category.slug}`}
+                    className={cn(
+                      "catalog-row",
+                      ROW_GRID,
+                      "py-[26px]",
+                      i === productCategories.length - 1
+                        ? "border-b-2 border-ink"
+                        : "border-b border-rule"
+                    )}
+                  >
+                    <span className="font-mono text-xs text-muted">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-[19px] font-bold tracking-[-0.02em] text-ink">
+                      {category.name}
+                    </span>
+                    <span className="col-start-2 text-sm leading-[1.55] text-body lg:col-start-auto">
+                      {entry?.description ?? category.shortDescription}
+                    </span>
+                    <span className="col-start-2 font-mono text-xs leading-[1.65] text-muted lg:col-start-auto">
+                      {entry?.standards}
+                    </span>
+                    <span className="col-start-2 text-[13px] leading-[1.6] text-soft lg:col-start-auto">
+                      {entry?.materials}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="row-arrow col-start-3 row-start-1 justify-self-end text-sm text-ink lg:col-start-auto lg:row-start-auto"
+                    >
+                      →
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
-          </div>
+          </Reveal>
         </div>
       </section>
+
+      {/* Documentation */}
+      <section className="bg-ink py-14 md:py-[104px]">
+        <div className="shell">
+          <Reveal>
+            <SectionHead
+              tone="ink"
+              eyebrow="Documentation"
+              title="What ships with the parts"
+              lede="Paperwork is part of the deliverable, not an afterthought. Every shipment carries the documents your quality team needs to release the lot."
+            />
+          </Reveal>
+          <Reveal>
+            <div className="grid gap-px border border-ink-3 bg-ink-3 sm:grid-cols-2 lg:grid-cols-3">
+              {DOCUMENTS.map((doc) => (
+                <div key={doc.title} className="bg-ink px-[30px] py-[34px]">
+                  <h3 className="m-0 mb-3 text-[19px] text-white">
+                    {doc.title}
+                  </h3>
+                  <p className="m-0 text-sm leading-[1.65] text-dim-2">
+                    {doc.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      <CtaBand
+        title="No drawing match in the index?"
+        body="Most of what we ship is custom, built to customer-supplied CAD and tolerance specs. Send the package and we will confirm manufacturability before quoting."
+        primary={{ label: "Request a custom quote →", href: "/quote" }}
+        secondary={{ label: "Talk to sourcing", href: "/contact" }}
+      />
     </>
   );
 }
