@@ -24,6 +24,21 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // On the homepage the logo has nowhere to navigate, so it acts as a
+  // back-to-top control instead of appearing inert — the only way up
+  // from the bottom of a long page on a phone.
+  function handleLogoClick(e: React.MouseEvent) {
+    setMobileOpen(false);
+    if (pathname !== "/") return;
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+    });
+  }
+
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
@@ -59,6 +74,7 @@ export default function Header() {
         <div className="shell flex h-[78px] items-center gap-10">
           <Link
             href="/"
+            onClick={handleLogoClick}
             className="mr-auto flex items-baseline gap-[11px]"
             aria-label="Aaron Technologies — home"
           >

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Reveal from "@/components/ui/Reveal";
+import ShowMore from "@/components/ui/ShowMore";
 import { PageHero, SectionHead, CtaBand } from "@/components/ui/Page";
 import { certifications } from "@/lib/data/site";
 import { cn } from "@/lib/utils";
@@ -62,14 +63,17 @@ export default function CertificationsPage() {
         title="Certifications & standards."
         lede="Every component sourced through Aaron Technologies is backed by internationally recognized certification. Compliance documentation ships with the parts, not weeks later on request."
         stats={[
-          { value: String(certifications.length), label: "Active certifications" },
+          {
+            value: String(certifications.length),
+            label: "Active certifications",
+          },
           { value: "100%", label: "Documentation rate" },
           { value: "30+", label: "Audited facilities" },
         ]}
       />
 
       {/* Standards held */}
-      <section className="border-b border-ink bg-paper py-20 md:py-[100px]">
+      <section className="border-b border-ink bg-paper py-14 md:py-[100px]">
         <div className="shell">
           <Reveal>
             <SectionHead
@@ -79,7 +83,12 @@ export default function CertificationsPage() {
             />
           </Reveal>
           <Reveal>
-            <div className="grid gap-px border border-rule-strong bg-rule-strong sm:grid-cols-2 lg:grid-cols-3">
+            <ShowMore
+              visible={3}
+              total={certifications.length}
+              label="certifications"
+              className="grid gap-px border border-rule-strong bg-rule-strong sm:grid-cols-2 lg:grid-cols-3"
+            >
               {certifications.map((cert, i) => (
                 <div
                   key={cert.id}
@@ -106,13 +115,13 @@ export default function CertificationsPage() {
                   </p>
                 </div>
               ))}
-            </div>
+            </ShowMore>
           </Reveal>
         </div>
       </section>
 
       {/* Document set */}
-      <section className="bg-ink py-20 md:py-[100px]">
+      <section className="bg-ink py-14 md:py-[100px]">
         <div className="shell">
           <Reveal>
             <SectionHead
@@ -128,7 +137,7 @@ export default function CertificationsPage() {
                 key={doc.code}
                 className={cn(
                   "grid items-baseline gap-x-9 gap-y-3 py-[26px] lg:grid-cols-[90px_minmax(0,1fr)_minmax(0,2fr)]",
-                  i < DOSSIER.length - 1 && "border-b border-ink-3"
+                  i < DOSSIER.length - 1 && "border-b border-ink-3",
                 )}
               >
                 <span className="justify-self-start bg-signal px-2.5 py-[5px] font-mono text-xs text-ink">

@@ -76,7 +76,7 @@ export default function IndustriesPage() {
         return (
           <section
             key={tier.tier}
-            className={cn(tier.background, tier.divider, "py-20 md:py-[100px]")}
+            className={cn(tier.background, tier.divider, "py-14 md:py-[100px]")}
           >
             <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)] lg:gap-[88px]">
               <div className="lg:sticky lg:top-[132px]">

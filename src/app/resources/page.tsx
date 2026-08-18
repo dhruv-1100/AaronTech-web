@@ -29,7 +29,7 @@ export default function ResourcesPage() {
         lede="Procurement guides, compliance explainers and market updates to help you source smarter, reduce landed costs and read a trade agreement without a lawyer."
       />
 
-      <section className="border-b border-ink bg-paper pt-16 pb-20 md:pt-[88px] md:pb-[100px]">
+      <section className="border-b border-ink bg-paper pt-12 pb-14 md:pt-[88px] md:pb-[100px]">
         <div className="shell">
           <ResourcesClient posts={blogPosts} />
         </div>

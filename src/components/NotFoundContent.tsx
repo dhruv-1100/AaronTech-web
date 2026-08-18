@@ -10,7 +10,7 @@ const DESTINATIONS = [
 
 export default function NotFoundContent() {
   return (
-    <div className="shell flex min-h-[70vh] items-center py-20">
+    <div className="shell flex min-h-[70vh] items-center py-14">
       <div className="w-full max-w-3xl">
         <div className="mb-8 flex items-center gap-3.5">
           <span className="rule-tab" aria-hidden="true" />

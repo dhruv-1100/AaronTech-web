@@ -345,6 +345,27 @@
 }
 
 /* ============================================================
+   Progressive disclosure — long ruled lists on small screens
+   ============================================================ */
+
+/* Deliberately unlayered. Clamped children carry display utilities of their
+   own (`flex`, `grid`), and a layered `display: none` would lose to them —
+   unlayered is the only origin that reliably wins. This is the one rule in
+   the sheet that needs to beat utilities rather than defer to them. */
+@media (width < 64rem) {
+  .show-more[data-collapsed="3"] > :nth-child(n + 4),
+  .show-more[data-collapsed="5"] > :nth-child(n + 6) {
+    display: none;
+  }
+
+  /* Ruled lists only — a card grid has no closing rule to inherit. */
+  .show-more--ruled[data-collapsed="3"] > :nth-child(3),
+  .show-more--ruled[data-collapsed="5"] > :nth-child(5) {
+    border-bottom: 2px solid var(--color-ink);
+  }
+}
+
+/* ============================================================
    Motion
    ============================================================ */
 

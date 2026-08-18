@@ -82,8 +82,8 @@ export function PageHero({
     <section className="border-b border-ink">
       <div
         className={cn(
-          "shell pb-[76px]",
-          breadcrumbs ? "pt-[34px]" : "pt-16 md:pt-[88px]"
+          "shell pb-12 md:pb-[76px]",
+          breadcrumbs ? "pt-6 md:pt-[34px]" : "pt-12 md:pt-[88px]"
         )}
       >
         {breadcrumbs && <Breadcrumbs trail={breadcrumbs} />}
@@ -111,7 +111,7 @@ export function StatStrip({
   return (
     <div
       className={cn(
-        "mt-14 grid grid-cols-2 border-t-2 border-ink",
+        "mt-10 grid grid-cols-2 border-t-2 border-ink md:mt-14",
         stats.length === 3 ? "md:grid-cols-3" : "md:grid-cols-4"
       )}
     >
@@ -160,7 +160,7 @@ export function SectionHead({
   return (
     <div
       className={cn(
-        "mb-[54px] grid items-end gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-[72px]",
+        "mb-10 grid items-end gap-8 md:mb-[54px] lg:gap-10 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-[72px]",
         className
       )}
     >
@@ -204,7 +204,7 @@ export function CtaBand({
   const isExternal = (href: string) => href.startsWith("mailto:") || href.startsWith("tel:");
 
   return (
-    <section className="on-signal bg-signal py-20 md:py-24">
+    <section className="on-signal bg-signal py-14 md:py-24">
       <div className="shell flex flex-wrap items-end justify-between gap-x-16 gap-y-10">
         <div>
           {eyebrow && (

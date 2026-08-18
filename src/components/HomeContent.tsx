@@ -3,6 +3,7 @@ import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import StatCounter from "@/components/ui/StatCounter";
 import FaqAccordion from "@/components/ui/FaqAccordion";
+import ShowMore from "@/components/ui/ShowMore";
 import LandedCostEstimator from "@/components/LandedCostEstimator";
 import { Eyebrow, SectionHead, CtaBand } from "@/components/ui/Page";
 import { productCategories } from "@/lib/data/products";
@@ -76,7 +77,8 @@ const COMPARISON = [
   {
     metric: "Quality control",
     fragmented: "Defects surface after the container lands in the US.",
-    consolidated: "Pre-shipment inspection with dimensional and material assays.",
+    consolidated:
+      "Pre-shipment inspection with dimensional and material assays.",
   },
   {
     metric: "Freight cost",
@@ -171,7 +173,7 @@ export default function HomeContent() {
       {/* ---------------------------------------------- Hero */}
       <section className="border-b border-ink">
         <div className="shell grid items-center gap-12 lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)] lg:gap-[72px] lg:min-h-[640px]">
-          <div className="pt-16 pb-14 md:pt-[104px] md:pb-24">
+          <div className="pt-12 pb-12 md:pt-[104px] md:pb-24">
             <div className="animate-rise mb-9 flex items-center gap-3.5">
               <span className="rule-tab" aria-hidden="true" />
               <Eyebrow>US-based industrial sourcing</Eyebrow>
@@ -201,7 +203,7 @@ export default function HomeContent() {
             </div>
           </div>
 
-          <div className="relative min-h-[380px] self-stretch lg:min-h-[640px] lg:-mr-[44px]">
+          <div className="relative min-h-[300px] self-stretch lg:min-h-[640px] lg:-mr-[44px]">
             <div className="animate-wipe absolute inset-0 overflow-hidden bg-ink">
               <Image
                 src="/images/showcase/forged-flanges.jpg"
@@ -248,7 +250,7 @@ export default function HomeContent() {
                 i === METRICS.length - 1 && "lg:pr-0",
                 i % 2 === 0 && "border-r lg:border-r",
                 i < 2 && "border-b lg:border-b-0",
-                i !== METRICS.length - 1 && "lg:border-r"
+                i !== METRICS.length - 1 && "lg:border-r",
               )}
             >
               <div className="text-[clamp(2.5rem,5vw,3.5rem)] leading-none font-bold tracking-[-0.045em] text-white tabular-nums">
@@ -297,7 +299,7 @@ export default function HomeContent() {
                 href={tile.href}
                 className={cn(
                   "zoom-tile relative block h-[280px] overflow-hidden bg-ink md:h-[340px]",
-                  i < HERO_TILES.length - 1 && "border-r border-ink"
+                  i < HERO_TILES.length - 1 && "border-r border-ink",
                 )}
               >
                 <Image
@@ -318,7 +320,7 @@ export default function HomeContent() {
           ))}
         </div>
 
-        <div className="shell py-20 md:py-[116px]">
+        <div className="shell py-14 md:py-[116px]">
           <Reveal>
             <SectionHead
               eyebrow="Product lines / 12"
@@ -333,7 +335,7 @@ export default function HomeContent() {
               <div
                 className={cn(
                   "hidden border-b border-ink py-3.5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted md:grid",
-                  ROW_GRID
+                  ROW_GRID,
                 )}
               >
                 <span>#</span>
@@ -343,39 +345,46 @@ export default function HomeContent() {
                 <span />
               </div>
 
-              {productCategories.map((category, i) => (
-                <Link
-                  key={category.slug}
-                  href={`/products/${category.slug}`}
-                  className={cn(
-                    "catalog-row",
-                    ROW_GRID,
-                    "py-6",
-                    i === productCategories.length - 1
-                      ? "border-b-2 border-ink"
-                      : "border-b border-rule"
-                  )}
-                >
-                  <span className="font-mono text-xs text-muted">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="text-[19px] font-medium tracking-[-0.015em] text-ink">
-                    {category.name}
-                  </span>
-                  <span className="col-start-2 text-sm leading-[1.55] text-body md:col-start-auto">
-                    {category.shortDescription}
-                  </span>
-                  <span className="col-start-2 font-mono text-xs leading-[1.6] text-muted md:col-start-auto">
-                    {catalogIndex[category.slug]?.standardsShort}
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className="row-arrow col-start-3 row-start-1 justify-self-end text-sm text-ink md:col-start-auto md:row-start-auto"
+              <ShowMore
+                visible={5}
+                total={productCategories.length}
+                label="lines"
+                ruled
+              >
+                {productCategories.map((category, i) => (
+                  <Link
+                    key={category.slug}
+                    href={`/products/${category.slug}`}
+                    className={cn(
+                      "catalog-row",
+                      ROW_GRID,
+                      "py-6",
+                      i === productCategories.length - 1
+                        ? "border-b-2 border-ink"
+                        : "border-b border-rule",
+                    )}
                   >
-                    →
-                  </span>
-                </Link>
-              ))}
+                    <span className="font-mono text-xs text-muted">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-[19px] font-medium tracking-[-0.015em] text-ink">
+                      {category.name}
+                    </span>
+                    <span className="col-start-2 text-sm leading-[1.55] text-body md:col-start-auto">
+                      {category.shortDescription}
+                    </span>
+                    <span className="col-start-2 font-mono text-xs leading-[1.6] text-muted md:col-start-auto">
+                      {catalogIndex[category.slug]?.standardsShort}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="row-arrow col-start-3 row-start-1 justify-self-end text-sm text-ink md:col-start-auto md:row-start-auto"
+                    >
+                      →
+                    </span>
+                  </Link>
+                ))}
+              </ShowMore>
             </div>
           </Reveal>
         </div>
@@ -384,7 +393,7 @@ export default function HomeContent() {
       {/* ---------------------------------------------- Process */}
       <section
         id="process"
-        className="border-y border-ink bg-paper-2 py-20 md:py-[116px]"
+        className="border-y border-ink bg-paper-2 py-14 md:py-[116px]"
       >
         <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,2fr)] lg:gap-[88px]">
           <div className="lg:sticky lg:top-[132px]">
@@ -398,7 +407,10 @@ export default function HomeContent() {
               Four stages, each producing documentation you can hand straight to
               your quality team.
             </p>
-            <Link href="/quote" className="btn-secondary !py-3.5 !px-6 !text-[15px]">
+            <Link
+              href="/quote"
+              className="btn-secondary !py-3.5 !px-6 !text-[15px]"
+            >
               Start an RFQ →
             </Link>
           </div>
@@ -412,7 +424,7 @@ export default function HomeContent() {
                     i === 0
                       ? "border-t-2 border-ink"
                       : "border-t border-rule-strong",
-                    i === PROCESS.length - 1 && "border-b-2 border-ink"
+                    i === PROCESS.length - 1 && "border-b-2 border-ink",
                   )}
                 >
                   <span className="text-[44px] leading-[0.9] font-black tracking-[-0.04em] text-signal">
@@ -435,7 +447,7 @@ export default function HomeContent() {
       </section>
 
       {/* ---------------------------------------------- Estimator */}
-      <section id="calculator" className="bg-ink py-20 md:py-[116px]">
+      <section id="calculator" className="bg-ink py-14 md:py-[116px]">
         <div className="shell">
           <Reveal>
             <SectionHead
@@ -452,7 +464,7 @@ export default function HomeContent() {
       </section>
 
       {/* ---------------------------------------------- Comparison */}
-      <section className="border-b border-ink bg-paper py-20 md:py-[116px]">
+      <section className="border-b border-ink bg-paper py-14 md:py-[116px]">
         <div className="shell">
           <Reveal>
             <SectionHead
@@ -474,34 +486,41 @@ export default function HomeContent() {
                   With Aaron Technologies
                 </div>
               </div>
-              {COMPARISON.map((row, i) => (
-                <div
-                  key={row.metric}
-                  className={cn(
-                    "grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.6fr)_minmax(0,1.6fr)]",
-                    i === COMPARISON.length - 1
-                      ? "border-b-2 border-ink"
-                      : "border-b border-rule"
-                  )}
-                >
-                  <div className="col-span-2 pt-5 pb-2 text-base font-bold text-ink md:col-span-1 md:py-[22px] md:pr-6">
-                    {row.metric}
+              <ShowMore
+                visible={3}
+                total={COMPARISON.length}
+                label="rows"
+                ruled
+              >
+                {COMPARISON.map((row, i) => (
+                  <div
+                    key={row.metric}
+                    className={cn(
+                      "grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] md:grid-cols-[minmax(0,1.1fr)_minmax(0,1.6fr)_minmax(0,1.6fr)]",
+                      i === COMPARISON.length - 1
+                        ? "border-b-2 border-ink"
+                        : "border-b border-rule",
+                    )}
+                  >
+                    <div className="col-span-2 pt-5 pb-2 text-base font-bold text-ink md:col-span-1 md:py-[22px] md:pr-6">
+                      {row.metric}
+                    </div>
+                    <div className="px-4 pb-5 text-sm leading-[1.6] text-soft md:px-6 md:py-[22px]">
+                      {row.fragmented}
+                    </div>
+                    <div className="bg-signal-wash px-4 pb-5 pt-5 text-sm leading-[1.6] text-ink md:px-6 md:py-[22px]">
+                      {row.consolidated}
+                    </div>
                   </div>
-                  <div className="px-4 pb-5 text-sm leading-[1.6] text-soft md:px-6 md:py-[22px]">
-                    {row.fragmented}
-                  </div>
-                  <div className="bg-signal-wash px-4 pb-5 pt-5 text-sm leading-[1.6] text-ink md:px-6 md:py-[22px]">
-                    {row.consolidated}
-                  </div>
-                </div>
-              ))}
+                ))}
+              </ShowMore>
             </div>
           </Reveal>
         </div>
       </section>
 
       {/* ---------------------------------------------- Industries */}
-      <section id="industries" className="bg-paper py-20 md:py-[116px]">
+      <section id="industries" className="bg-paper py-14 md:py-[116px]">
         <div className="shell">
           <Reveal>
             <div className="mb-[54px] flex flex-wrap items-end justify-between gap-x-12 gap-y-8">
@@ -518,7 +537,12 @@ export default function HomeContent() {
             </div>
           </Reveal>
           <Reveal>
-            <div className="grid gap-px border border-rule-strong bg-rule-strong sm:grid-cols-2 lg:grid-cols-3">
+            <ShowMore
+              visible={3}
+              total={SEGMENTS.length}
+              label="segments"
+              className="grid gap-px border border-rule-strong bg-rule-strong sm:grid-cols-2 lg:grid-cols-3"
+            >
               {SEGMENTS.map((segment, i) => (
                 <Link
                   key={segment.slug}
@@ -534,7 +558,7 @@ export default function HomeContent() {
                         "font-mono text-[10px] uppercase tracking-[0.11em]",
                         segment.tier === "Tier 1"
                           ? "bg-signal px-2.5 py-1 text-ink"
-                          : "border border-rule-strong px-2.5 py-1 text-muted"
+                          : "border border-rule-strong px-2.5 py-1 text-muted",
                       )}
                     >
                       {segment.tier}
@@ -548,7 +572,7 @@ export default function HomeContent() {
                   </p>
                 </Link>
               ))}
-            </div>
+            </ShowMore>
           </Reveal>
         </div>
       </section>
@@ -556,7 +580,7 @@ export default function HomeContent() {
       {/* ---------------------------------------------- FAQ */}
       <section
         id="faq"
-        className="border-t border-ink bg-paper-2 py-20 md:py-[116px]"
+        className="border-t border-ink bg-paper-2 py-14 md:py-[116px]"
       >
         <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,2fr)] lg:gap-[88px]">
           <div className="lg:sticky lg:top-[132px]">

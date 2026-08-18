@@ -83,7 +83,7 @@ export default function AboutPage() {
       />
 
       {/* Who we are */}
-      <section className="border-b border-ink bg-paper py-20 md:py-[100px]">
+      <section className="border-b border-ink bg-paper py-14 md:py-[100px]">
         <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)] lg:gap-[88px]">
           <Reveal>
             <Eyebrow>Who we are</Eyebrow>
@@ -129,7 +129,7 @@ export default function AboutPage() {
       </section>
 
       {/* Advantage */}
-      <section className="bg-ink py-20 md:py-[100px]">
+      <section className="bg-ink py-14 md:py-[100px]">
         <div className="shell">
           <Reveal>
             <SectionHead
@@ -158,7 +158,7 @@ export default function AboutPage() {
       </section>
 
       {/* Process */}
-      <section className="border-y border-ink bg-paper-2 py-20 md:py-[100px]">
+      <section className="border-y border-ink bg-paper-2 py-14 md:py-[100px]">
         <div className="shell">
           <Reveal>
             <SectionHead

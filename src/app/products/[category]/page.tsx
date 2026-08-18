@@ -178,7 +178,7 @@ export default async function ProductCategoryPage({
 
       {/* Hero */}
       <section className="border-b border-ink">
-        <div className="shell pt-[34px] pb-[76px]">
+        <div className="shell pt-6 pb-12 md:pt-[34px] md:pb-[76px]">
           <Breadcrumbs
             trail={[
               { label: "Home", href: "/" },
@@ -220,7 +220,7 @@ export default async function ProductCategoryPage({
       </section>
 
       {/* Specification */}
-      <section className="border-b border-ink bg-paper py-20 md:py-[100px]">
+      <section className="border-b border-ink bg-paper py-14 md:py-[100px]">
         <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-20">
           <Reveal>
             <Eyebrow>Specification</Eyebrow>
@@ -294,7 +294,7 @@ export default async function ProductCategoryPage({
 
       {/* Sub-lines */}
       {skus.length > 0 && (
-        <section className="border-b border-ink bg-paper-2 py-20 md:py-[100px]">
+        <section className="border-b border-ink bg-paper-2 py-14 md:py-[100px]">
           <div className="shell">
             <Reveal>
               <SectionHead
@@ -344,7 +344,7 @@ export default async function ProductCategoryPage({
 
       {/* Selection guide */}
       {guide && (
-        <section className="bg-ink py-20 md:py-[100px]">
+        <section className="bg-ink py-14 md:py-[100px]">
           <div className="shell">
             <Reveal>
               <SectionHead

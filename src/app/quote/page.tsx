@@ -182,7 +182,7 @@ function QuotePageContent() {
     <>
       {/* Hero */}
       <section className="border-b border-ink">
-        <div className="shell pt-16 pb-[76px] md:pt-[88px]">
+        <div className="shell pt-12 pb-12 md:pt-[88px] md:pb-[76px]">
           <div className="animate-rise">
             <RuleTab label="Request for quote" />
           </div>
@@ -198,7 +198,7 @@ function QuotePageContent() {
         </div>
       </section>
 
-      <section className="border-b border-ink bg-paper pt-16 pb-20 md:pt-[88px] md:pb-[100px]">
+      <section className="border-b border-ink bg-paper pt-12 pb-14 md:pt-[88px] md:pb-[100px]">
         <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] lg:gap-20">
           {isSubmitted ? (
             <div className="border-t-2 border-ink pt-10">

@@ -50,7 +50,7 @@ export default function ContactPage() {
         lede="One US-based team handles quoting, quality and logistics. No call centre, no routing — you get the person who will run your order."
       />
 
-      <section className="border-b border-ink bg-paper pt-16 pb-20 md:pt-[88px] md:pb-[100px]">
+      <section className="border-b border-ink bg-paper pt-12 pb-14 md:pt-[88px] md:pb-[100px]">
         <div className="shell grid items-start gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-20">
           <div>
             <div className="border-t-2 border-ink">

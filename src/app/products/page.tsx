@@ -69,7 +69,7 @@ export default function ProductsPage() {
       />
 
       {/* Catalog index */}
-      <section className="border-b border-ink bg-paper py-20 md:py-[104px]">
+      <section className="border-b border-ink bg-paper py-14 md:py-[104px]">
         <div className="shell">
           <Reveal>
             <SectionHead
@@ -126,7 +126,7 @@ export default function ProductsPage() {
       </section>
 
       {/* Documentation */}
-      <section className="bg-ink py-20 md:py-[104px]">
+      <section className="bg-ink py-14 md:py-[104px]">
         <div className="shell">
           <Reveal>
             <SectionHead
