@@ -125,7 +125,7 @@ Vercel is the recommended hosting provider for Next.js 15+ applications.
 
 Once the deployment completes:
 1. Navigate to the contact page (`/contact`) on your live site, fill out the form, and submit.
-2. Navigate to the landing cost calculator on the homepage, calculate costs, click **Request a Quote**, fill out the RFQ details, and submit.
+2. Navigate to the landed cost estimator on the homepage (`/#calculator`), pick a part and a volume, click **Get this quoted properly**, fill out the RFQ details, and submit.
 3. Verify that:
    - A success toast/message is displayed on the screen.
    - The submission details are saved in your Firebase console under `/contacts` or `/quotes` collections.
